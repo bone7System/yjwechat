@@ -1,0 +1,70 @@
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+    }
+}
+
+//plugins {
+//    check for updates, usage: gradle dependencyUpdates -Drevision=release
+//    id "com.github.ben-manes.versions" version "0.14.0"
+//    id "org.ajoberstar.grgit" version "1.7.1"
+//}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+//import org.ajoberstar.grgit.*
+apply from: "test.gradle"
+
+//ext {
+//    repo = Grgit.open()
+//}
+//version = "1.0.0-${repo.head().abbreviatedId}"
+
+version = "1.0.0"
+
+jar {
+    baseName = 'znyc'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    jcenter()
+}
+
+bootRun {
+    environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "dev"
+}
+test {
+    environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "dev"
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-amqp'
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile 'org.springframework.boot:spring-boot-configuration-processor'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+	compile 'org.springframework.session:spring-session'
+    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile 'org.springframework.mobile:spring-mobile-device:1.1.5.RELEASE'
+    compile 'org.springframework.hateoas:spring-hateoas:0.21.0.RELEASE'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.8.8'
+    compile 'io.springfox:springfox-swagger2:2.6.1'
+//    compile 'org.liquibase:liquibase-core:3.5.3'
+    //compile group: 'com.github.noraui', name: 'ojdbc7', version: '12.1.0.2'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'
+    compile "p6spy:p6spy:3.3.0"
+    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+}
+
+processResources {
+    filesMatching('**/*.properties') { expand(project.properties) }
+}
