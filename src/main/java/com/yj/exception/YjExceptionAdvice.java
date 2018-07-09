@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 @ControllerAdvice
-public class ZnycExceptionAdvice {
+public class YjExceptionAdvice {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @ExceptionHandler(ZnycException.class)
-    public ResponseEntity<String> handleInvalidInput(ZnycException ex){
+    @ExceptionHandler(YjException.class)
+    public ResponseEntity<String> handleInvalidInput(YjException ex){
         logger.error(ex.getMessage());
         return  ResponseEntity
                 .badRequest()
