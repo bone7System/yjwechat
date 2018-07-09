@@ -72,17 +72,6 @@ public class LoginApi {
 
 
 
-//    @ApiOperation(value = "/logout", nickname = "退出登陆", notes = "退出登陆")
-//    @RequestMapping(value = "/logout", method = RequestMethod.POST, produces = {"application/json"})
-//    BooleanResult logout(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if(session == null) {
-//            return new BooleanResult(ResultValue.FALSE, ResultValue.FAIL);
-//        }
-//        session.invalidate();
-//        return new BooleanResult(ResultValue.TRUE, ResultValue.SUCCESS);
-//    }
-
 
 
 

@@ -23,8 +23,9 @@ import java.util.Map;
  *
  */
 @Configuration
+//@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 3600 * 12)
 @EnableCaching
-public class RedisConfig extends CachingConfigurerSupport {
+public class RedisConfig extends CachingConfigurerSupport  {
 
 
     //自定义缓存key生成策略
