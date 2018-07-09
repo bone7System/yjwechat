@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
  * Created by evkoh on 2015/11/25.
  */
 @Component
-@ConfigurationProperties(prefix = "znyc.versions")
+@ConfigurationProperties(prefix = "yj.versions")
 @PropertySource("classpath:versions.properties")
-public class ZnycVersionsConfiguration {
+public class YjVersionsConfiguration {
     private String version;
 
     public String getVersion() {
