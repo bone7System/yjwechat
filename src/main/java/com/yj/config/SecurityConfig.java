@@ -14,8 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
-import org.springframework.session.web.http.HeaderHttpSessionStrategy;
-import org.springframework.session.web.http.HttpSessionStrategy;
+import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
+import org.springframework.session.web.http.HttpSessionIdResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -30,6 +30,23 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity
+//                .csrf()
+//                .disable()
+//                .httpBasic().disable()
+//                .logout().disable()
+//                .exceptionHandling()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/logout").permitAll()
+//                .antMatchers("/wechat/login").permitAll()
+//                .anyRequest().authenticated();
+//        httpSecurity.headers().frameOptions().disable();
+
+
+
         httpSecurity
                 .csrf()
                 .disable()
@@ -39,19 +56,21 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/login").permitAll()
+//                .antMatchers("/**").permitAll()
                 .antMatchers("/logout").permitAll()
-                .antMatchers("/wechat/follow").permitAll()
-                .antMatchers("/wechat/follows").permitAll()
-                .antMatchers("/wechat/login").permitAll()
+                .antMatchers("/wechat/login/**").permitAll()
                 .anyRequest().authenticated();
+//        httpSecurity.exceptionHandling().authenticationEntryPoint(new Http401AuthenticationEntryPoint("Bearer realm=\"webrealm\""));
+//        httpSecurity.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
         httpSecurity.headers().frameOptions().disable();
+
         httpSecurity.addFilterBefore(corsFilter, ChannelProcessingFilter.class);
+
     }
 
     @Bean
-    public HttpSessionStrategy httpSessionStrategy() {
-        return new HeaderHttpSessionStrategy();
+    public HttpSessionIdResolver httpSessionIdResolver() {
+        return HeaderHttpSessionIdResolver.xAuthToken();
     }
 
     @Bean

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -30,7 +31,7 @@ import java.util.List;
 public class LoginApi {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationProvider authenticationProvider;
 
     @Autowired
     private UserService userService;
@@ -42,7 +43,7 @@ public class LoginApi {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credencial.getUsername(), credencial.getPassword());
 
         // Authenticate the user
-        Authentication authentication = authenticationManager.authenticate(token);
+        Authentication authentication = authenticationProvider.authenticate(token);
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
 

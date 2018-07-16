@@ -1,24 +1,32 @@
 buildscript {
+    ext {
+        springBootVersion = '2.0.0.RELEASE'
+    }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         jcenter()
+        mavenCentral()
+        maven { url 'https://repo.spring.io/libs-milestone' }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-//plugins {
-//    check for updates, usage: gradle dependencyUpdates -Drevision=release
-//    id "com.github.ben-manes.versions" version "0.14.0"
-//    id "org.ajoberstar.grgit" version "1.7.1"
-//}
+
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
-//import org.ajoberstar.grgit.*
+group = 'com.xinyi'
+sourceCompatibility = 1.8
+version = "1.0.0"
 apply from: "test.gradle"
+bootJar {
+    launchScript()
+}
+//import org.ajoberstar.grgit.*
 
 //ext {
 //    repo = Grgit.open()
@@ -28,11 +36,11 @@ apply from: "test.gradle"
 version = "1.0.0"
 
 jar {
-    baseName = 'znyc'
+    baseName = 'lgwechat'
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     jcenter()
@@ -52,17 +60,22 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-configuration-processor'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-security'
-	compile 'org.springframework.session:spring-session'
+    compile('org.springframework.session:spring-session-core')
+    compile('org.springframework.session:spring-session-data-redis')
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
+
     compile 'org.springframework.mobile:spring-mobile-device:1.1.5.RELEASE'
     compile 'org.springframework.hateoas:spring-hateoas:0.21.0.RELEASE'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.8.8'
     compile 'io.springfox:springfox-swagger2:2.6.1'
-//    compile 'org.liquibase:liquibase-core:3.5.3'
-    //compile group: 'com.github.noraui', name: 'ojdbc7', version: '12.1.0.2'
+
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'
-    compile "p6spy:p6spy:3.3.0"
-    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
+    compile group: 'org.json', name: 'json', version: '20180130'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+
+
 }
 
 processResources {

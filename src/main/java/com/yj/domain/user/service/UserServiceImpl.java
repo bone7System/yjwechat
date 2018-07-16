@@ -61,20 +61,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) throws DataAccessException{
-        User result = this.userRepository.findOne(id);
+        User result = this.userRepository.findById(id).get();
         return result;
     }
 
     @Override
-    public User findByUsername(String username)throws DataAccessException {
-        User result = this.userRepository.findByUsername(username);
-        return result;
+    public User findByUsername(String username) throws DataAccessException {
+        return null;
     }
 
     @Override
     public User findByWechatAndAppid(String wechat, String appid) throws DataAccessException {
-        return  this.userRepository.findByWechatAndAppid(wechat, appid);
+        return null;
     }
+
 
     @Override
     public User updatePassword(User user, String password) {

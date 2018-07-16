@@ -8,12 +8,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface RolePermissionRepository extends JpaRepository<RolePermission, Long> {
 
-    @Modifying
-    @Query(
-            value = "delete from role_permission  where role_id = :roleId and permission_id = :permissionId",
-            nativeQuery = true
-    )
-    Integer deleteByRoleIdAndPermissionId(@Param("roleId") Long roleId, @Param("permissionId") Long permissionId);
 
-    Integer deleteAllByRoleId(Long roleId);
 }
