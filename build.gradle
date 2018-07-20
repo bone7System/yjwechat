@@ -14,33 +14,26 @@ buildscript {
 }
 
 
-
+//
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.xinyi'
+group = 'com.yj'
+//设置jdk的版本
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 version = "1.0.0"
 apply from: "test.gradle"
 bootJar {
     launchScript()
 }
-//import org.ajoberstar.grgit.*
-
-//ext {
-//    repo = Grgit.open()
-//}
-//version = "1.0.0-${repo.head().abbreviatedId}"
-
 version = "1.0.0"
 
 jar {
     baseName = 'lgwechat'
 }
 
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
 repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     jcenter()
@@ -63,12 +56,10 @@ dependencies {
     compile('org.springframework.session:spring-session-core')
     compile('org.springframework.session:spring-session-data-redis')
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
-
     compile 'org.springframework.mobile:spring-mobile-device:1.1.5.RELEASE'
     compile 'org.springframework.hateoas:spring-hateoas:0.21.0.RELEASE'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.8.8'
     compile 'io.springfox:springfox-swagger2:2.6.1'
-
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile 'net.sf.json-lib:json-lib:2.4:jdk15'

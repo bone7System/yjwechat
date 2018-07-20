@@ -20,23 +20,23 @@ import static springfox.documentation.builders.PathSelectors.ant;
 @Configuration
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig {
-    @Bean
-    public Docket restApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .ignoredParameterTypes(SessionAttribute.class)
-                .host("http://183.62.140.8:8112/yj")
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.yj.web"))
-                .paths(Predicates.and(ant("/**"), Predicates.not(ant("/error"))))
-                .build();
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("yj API")
-                .description("yj API")
-                .version("1.0")
-                .build();
-    }
+//    @Bean
+//    public Docket restApi() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .ignoredParameterTypes(SessionAttribute.class)
+//                .host("http://183.62.140.8:8112/yj")
+//                .apiInfo(apiInfo())
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.yj.web"))
+//                .paths(Predicates.and(ant("/**"), Predicates.not(ant("/error"))))
+//                .build();
+//    }
+//
+//    private ApiInfo apiInfo() {
+//        return new ApiInfoBuilder()
+//                .title("yj API")
+//                .description("yj API")
+//                .version("1.0")
+//                .build();
+//    }
 }
