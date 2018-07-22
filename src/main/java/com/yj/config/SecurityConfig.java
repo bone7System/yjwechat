@@ -56,7 +56,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//                .antMatchers("/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/wechat/login/**").permitAll()
                 .anyRequest().authenticated();
