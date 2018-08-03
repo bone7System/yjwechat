@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 @Component
 public class MyPermissionEvaluator implements PermissionEvaluator {
@@ -21,12 +22,21 @@ public class MyPermissionEvaluator implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
         String username = authentication.getName();
+        //多个角色是数组 单个是 String类型
+        if(targetDomainObject instanceof Collection){
 
-        User user = userService.findByUsername(username);
-        if (user == null) {
-            throw  new UsernameNotFoundException("用户不存在");
+        }else if(targetDomainObject instanceof  String){
+
         }
-        return securityService.authorized(user.getId(), targetDomainObject.toString(), permission.toString());
+
+
+
+        return true;
+//        User user = userService.findByUsername(username);
+//        if (user == null) {
+//            throw  new UsernameNotFoundException("用户不存在");
+//        }
+//        return securityService.authorized(user.getId(), targetDomainObject.toString(), permission.toString());
     }
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {

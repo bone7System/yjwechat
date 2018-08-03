@@ -8,11 +8,20 @@ public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="role_id")
+    @Column(name="client")
+    private Long client;
+    @Column(name="roleid")
     private Long roleId;
-    @Column(name="user_id")
+    @Column(name="userid")
     private Long userId;
 
+    public Long getClient() {
+        return client;
+    }
+
+    public void setClient(Long client) {
+        this.client = client;
+    }
 
     public Long getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.yj.security;
 
+import com.yj.domain.user.model.Role;
 import com.yj.domain.user.model.User;
 import com.yj.domain.user.service.OrganizationService;
 import com.yj.domain.user.service.RoleService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -55,27 +57,38 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名为空");
         }
 
-        User user = new User();
-        user.setId(123L);
-        user.setUsername("zwh");
-        user.setPassword("$2a$10$IpuThEHKhDSfTxgXFlCwV.V.VobyQ/5Neips6azRzbYDQiqgORqjK");
+        User user=userService.getUserByUserName(username);
+        if(user==null){
+            throw new UsernameNotFoundException("用户未找到");
+        }
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("test"));
-//        for(Role role : roleService.getRoles(wechatUser.getId())){
-//            if (role != null) { authorities.add(new SimpleGrantedAuthority(role.getRoleName())); }
-//        }
 
+        MyGrantedAuthority authority= new MyGrantedAuthority();
+        List<Role> roles= roleService.findRoleByUserId(user.getId());
+        setRoleByUser(authority,roles);
+        //添加角色
+        authorities.add(authority);
+
+        //添加权限
 
 
 
         return new MyUserDetail(
                 user.getId(),
-                username, user.getPassword(),
+                username, user.getPassWord(),
                 true,//是否可用
                 true,//是否过期
                 true,//证书不过期为true
                 true,//账户未锁定为true
                 authorities);
+    }
+
+    private void setRoleByUser(MyGrantedAuthority authority, List<Role> roles) {
+        if(roles!=null){
+            roles.stream().forEach(role -> {
+                authority.addRole(role.getRoleName());
+            });
+        }
     }
 
     public static void main(String[] args) {

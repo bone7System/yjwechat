@@ -28,7 +28,7 @@ public class UnauthorizedExceptionHandler {
         JSONObject jo = new JSONObject();
         try {
             jo.put("status", UNAUTHORIZED.value());
-            jo.put("message", "密码错误");
+            jo.put("message", "用户名或密码错误");
         }catch (Exception e) {}
 
         return jo.toString();

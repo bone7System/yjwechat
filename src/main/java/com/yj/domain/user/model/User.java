@@ -8,62 +8,32 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "user")
+@Table(name = "erp_user")
 public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
-    private String username;
+    private String userName;
 
     @Column(name = "password")
-    private String password;
-
-    @Column(name = "mobile")
-    private String mobile;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "wechat")
-    private String wechat;
-
-    @Column(name = "enabled")
-    private boolean enabled;
+    private String passWord;
 
     @Column(name = "status")
     private Long status;
 
-
-
-    @Column(name = "create_time", insertable=false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "timeb", insertable=false)
+//    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    private Date createTime;
+    private Date timeb;
 
-    @Column(name = "update_time")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "timee")
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    private Date updateTime;
+    private Date timee;
 
-    public Long getStatus() {
-        return status;
-    }
-
-    public void setStatus(Long status) {
-        this.status = status;
-    }
-
-    public String getWechat() {
-        return wechat;
-    }
-
-    public void setWechat(String wechat) {
-        this.wechat = wechat;
-    }
 
     public Long getId() {
         return id;
@@ -73,59 +43,43 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
-    public String getMobile() {
-        return mobile;
+    public Long getStatus() {
+        return status;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setStatus(Long status) {
+        this.status = status;
     }
 
-    public String getEmail() {
-        return email;
+    public Date getTimeb() {
+        return timeb;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTimeb(Date timeb) {
+        this.timeb = timeb;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getTimee() {
+        return timee;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setTimee(Date timee) {
+        this.timee = timee;
     }
 }

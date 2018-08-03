@@ -35,21 +35,15 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 @EnableCaching
 @EnableRedisHttpSession
 @SpringBootApplication
-public class YjWechatcApplication extends WebMvcConfigurerAdapter {
+public class YjWechatcApplication   {
     public static void main(String[] args)  throws Exception{
         ConfigurableApplicationContext context = SpringApplication.run(YjWechatcApplication.class, args);
-
-
     }
 
     @Bean
     public Jackson2ObjectMapperBuilder configureObjectMapper() {
         return new Jackson2ObjectMapperBuilder()
                 .modulesToInstall(Hibernate5Module.class);
-    }
-    @Override
-    public void configurePathMatch(PathMatchConfigurer matcher) {
-        matcher.setUseRegisteredSuffixPatternMatch(true);
     }
 
 

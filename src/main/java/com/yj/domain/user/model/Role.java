@@ -1,15 +1,19 @@
 package com.yj.domain.user.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "role")
+@Table(name = "erp_role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role_name")
+    @Column(name = "rolename")
     private String roleName;
 
     @Column(name = "status", insertable=false)
@@ -18,16 +22,17 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "issystem", insertable=false)
-    private Long issystem;
+    @Column(name = "parenid", insertable=false)
+    private Long parenId;
 
-    public Long getIssystem() {
-        return issystem;
-    }
+    @Column(name = "createtime")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date createTime;
 
-    public void setIssystem(Long issystem) {
-        this.issystem = issystem;
-    }
+    @Column(name = "createuser", insertable=false)
+    private Long createUser;
 
     public Long getId() {
         return id;
@@ -45,6 +50,14 @@ public class Role {
         this.roleName = roleName;
     }
 
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -53,11 +66,27 @@ public class Role {
         this.description = description;
     }
 
-    public Long getStatus() {
-        return status;
+    public Long getParenId() {
+        return parenId;
     }
 
-    public void setStatus(Long status) {
-        this.status = status;
+    public void setParenId(Long parenId) {
+        this.parenId = parenId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
     }
 }

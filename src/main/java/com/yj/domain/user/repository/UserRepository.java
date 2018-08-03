@@ -10,5 +10,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long>,JpaSpecificationExecutor<User> {
-
+ User findByUserName(String userName);
 }

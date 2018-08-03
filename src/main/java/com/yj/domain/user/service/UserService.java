@@ -2,34 +2,40 @@ package com.yj.domain.user.service;
 
 import com.yj.domain.user.model.User;
 import com.yj.domain.user.model.UserDetail;
+import com.yj.pojo.ReSult;
+import com.yj.pojo.UserDto;
+import com.yj.pojo.UserSearchDto;
+import com.yj.pojo.UserUpPasswordDto;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.validation.Valid;
 import java.util.List;
 
 public interface UserService {
 
+  /**
+   * 根据用户名 查找用户
+   * @param userName
+   * @return
+   */
+  User getUserByUserName(String userName);
 
-    List testList();
-    //--------Begin--CUD----------
-    User save(User user) throws DataAccessException;
-    //---------End---CUD----------
-
-    User findById(Long id) throws DataAccessException;
-    User findByUsername(String username) throws DataAccessException;
-    User findByWechatAndAppid(String wechat, String appid) throws DataAccessException;
-    User updatePassword(User user, String password);
-    List<Long> findOrgIdsByUserId(Long userId);
-    Page<User> findAll(Pageable pageable) throws DataAccessException;
-    // 根据 username, 手机号, 或邮箱搜索
-    Page<User> search(String searchString, Pageable pageable) throws DataAccessException;
-
-    UserDetail findUserDetail(Long userId);
+  /**
+   * 根据userId查找用户
+   * @param userId
+   * @return
+   */
+  UserDetail findByUserId(Long userId);
 
 
+  ReSult addUser( UserDto userDto) throws Exception;
 
+  ReSult userUpPassword( UserUpPasswordDto dto,String userName,Long isMe) throws Exception;
 
+  ReSult updateUser( UserDetail userDetail);
 
+  ReSult searchUser(UserSearchDto dto,Pageable pageable);
 }

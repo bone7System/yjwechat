@@ -1,95 +1,94 @@
 package com.yj.domain.user.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class UserDetail {
+@Table(name = "erp_user_detail")
+public class UserDetail implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "userid")
+    private Long userId;
 
-    @Column(name = "mobile")
-    private String mobile;
+    @Column(name = "client")
+    private Long client;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "phone")
+    private String  phone;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "sex")
+    private String sex;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "wechat")
-    private String wechat;
+    @Column(name = "certificate")
+    private String  certificate;
 
-    @Column(name = "enabled")
-    private boolean enabled;
 
-    @Column(name = "create_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    private Date createTime;
+    @Column(name = "interest")
+    private String interest;
 
-    @Column(name = "update_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    private Date updateTime;
-    @Column(name = "sex")
-    private Long sex;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "avatar")
-    private String avatar;  // 头像
-    @Column(name = "status")
-    private Long status;
-    @Column(name = "policeno")
-    private String policeno;
-    @Column(name = "position")
-    private String position;
-    @Column(name = "remark")
-    private String remark;
-    @Column(name = "sort")
-    private Long sort;
-    @Column(name = "orgid")
-    private String orgid;
-    @Column(name = "orgname")
-    private String orgname;
-    @Column(name = "identity")
-    private String identity;
 
-    public String getIdentity() {
-        return identity;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getOrgid() {
-        return orgid;
+    public Long getClient() {
+        return client;
     }
 
-    public void setOrgid(String orgid) {
-        this.orgid = orgid;
+    public void setClient(Long client) {
+        this.client = client;
     }
 
-    public String getOrgname() {
-        return orgname;
+    @Column(name = "birthday")
+//    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date birthday;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setOrgname(String orgname) {
-        this.orgname = orgname;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getSex() {
-        return sex;
+    public String getType() {
+        return type;
     }
 
-    public void setSex(Long sex) {
-        this.sex = sex;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getName() {
@@ -100,84 +99,12 @@ public class UserDetail {
         this.name = name;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getSex() {
+        return sex;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public Long getStatus() {
-        return status;
-    }
-
-    public void setStatus(Long status) {
-        this.status = status;
-    }
-
-    public String getPoliceno() {
-        return policeno;
-    }
-
-    public void setPoliceno(String policeno) {
-        this.policeno = policeno;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Long getSort() {
-        return sort;
-    }
-
-    public void setSort(Long sort) {
-        this.sort = sort;
-    }
-
-    public String getWechat() {
-        return wechat;
-    }
-
-    public void setWechat(String wechat) {
-        this.wechat = wechat;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getEmail() {
@@ -188,27 +115,27 @@ public class UserDetail {
         this.email = email;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getCertificate() {
+        return certificate;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCertificate(String certificate) {
+        this.certificate = certificate;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public String getInterest() {
+        return interest;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setInterest(String interest) {
+        this.interest = interest;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

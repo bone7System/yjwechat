@@ -9,10 +9,9 @@ import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    @Query(value = "select r.* from user_role ur left join role r on ur.role_id=r.id where ur.user_id=:userId and r.status = 1 ", nativeQuery = true)
+    @Query(value = "select r.* from erp_user_role ur left join erp_role r on ur.roleId=r.id where  r.status = 1 and ur.userid=:userId ", nativeQuery = true)
     List<Role> findRoleByUserId(@Param("userId") Long userId);
 
-//    Page<User> findUserByRoleName(String role, Pageable pageable);
 
 
     @Query(value =
