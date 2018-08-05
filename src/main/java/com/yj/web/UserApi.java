@@ -49,7 +49,7 @@ public class UserApi {
         return userService.updateUser(userDetail);
     }
 
-    @ApiOperation(value = "/user/search", nickname = "修改用户资料", notes = "修改用户资料")
+    @ApiOperation(value = "/user/search", nickname = "查询用户资料", notes = "查询用户资料")
     @RequestMapping(value = "/user/search", method = RequestMethod.GET, produces = {"application/json"})
     ReSult searchUser(UserSearchDto dto, Pageable pageable,@SessionAttribute(name = "user") UserDetail userDetail) throws Exception {
         dto.setClient(userDetail.getClient());

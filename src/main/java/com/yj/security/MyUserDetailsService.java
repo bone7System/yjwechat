@@ -2,7 +2,6 @@ package com.yj.security;
 
 import com.yj.domain.user.model.Role;
 import com.yj.domain.user.model.User;
-import com.yj.domain.user.service.OrganizationService;
 import com.yj.domain.user.service.RoleService;
 import com.yj.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +43,6 @@ public class MyUserDetailsService implements UserDetailsService {
     }
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private OrganizationService organizationService;
 
     @Autowired
     private RoleService roleService;

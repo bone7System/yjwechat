@@ -5,6 +5,12 @@ public class ReSult {
     private String massage;
     private Object data;
 
+    public static ReSult success(Object o){
+        return new ReSult(200L,"操作成功",o);
+    }
+    public static ReSult error(String massage,Object o){
+        return new ReSult(500L,massage,o);
+    }
     public ReSult(Long code, String massage, Object data) {
         this.code = code;
         this.massage = massage;

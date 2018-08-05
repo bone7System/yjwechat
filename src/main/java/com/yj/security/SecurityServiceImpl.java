@@ -15,9 +15,7 @@ public class SecurityServiceImpl implements SecurityService {
     public boolean authorized(Long userId, Object targetDomainObject, Object permission) {
         List<Permission> permissions = null ;//roleService.getUserPermissions(userId);
         for (Permission p:permissions) {
-            if (p.getDomain().equals(targetDomainObject.toString()) && p.getPermission().equals(permission.toString())) {
-                return true;
-            }
+
         }
         return false;
     }

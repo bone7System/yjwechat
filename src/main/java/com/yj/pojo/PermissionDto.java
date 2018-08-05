@@ -1,19 +1,15 @@
-package com.yj.domain.user.model;
+package com.yj.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import javax.persistence.*;
-import java.util.Date;
-
-@Entity
-@Table(name = "permission")
-public class Permission {
+public class PermissionDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // domain: user, contacts, car...
     @Column(name = "menuId")
     private String menuId;
 
@@ -26,18 +22,6 @@ public class Permission {
 
     @Column(name = "prantid")
     private Long prantId;
-
-    @Column(name = "createtime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date createTime;
-
-    @Column(name = "createuser")
-    private Long createUser;
-
-    @Column(name = "path")
-    private String path;
 
     public Long getId() {
         return id;
@@ -77,29 +61,5 @@ public class Permission {
 
     public void setPrantId(Long prantId) {
         this.prantId = prantId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Long createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 }

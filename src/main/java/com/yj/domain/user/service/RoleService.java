@@ -2,7 +2,9 @@ package com.yj.domain.user.service;
 
 
 import com.yj.domain.user.model.Role;
+import com.yj.pojo.ReSult;
 import com.yj.pojo.RoleDto;
+import com.yj.pojo.RoleSearchDto;
 import org.springframework.data.repository.query.Param;
 
 import javax.validation.Valid;
@@ -25,4 +27,8 @@ public interface RoleService {
     Role save(RoleDto role);
 
     Role update( RoleDto roleDto);
+
+    ReSult seachRole(RoleSearchDto roleDto);
+
+    ReSult deleteRole(Long roleId);
 }

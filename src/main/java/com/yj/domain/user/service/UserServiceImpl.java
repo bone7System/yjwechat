@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ReSult searchUser(UserSearchDto dto,Pageable pageable) {
-        userDetailRepository.findAll(new Specification<UserDetail>() {
+       Page page= userDetailRepository.findAll(new Specification<UserDetail>() {
             @Nullable
             @Override
             public Predicate toPredicate(Root<UserDetail> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getGroupRestriction();
             }
         },pageable);
-        return null;
+        return ReSult.success(page);
     }
 
     private void checkUser(UserUpPasswordDto dto,String userName,Long isMe) throws Exception {
