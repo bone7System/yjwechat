@@ -35,4 +35,84 @@ public class MenuDto{
         @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
         private Date createTime;
+
+        public Long getId() {
+                return id;
+        }
+
+        public void setId(Long id) {
+                this.id = id;
+        }
+
+        public String getTitle() {
+                return title;
+        }
+
+        public void setTitle(String title) {
+                this.title = title;
+        }
+
+        public String getUrl() {
+                return url;
+        }
+
+        public void setUrl(String url) {
+                this.url = url;
+        }
+
+        public String getIcon() {
+                return icon;
+        }
+
+        public void setIcon(String icon) {
+                this.icon = icon;
+        }
+
+        public Long getParentId() {
+                return parentId;
+        }
+
+        public void setParentId(Long parentId) {
+                this.parentId = parentId;
+        }
+
+        public Long getIsDirectory() {
+                return isDirectory;
+        }
+
+        public void setIsDirectory(Long isDirectory) {
+                this.isDirectory = isDirectory;
+        }
+
+        public Long getSort() {
+                return sort;
+        }
+
+        public void setSort(Long sort) {
+                this.sort = sort;
+        }
+
+        public Long getStatus() {
+                return status;
+        }
+
+        public void setStatus(Long status) {
+                this.status = status;
+        }
+
+        public String getPath() {
+                return path;
+        }
+
+        public void setPath(String path) {
+                this.path = path;
+        }
+
+        public Date getCreateTime() {
+                return createTime;
+        }
+
+        public void setCreateTime(Date createTime) {
+                this.createTime = createTime;
+        }
 }

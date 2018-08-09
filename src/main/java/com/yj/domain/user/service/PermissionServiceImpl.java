@@ -46,11 +46,11 @@ public class PermissionServiceImpl implements  PermissionService{
        if(!StringUtils.isEmpty(permissionDto.getDescription())){
            permission.setDescription(permissionDto.getDescription());
        }
-        if(!StringUtils.isEmpty(permissionDto.getMenuId())){
+        if(permissionDto.getMenuId()!=null){
             permission.setMenuId(permissionDto.getMenuId());
         }
         if(!StringUtils.isEmpty(permissionDto.getPermission())){
-            permission.setMenuId(permissionDto.getPermission());
+            permission.setPermission(permissionDto.getPermission());
         }
 
         permissionRepository.saveAndFlush(permission);

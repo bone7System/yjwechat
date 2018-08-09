@@ -1,5 +1,6 @@
 package com.yj.security;
 
+import com.yj.domain.user.model.Permission;
 import com.yj.domain.user.model.Role;
 import com.yj.domain.user.model.User;
 import com.yj.domain.user.repository.PermissionRepository;
@@ -75,8 +76,8 @@ public class MyUserDetailsService implements UserDetailsService {
         authorities.add(authority);
 
         //添加权限
-       // permissionRepository.findPermissionByUserId(user.getId());
-
+       List<Permission> lps= permissionRepository.findPermissionByUserId(user.getId());
+       setPermission(authority,lps);
 
         return new MyUserDetail(
                 user.getId(),
@@ -86,6 +87,14 @@ public class MyUserDetailsService implements UserDetailsService {
                 true,//证书不过期为true
                 true,//账户未锁定为true
                 authorities);
+    }
+
+    private void setPermission(MyGrantedAuthority authority, List<Permission> lps) {
+        if(lps!=null){
+            lps.stream().forEach(permission -> {
+                authority.addPermission(permission.getPermission());
+            });
+        }
     }
 
     private void setRoleByUser(MyGrantedAuthority authority, List<Role> roles) {

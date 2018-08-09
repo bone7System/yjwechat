@@ -24,9 +24,6 @@ public class RolePermissionApi {
     @RequestMapping(value = "/role-permission/save", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission('boss', '')")
     ReSult createPermission(@RequestBody RolePermissionDto dto, @SessionAttribute(name = "user") UserDetail user) {
-
         return rolePermissionService.addRolePermission(dto,user);
-
-
     }
 }

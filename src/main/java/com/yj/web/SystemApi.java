@@ -67,7 +67,7 @@ public class SystemApi {
 
     @ApiOperation(value = "/role/role-delete", nickname = "删除角色", notes = "删除角色")
     @RequestMapping(value = "/role/role-delete", method = RequestMethod.POST, produces = {"application/json"})
-    @PreAuthorize("hasPermission('admin', '')")
+    @PreAuthorize("hasPermission({'admin','boss'}, '')")
     ReSult updateRole(Long roleId) {
 
         return roleService.deleteRole(roleId);
@@ -100,7 +100,16 @@ public class SystemApi {
 
     }
 
-    @ApiOperation(value = "/permisstion/update", nickname = "添加权限", notes = "添加权限")
+    @ApiOperation(value = "/menu/get", nickname = "获取菜单", notes = "获取菜单")
+    @RequestMapping(value = "/menu/get", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult getMenu() {
+
+        return menuService.getMenu();
+
+    }
+
+    @ApiOperation(value = "/permisstion/update", nickname = "修改权限", notes = "修改权限")
     @RequestMapping(value = "/permisstion/update", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission('admin', '')")
     ReSult updatePermission( @RequestBody PermissionDto permissionDto, @SessionAttribute(name = "user") UserDetail user) {
@@ -136,7 +145,6 @@ public class SystemApi {
     @PreAuthorize("hasPermission('admin', '')")
     ReSult deletePermission( Long id , @SessionAttribute(name = "user") UserDetail user) throws YjException {
         return deptService.deleteDept(id,user);
-
     }
 
 

@@ -6,13 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
-    @Query(value = "select p.* from user_role ur " +
-        "        left join role r on ur.role_id=r.id " +
-        "        right join role_permission rp on rp.role_id=r.id  " +
-        "        left join permission p on p.id=rp.permission_id " +
-        "       where  ur.user_id=:userId and r.status = 1", nativeQuery = true)
+    @Query(value = "select * from erp_permission\n" +
+            "\t where id in (\n" +
+            "\t\tselect permissionid from erp_role_permission where roleid in (\n" +
+            "\t\t\n" +
+            "\t\tselect roleid from erp_user_role where userid = :userId\n" +
+            "\t )\n" +
+            " )", nativeQuery = true)
     List<Permission> findPermissionByUserId(@Param("userId") Long userId);
 
     /**
@@ -21,5 +24,8 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
      * @return
      */
     List<Permission> findByParentId(Long id);
+
+
+    List<Permission> findByPermissionIn(Set<String> pps);
 
 }

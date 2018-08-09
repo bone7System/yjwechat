@@ -15,7 +15,7 @@ public class Permission {
 
     // domain: user, contacts, car...
     @Column(name = "menuid")
-    private String menuId;
+    private Long menuId;
 
     // read, update, admin...
     @Column(name = "permission")
@@ -47,11 +47,11 @@ public class Permission {
         this.id = id;
     }
 
-    public String getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(String menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 

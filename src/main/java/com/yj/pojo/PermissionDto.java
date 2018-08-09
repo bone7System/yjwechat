@@ -13,7 +13,7 @@ public class PermissionDto {
     private Long id;
     
     @ApiModelProperty("菜单id")
-    private String menuId;
+    private Long menuId;
 
     // read, update, admin...
     @ApiModelProperty("权限值")
@@ -33,11 +33,11 @@ public class PermissionDto {
         this.id = id;
     }
 
-    public String getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(String menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 

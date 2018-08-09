@@ -38,4 +38,6 @@ public interface UserService {
   ReSult updateUser( UserDetail userDetail);
 
   ReSult searchUser(UserSearchDto dto,Pageable pageable);
+
+
 }

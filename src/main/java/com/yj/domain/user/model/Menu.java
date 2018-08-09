@@ -25,8 +25,8 @@ public class Menu {
     @Column(name="sort")
     private Long sort;
 
-    @Column(name="flag")
-    private String flag;
+    @Column(name="status")
+    private Long stauts;
 
     @Column(name="path")
     private String path;
@@ -37,6 +37,14 @@ public class Menu {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
+
+    public Long getStauts() {
+        return stauts;
+    }
+
+    public void setStauts(Long stauts) {
+        this.stauts = stauts;
+    }
 
     public Long getId() {
         return id;
@@ -94,13 +102,7 @@ public class Menu {
         this.sort = sort;
     }
 
-    public String getFlag() {
-        return flag;
-    }
 
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
 
     public String getPath() {
         return path;
