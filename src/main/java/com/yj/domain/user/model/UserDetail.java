@@ -22,6 +22,9 @@ public class UserDetail implements Serializable{
     @Column(name = "client")
     private Long client;
 
+    @Column(name = "deptid")
+    private Long deptId;
+
     @Column(name = "type")
     private String type;
 
@@ -44,6 +47,13 @@ public class UserDetail implements Serializable{
     @Column(name = "interest")
     private String interest;
 
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
 
     public Long getUserId() {
         return userId;

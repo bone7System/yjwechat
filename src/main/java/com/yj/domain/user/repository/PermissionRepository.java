@@ -15,4 +15,11 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
         "       where  ur.user_id=:userId and r.status = 1", nativeQuery = true)
     List<Permission> findPermissionByUserId(@Param("userId") Long userId);
 
+    /**
+     *  父节点下的所有子节点
+     * @param id
+     * @return
+     */
+    List<Permission> findByParentId(Long id);
+
 }

@@ -1,27 +1,29 @@
 package com.yj.pojo;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class PermissionDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty("id")
     private Long id;
-
-    @Column(name = "menuId")
+    
+    @ApiModelProperty("菜单id")
     private String menuId;
 
     // read, update, admin...
-    @Column(name = "permission")
+    @ApiModelProperty("权限值")
     private String permission;
 
-    @Column(name = "description")
+    @ApiModelProperty("权限描述")
     private String description;
 
-    @Column(name = "prantid")
-    private Long prantId;
+    @ApiModelProperty("父权限id")
+    private Long parentId;
 
     public Long getId() {
         return id;
@@ -55,11 +57,11 @@ public class PermissionDto {
         this.description = description;
     }
 
-    public Long getPrantId() {
-        return prantId;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setPrantId(Long prantId) {
-        this.prantId = prantId;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }

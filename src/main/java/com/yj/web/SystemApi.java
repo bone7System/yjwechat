@@ -1,14 +1,12 @@
 package com.yj.web;
 
+import com.yj.domain.user.model.Dept;
 import com.yj.domain.user.model.Role;
+import com.yj.domain.user.model.RolePermission;
 import com.yj.domain.user.model.UserDetail;
-import com.yj.domain.user.service.PermissionService;
-import com.yj.domain.user.service.RoleService;
-import com.yj.domain.user.service.UserService;
-import com.yj.pojo.PermissionDto;
-import com.yj.pojo.ReSult;
-import com.yj.pojo.RoleDto;
-import com.yj.pojo.RoleSearchDto;
+import com.yj.domain.user.service.*;
+import com.yj.exception.YjException;
+import com.yj.pojo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -24,24 +23,19 @@ public class SystemApi {
 
     @Autowired
     private UserService userService;
-
-
     @Autowired
     private RoleService roleService;
-
     @Autowired
     private PermissionService permissionService;
+    @Autowired
+    private DeptService deptService;
 
-    @ApiOperation(value = "/system", nickname = "创建根组织", notes = "创建根组织")
-    @RequestMapping(value = "/system", method = RequestMethod.GET, produces = {"application/json"})
-    @PreAuthorize("hasPermission({'system','adc'},'')")
-    void createRootOrg() {
-
-    }
+    @Autowired
+    private MenuService menuService;
 
     @ApiOperation(value = "/role/add", nickname = "添加角色", notes = "添加角色")
     @RequestMapping(value = "/role/add", method = RequestMethod.POST, produces = {"application/json"})
-    @PreAuthorize("hasPermission('admin', '')")
+    @PreAuthorize("hasPermission({'admin','boss'}, '')")
     ReSult createRole(@Valid @RequestBody RoleDto roleDto, @SessionAttribute(name = "user") UserDetail user) {
 
         roleDto.setCreateUser(user.getUserId());
@@ -54,7 +48,7 @@ public class SystemApi {
 
     @ApiOperation(value = "/role/update", nickname = "修改角色", notes = "修改角色")
     @RequestMapping(value = "/role/update", method = RequestMethod.POST, produces = {"application/json"})
-    @PreAuthorize("hasPermission('admin', '')")
+    @PreAuthorize("hasPermission({'admin','boss'}, '')")
     ReSult updateRole(@Valid @RequestBody RoleDto roleDto) {
         Role role= roleService.update(roleDto);
         if(role!=null){
@@ -66,7 +60,7 @@ public class SystemApi {
 
     @ApiOperation(value = "/role/search", nickname = "获取角色", notes = "获取角色")
     @RequestMapping(value = "/role/search", method = RequestMethod.POST, produces = {"application/json"})
-    @PreAuthorize("hasPermission('admin', '')")
+    @PreAuthorize("hasPermission({'admin','boss'}, '')")
     ReSult searchRole(RoleSearchDto roleDto) {
         return roleService.seachRole(roleDto);
     }
@@ -82,11 +76,69 @@ public class SystemApi {
     @ApiOperation(value = "/permisstion/add", nickname = "添加权限", notes = "添加权限")
     @RequestMapping(value = "/permisstion/add", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission('admin', '')")
-    ReSult createRole(@Valid @RequestBody PermissionDto permissionDto, @SessionAttribute(name = "user") UserDetail user) {
-
+    ReSult createPermission(@Valid @RequestBody PermissionDto permissionDto, @SessionAttribute(name = "user") UserDetail user) {
 
         return permissionService.addPermission(permissionDto,user);
 
     }
+
+    @ApiOperation(value = "/menu/add", nickname = "添加菜单", notes = "添加菜单")
+    @RequestMapping(value = "/menu/add", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult createMenu(@Valid @RequestBody MenuDto menuDto, @SessionAttribute(name = "user") UserDetail user) {
+
+        return menuService.addMenu(menuDto,user);
+
+    }
+
+    @ApiOperation(value = "/menu/update", nickname = "修改菜单", notes = "修改菜单")
+    @RequestMapping(value = "/menu/update", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult updateMenu(@Valid @RequestBody MenuUpdateDto dto, @SessionAttribute(name = "user") UserDetail user) {
+
+        return menuService.updateMenu(dto,user);
+
+    }
+
+    @ApiOperation(value = "/permisstion/update", nickname = "添加权限", notes = "添加权限")
+    @RequestMapping(value = "/permisstion/update", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult updatePermission( @RequestBody PermissionDto permissionDto, @SessionAttribute(name = "user") UserDetail user) {
+        return permissionService.updatePermission(permissionDto,user);
+    }
+
+
+    @ApiOperation(value = "/permisstion/delete", nickname = "删除权限", notes = "删除权限")
+    @RequestMapping(value = "/permisstion/delete", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult deletePermission( Long id) throws YjException {
+        return permissionService.deletePermission(id);
+    }
+
+    @ApiOperation(value = "/dept/add", nickname = "添加门店", notes = "添加门店")
+    @RequestMapping(value = "/dept/add", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult createPermission( @RequestBody Dept dept, @SessionAttribute(name = "user") UserDetail user) {
+
+        return deptService.addDept(dept,user);
+
+    }
+
+    @ApiOperation(value = "/dept/update", nickname = "修改门店", notes = "修改门店")
+    @RequestMapping(value = "/dept/update", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult updatePermission( @RequestBody Dept dept, @SessionAttribute(name = "user") UserDetail user) {
+        return deptService.updateDept(dept,user);
+
+    }
+    @ApiOperation(value = "/dept/delete", nickname = "删除门店", notes = "删除门店")
+    @RequestMapping(value = "/dept/delete", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult deletePermission( Long id , @SessionAttribute(name = "user") UserDetail user) throws YjException {
+        return deptService.deleteDept(id,user);
+
+    }
+
+
 
 }

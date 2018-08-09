@@ -11,20 +11,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+@RestController
 @Api(value = "/user", tags = "user", description = "用户接口")
 public class UserApi {
     @Autowired
     private UserService userService;
     @ApiOperation(value = "/user/add", nickname = "添加用户", notes = "添加用户")
     @RequestMapping(value = "/user/add", method = RequestMethod.POST, produces = {"application/json"})
-    ReSult addUser(@Valid UserDto userDto, @SessionAttribute(name = "user")UserDetail user) throws Exception {
+    ReSult addUser(@Valid @RequestBody UserDto userDto, @SessionAttribute(name = "user")UserDetail user) throws Exception {
         userDto.setClient(user.getClient());
         return userService.addUser(userDto);
     }

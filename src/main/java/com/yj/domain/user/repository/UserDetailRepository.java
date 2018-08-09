@@ -43,6 +43,6 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> ,J
 
    UserDetail findByUserId(Long userId);
 
-
+   List<UserDetail> findByClient(Long id);
 
 }

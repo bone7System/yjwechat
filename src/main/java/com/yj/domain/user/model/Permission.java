@@ -7,14 +7,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "permission")
+@Table(name = "erp_permission")
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // domain: user, contacts, car...
-    @Column(name = "menuId")
+    @Column(name = "menuid")
     private String menuId;
 
     // read, update, admin...
@@ -24,8 +24,8 @@ public class Permission {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "prantid")
-    private Long prantId;
+    @Column(name = "parentid")
+    private Long parentId;
 
     @Column(name = "createtime")
     @Temporal(TemporalType.TIMESTAMP)
@@ -71,12 +71,12 @@ public class Permission {
         this.description = description;
     }
 
-    public Long getPrantId() {
-        return prantId;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setPrantId(Long prantId) {
-        this.prantId = prantId;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Date getCreateTime() {

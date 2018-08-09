@@ -12,7 +12,8 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "client")
+    private Long client;
     @Column(name = "rolename")
     private String roleName;
 
@@ -22,8 +23,8 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "parenid", insertable=false)
-    private Long parenId;
+    @Column(name = "parentid", insertable=false)
+    private Long parentId;
 
     @Column(name = "createtime")
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,6 +34,14 @@ public class Role {
 
     @Column(name = "createuser", insertable=false)
     private Long createUser;
+
+    public Long getClient() {
+        return client;
+    }
+
+    public void setClient(Long client) {
+        this.client = client;
+    }
 
     public Long getId() {
         return id;
@@ -66,12 +75,12 @@ public class Role {
         this.description = description;
     }
 
-    public Long getParenId() {
-        return parenId;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParenId(Long parenId) {
-        this.parenId = parenId;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Date getCreateTime() {

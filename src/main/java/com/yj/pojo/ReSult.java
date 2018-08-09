@@ -8,9 +8,16 @@ public class ReSult {
     public static ReSult success(Object o){
         return new ReSult(200L,"操作成功",o);
     }
+    public static ReSult success(){
+        return new ReSult(200L,"操作成功",null);
+    }
     public static ReSult error(String massage,Object o){
         return new ReSult(500L,massage,o);
     }
+    public static ReSult error(Long code,String massage){
+        return new ReSult(code,massage,null);
+    }
+
     public ReSult(Long code, String massage, Object data) {
         this.code = code;
         this.massage = massage;

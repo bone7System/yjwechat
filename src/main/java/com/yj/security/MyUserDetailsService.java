@@ -2,9 +2,11 @@ package com.yj.security;
 
 import com.yj.domain.user.model.Role;
 import com.yj.domain.user.model.User;
+import com.yj.domain.user.repository.PermissionRepository;
 import com.yj.domain.user.service.RoleService;
 import com.yj.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,10 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class MyUserDetailsService implements UserDetailsService {
@@ -46,16 +45,26 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
+        Date now = new Date();
         if (username.isEmpty()) {
-            throw new UsernameNotFoundException("用户名为空");
+            throw new BadCredentialsException("用户名为空");
         }
 
         User user=userService.getUserByUserName(username);
         if(user==null){
-            throw new UsernameNotFoundException("用户未找到");
+            throw new BadCredentialsException("用户未找到");
+        }
+        if(user.getStatus()==-1L){
+            throw new BadCredentialsException("该用户已删除");
+        }
+
+        if(!(now.after(user.getTimeb()) && now.before(user.getTimee())) ){
+            throw new BadCredentialsException("该用户已过期");
         }
         Set<GrantedAuthority> authorities = new HashSet<>();
 
@@ -66,7 +75,7 @@ public class MyUserDetailsService implements UserDetailsService {
         authorities.add(authority);
 
         //添加权限
-
+       // permissionRepository.findPermissionByUserId(user.getId());
 
 
         return new MyUserDetail(

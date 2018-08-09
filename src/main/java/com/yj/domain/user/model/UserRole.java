@@ -3,7 +3,7 @@ package com.yj.domain.user.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_role")
+@Table(name = "erp_user_role")
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

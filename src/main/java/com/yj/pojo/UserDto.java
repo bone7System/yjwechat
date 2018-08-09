@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 public class UserDto {
     @NotNull
@@ -15,14 +16,25 @@ public class UserDto {
 
     @ApiModelProperty("客户端")
     private Long client;
+
+    @ApiModelProperty("部门")
+    private Long deptId;
+    @NotNull
+    @ApiModelProperty("用户角色")
+    List<Long> roleIds;
+
     @NotNull
     @ApiModelProperty("密码")
     private String passWord;
     @NotNull
     @ApiModelProperty("重复密码")
     private String passWord2;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty("有效开始时间")
     private Date timeb;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty("有效结束时间")
     private Date timee;
 
@@ -46,6 +58,22 @@ public class UserDto {
 
     @ApiModelProperty("兴趣爱好")
     private String interest;
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
 
     public Long getClient() {
         return client;

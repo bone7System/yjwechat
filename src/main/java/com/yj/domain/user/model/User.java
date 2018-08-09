@@ -23,7 +23,7 @@ public class User implements Serializable{
     @Column(name = "status")
     private Long status;
 
-    @Column(name = "timeb", insertable=false)
+    @Column(name = "timeb")
 //    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")

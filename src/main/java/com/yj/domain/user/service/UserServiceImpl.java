@@ -4,8 +4,10 @@ package com.yj.domain.user.service;
 import com.google.common.collect.Lists;
 import com.yj.domain.user.model.User;
 import com.yj.domain.user.model.UserDetail;
+import com.yj.domain.user.model.UserRole;
 import com.yj.domain.user.repository.UserDetailRepository;
 import com.yj.domain.user.repository.UserRepository;
+import com.yj.domain.user.repository.UserRoleRepository;
 import com.yj.domain.user.repository.UserSpecs;
 import com.yj.pojo.ReSult;
 import com.yj.pojo.UserDto;
@@ -47,6 +49,8 @@ public class UserServiceImpl implements UserService {
     private UserDetailRepository userDetailRepository;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    UserRoleRepository userRoleRepository;
 
     @Override
     public User getUserByUserName(String userName) {
@@ -72,13 +76,26 @@ public class UserServiceImpl implements UserService {
             //默认 9999-12-31
             login.setTimee(new Date(253402185600000L));
         }
+        login.setPassWord(passwordEncoder.encode(login.getPassWord()));
         //保存登录用户
         userRepository.save(login);
 
         UserDetail userDetail = new UserDetail();
         BeanUtils.copyProperties(userDto,userDetail);
         userDetail.setUserId(login.getId());
+
         userDetailRepository.saveAndFlush(userDetail);
+
+        //为用户设置角色
+        if(userDto.getRoleIds()!=null){
+            userDto.getRoleIds().stream().forEach(ix->{
+                UserRole ur=new UserRole();
+                ur.setClient(userDto.getClient());
+                ur.setRoleId(ix);
+                ur.setUserId(login.getId());
+                userRoleRepository.save(ur);
+            });
+        }
 
         return new ReSult(200L,"用户保存成功",null);
     }
