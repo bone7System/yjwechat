@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<dataSources>  
+    <!--<dataSource id="zhxg_ssq">  -->
+        <!--<description>省市区下拉框</description>-->
+        <!--<sql>-->
+        	<!--select t.dm as province_id,t.mc as province_mame,t1.dm as city_id,t1.mc as city_name,t2.dm as county_id,t2.mc as county_name-->
+				 <!--from VC_ZHXG_XTGL_DMK t -->
+			     <!--left join VC_ZHXG_XTGL_DMK t1 on t1.fdm=t.dm and t1.dmbz='XTGL_CITY' -->
+				 <!--left join VC_ZHXG_XTGL_DMK t2 on t2.fdm=t1.dm and t2.dmbz='XTGL_COUNTY' -->
+				 <!--where t.dmbz='XTGL_PROVINCE'-->
+        <!--</sql>-->
+        <!--<levels>-->
+        	<!--<level valueField="province_id" labelField="province_mame"></level>-->
+        	<!--<level valueField="city_id" labelField="city_name"></level>-->
+        	<!--<level valueField="county_id" labelField="county_name"></level>-->
+        <!--</levels>-->
+    <!--</dataSource> -->
+    <dataSource id="yj_fldm">
+        <description>分类下拉框</description>
+        <sql>
+            select t.pkid as value,t.dmmc as label from YJ_DMK_FL t order by pxh
+        </sql>
+    </dataSource>
+
+
+    
+</dataSources>  

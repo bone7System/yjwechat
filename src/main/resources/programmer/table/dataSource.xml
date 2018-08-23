@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSources>
+    <dataSource id="yj_background_dmk_cl">
+        <description>代码常量数据</description>
+        <sql>
+            select t.pkid,t.dm,t.mc,t.jc,t.pxh,t.bq,t.zt,t1.dmbz,t1.dmmc  from YJ_DMK_CL t
+            left join YJ_DMK_FL t1 on t1.dmbz=t.dmbz
+        </sql>
+    </dataSource>
+</dataSources>  

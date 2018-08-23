@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSources>
+    <dataSource id="yj_background_dmk_fl">
+        <description>代码库分类树</description>
+        <sql>
+            select  '-1'   AS  'key',  '代码库分类'   title,'0'   selectFlag,'-2'   parentKey,'1' icon,-1 as pkid,'' as fflid  from dual
+            union all
+            SELECT  DMBZ AS 'key',  DMMC AS title,'1' AS selectFlag,'-1' AS parentKey,'2' AS icon,pkid,fflid  FROM YJ_DMK_FL
+        </sql>
+    </dataSource>
+</dataSources>
