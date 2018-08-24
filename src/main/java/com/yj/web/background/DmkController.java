@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/dmk")
-@Api("Pro项目数据查询相关服务API")
+@Api("代码库查询相关服务API")
 public class DmkController {
 
 	private static Logger logger = LoggerFactory.getLogger(DmkController.class);
