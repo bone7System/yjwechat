@@ -62,6 +62,11 @@ public class JpaUtil{
         }
         query.unwrap(SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map<String,Object>> result = query.getResultList();
+        Integer index=(int) pageable.getOffset();
+        for (Map<String,Object> map : result){
+            index++;
+            map.put("rn",index);
+        }
 
         /**
          * 生成获取总数的sql
