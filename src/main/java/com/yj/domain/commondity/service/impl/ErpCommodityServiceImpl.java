@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 
 @Service
 @Transactional
@@ -38,9 +40,10 @@ public class ErpCommodityServiceImpl implements ErpCommodityService {
             cPO.setSpms(dto.getSpms());
             cPO.setSplxdm(dto.getSplxdm());
             cPO.setSppp(dto.getSppp());
-            cPO.setMdid(dto.getMdid());
+            cPO.setMdid(1);
             cPO.setDelFlag(0);
             cPO=erpCommodityRepository.save(cPO);
+            System.out.println(cPO.getId());
             ErpCommodityDetailEntity cDetailPO = new ErpCommodityDetailEntity();
             cDetailPO.setGg(dto.getGg());
             cDetailPO.setDj(dto.getDj());
@@ -97,8 +100,9 @@ public class ErpCommodityServiceImpl implements ErpCommodityService {
     }
 
     @Override
-    public ErpCommodityPojo get(Integer pkid) {
-        return erpCommodityRepository.findBySpid(pkid);
+    public Map<String, Object> get(Integer pkid) {
+        Map<String, Object> map = erpCommodityRepository.findBySpid(pkid);
+        return map;
     }
 
     /**

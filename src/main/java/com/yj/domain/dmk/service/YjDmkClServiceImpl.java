@@ -43,14 +43,14 @@ public class YjDmkClServiceImpl implements YjDmkClService {
 
     @Override
     public List<Map<String, Object>> getFdmListByFflid(Integer fflid) {
-        String sql="SELECT t.pkid as value,t.mc as label  FROM YJ_DMK_CL t left join YJ_DMK_FL t1 on t1.DMBZ=t.DMBZ where t1.PKID="+fflid;
+        String sql="SELECT t.pkid as value,t.mc as label  FROM yj_dmk_cl t left join yj_dmk_fl t1 on t1.DMBZ=t.DMBZ where t1.PKID="+fflid;
         List<Map<String,Object>> list=context.getBean(JpaUtil.class).list(sql,null);
         return list;
     }
 
     @Override
     public Integer operateStatus(Integer[] pkids, String zt) {
-        String sql="update YJ_DMK_CL  set ZT='"+zt+"' where  "+NHCollectionUtils.buildSqlInNumber1000(pkids,"pkid") ;
+        String sql="update yj_dmk_cl  set ZT='"+zt+"' where  "+NHCollectionUtils.buildSqlInNumber1000(pkids,"pkid") ;
         context.getBean(JpaUtil.class).update(sql,null);
         return 1;
     }

@@ -18,7 +18,7 @@
     <dataSource id="yj_fldm">
         <description>分类下拉框</description>
         <sql>
-            select t.pkid as value,t.dmmc as label from YJ_DMK_FL t order by pxh
+            select t.pkid as value,t.dmmc as label from yj_dmk_fl t order by pxh
         </sql>
     </dataSource>
 

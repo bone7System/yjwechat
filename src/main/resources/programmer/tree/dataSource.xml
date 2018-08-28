@@ -5,7 +5,7 @@
         <sql>
             select  '-1'   AS  'key',  '代码库分类'   title,'0'   selectFlag,'-2'   parentKey,'1' icon,-1 as pkid,'' as fflid  from dual
             union all
-            SELECT  DMBZ AS 'key',  DMMC AS title,'1' AS selectFlag,'-1' AS parentKey,'2' AS icon,pkid,fflid  FROM YJ_DMK_FL
+            SELECT  DMBZ AS 'key',  DMMC AS title,'1' AS selectFlag,'-1' AS parentKey,'2' AS icon,pkid,fflid  FROM yj_dmk_fl
         </sql>
     </dataSource>
 </dataSources>
