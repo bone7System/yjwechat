@@ -1,19 +1,15 @@
 package com.yj.web;
 
 
-import com.yj.domain.user.model.User;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.domain.user.service.UserService;
-import com.yj.pojo.LoginCredencial;
-import com.yj.pojo.LoginResponse;
+import com.yj.pojo.login.LoginCredencial;
+import com.yj.pojo.login.LoginResponse;
 import com.yj.security.MyUserDetailsService;
 import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +20,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 

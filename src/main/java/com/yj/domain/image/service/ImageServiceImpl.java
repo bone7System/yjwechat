@@ -3,7 +3,7 @@ package com.yj.domain.image.service;
 import com.yj.domain.image.model.Image;
 import com.yj.domain.image.repository.ImageRepository;
 import com.yj.domain.user.model.UserDetail;
-import com.yj.pojo.ImageDto;
+import com.yj.pojo.image.ImageDto;
 import com.yj.pojo.ReSult;
 import com.yj.utils.DateUtils;
 import net.coobird.thumbnailator.Thumbnails;

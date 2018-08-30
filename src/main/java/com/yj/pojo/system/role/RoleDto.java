@@ -1,4 +1,4 @@
-package com.yj.pojo;
+package com.yj.pojo.system.role;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;

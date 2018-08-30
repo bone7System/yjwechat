@@ -1,4 +1,4 @@
-package com.yj.pojo;
+package com.yj.pojo.image;
 
 import io.swagger.annotations.ApiModelProperty;
 

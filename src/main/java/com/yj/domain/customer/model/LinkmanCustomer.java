@@ -1,6 +1,10 @@
 package com.yj.domain.customer.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "erp_kan2")
@@ -33,6 +37,32 @@ public class LinkmanCustomer {
 
     @Column(name = "remark")
     private String remark;
+
+    @Column(name = "createtime")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
+    private Date createTime;
+
+
+    @Column(name = "createuserid")
+    private Long createUserid;
+
+    public Long getCreateUserid() {
+        return createUserid;
+    }
+
+    public void setCreateUserid(Long createUserid) {
+        this.createUserid = createUserid;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public Long getId() {
         return id;

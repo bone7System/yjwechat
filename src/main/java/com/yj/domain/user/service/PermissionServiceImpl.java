@@ -4,7 +4,7 @@ import com.yj.domain.user.model.Permission;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.domain.user.repository.PermissionRepository;
 import com.yj.exception.YjException;
-import com.yj.pojo.PermissionDto;
+import com.yj.pojo.system.permission.PermissionDto;
 import com.yj.pojo.ReSult;
 import com.yj.utils.StringUtils;
 import org.springframework.beans.BeanUtils;

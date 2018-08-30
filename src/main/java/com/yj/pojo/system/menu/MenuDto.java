@@ -1,4 +1,4 @@
-package com.yj.pojo;
+package com.yj.pojo.system.menu;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;

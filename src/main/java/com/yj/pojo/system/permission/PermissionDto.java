@@ -1,4 +1,4 @@
-package com.yj.pojo;
+package com.yj.pojo.system.permission;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;

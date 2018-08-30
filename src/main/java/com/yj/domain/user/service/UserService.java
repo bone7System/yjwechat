@@ -3,16 +3,10 @@ package com.yj.domain.user.service;
 import com.yj.domain.user.model.User;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.pojo.ReSult;
-import com.yj.pojo.UserDto;
-import com.yj.pojo.UserSearchDto;
-import com.yj.pojo.UserUpPasswordDto;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
+import com.yj.pojo.system.user.UserDto;
+import com.yj.pojo.system.user.UserSearchDto;
+import com.yj.pojo.system.user.UserUpPasswordDto;
 import org.springframework.data.domain.Pageable;
-
-import javax.validation.Valid;
-import java.util.List;
 
 public interface UserService {
 

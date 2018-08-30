@@ -1,4 +1,4 @@
-package com.yj.pojo;
+package com.yj.pojo.login;
 
 public class LoginCredencial {
     private String userName;

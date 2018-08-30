@@ -2,7 +2,7 @@ package com.yj.web;
 
 import com.yj.domain.image.service.ImageService;
 import com.yj.domain.user.model.UserDetail;
-import com.yj.pojo.ImageDto;
+import com.yj.pojo.image.ImageDto;
 import com.yj.pojo.ReSult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

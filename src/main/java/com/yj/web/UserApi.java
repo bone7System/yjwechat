@@ -1,13 +1,12 @@
 package com.yj.web;
 
-import com.yj.domain.user.model.User;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.domain.user.service.MenuService;
 import com.yj.domain.user.service.UserService;
 import com.yj.pojo.ReSult;
-import com.yj.pojo.UserDto;
-import com.yj.pojo.UserSearchDto;
-import com.yj.pojo.UserUpPasswordDto;
+import com.yj.pojo.system.user.UserDto;
+import com.yj.pojo.system.user.UserSearchDto;
+import com.yj.pojo.system.user.UserUpPasswordDto;
 import com.yj.security.MyGrantedAuthority;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

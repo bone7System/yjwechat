@@ -1,8 +1,8 @@
 package com.yj.domain.user.service;
 
 import com.yj.domain.user.model.UserDetail;
-import com.yj.pojo.MenuDto;
-import com.yj.pojo.MenuUpdateDto;
+import com.yj.pojo.system.menu.MenuDto;
+import com.yj.pojo.system.menu.MenuUpdateDto;
 import com.yj.pojo.ReSult;
 import com.yj.security.MyGrantedAuthority;
 

@@ -1,92 +1,47 @@
-package com.yj.domain.supplier.model;
+package com.yj.pojo.supplier;
 
+import io.swagger.annotations.ApiModelProperty;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
+public class SupplierDtoU {
 
-import javax.persistence.*;
-import java.util.Date;
+    @ApiModelProperty("编号")
+    private  Long id;
 
-@Entity
-@Table(name = "erp_lfa1")
-public class Supplier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "client")
-    private Long client;
-
-    @Column(name = "type")
+    @ApiModelProperty("类别")
     private String type;
 
-    @Column(name = "name")
+    @ApiModelProperty("供应商名称")
     private String name;
 
-    @Column(name = "city")
+    @ApiModelProperty("城市")
     private String city;
 
-    @Column(name = "jlfw")
+    @ApiModelProperty("供应商名称")
     private String jlfw;
 
-    @Column(name = "product")
+    @ApiModelProperty("经营范围")
     private String product;
 
-    @Column(name = "address")
+    @ApiModelProperty("地址")
     private String address;
 
-    @Column(name = "zcbh")
+    @ApiModelProperty("注册编号")
     private String zcbh;
 
-    @Column(name = "gsxz")
+    @ApiModelProperty("公司性质")
     private String gsxz;
 
-    @Column(name = "jgdm")
+    @ApiModelProperty("组织结构代码")
     private String jgdm;
 
-    @Column(name = "dlfr")
+    @ApiModelProperty("是否是独立法人")
     private String dlfr;
 
-    @Column(name = "yyzz")
+    @ApiModelProperty("营业执照注册号")
     private String yyzz;
 
-    @Column(name = "remark")
+    @ApiModelProperty("备注")
     private String remark;
-
-    @Column(name = "flag")
-    private Long flag;
-
-    @Column(name = "createtime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss.SSS")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    private Date createTime;
-
-    @Column(name = "createuserid")
-    private Long createUserid;
-
-    public Long getFlag() {
-        return flag;
-    }
-
-    public void setFlag(Long flag) {
-        this.flag = flag;
-    }
-
-    public Long getCreateUserid() {
-        return createUserid;
-    }
-
-    public void setCreateUserid(Long createUserid) {
-        this.createUserid = createUserid;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
     public Long getId() {
         return id;
@@ -94,14 +49,6 @@ public class Supplier {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getClient() {
-        return client;
-    }
-
-    public void setClient(Long client) {
-        this.client = client;
     }
 
     public String getType() {

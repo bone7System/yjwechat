@@ -1,4 +1,4 @@
-package com.yj.pojo;
+package com.yj.pojo.login;
 
 import com.yj.domain.user.model.UserDetail;
 

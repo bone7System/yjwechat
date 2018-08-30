@@ -2,14 +2,12 @@ package com.yj.web;
 
 import com.yj.domain.image.service.ImageService;
 import com.yj.domain.user.model.UserDetail;
-import com.yj.pojo.CustomerDto;
-import com.yj.pojo.ImageDto;
+import com.yj.pojo.customer.CustomerDto;
 import com.yj.pojo.ReSult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 

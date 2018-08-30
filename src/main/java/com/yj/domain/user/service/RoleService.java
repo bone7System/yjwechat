@@ -3,11 +3,10 @@ package com.yj.domain.user.service;
 
 import com.yj.domain.user.model.Role;
 import com.yj.pojo.ReSult;
-import com.yj.pojo.RoleDto;
-import com.yj.pojo.RoleSearchDto;
+import com.yj.pojo.system.role.RoleDto;
+import com.yj.pojo.system.role.RoleSearchDto;
 import org.springframework.data.repository.query.Param;
 
-import javax.validation.Valid;
 import java.util.List;
 
 public interface RoleService {

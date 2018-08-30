@@ -2,11 +2,15 @@ package com.yj.web;
 
 import com.yj.domain.user.model.Dept;
 import com.yj.domain.user.model.Role;
-import com.yj.domain.user.model.RolePermission;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.domain.user.service.*;
 import com.yj.exception.YjException;
 import com.yj.pojo.*;
+import com.yj.pojo.system.menu.MenuDto;
+import com.yj.pojo.system.menu.MenuUpdateDto;
+import com.yj.pojo.system.permission.PermissionDto;
+import com.yj.pojo.system.role.RoleDto;
+import com.yj.pojo.system.role.RoleSearchDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +18,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 @RestController

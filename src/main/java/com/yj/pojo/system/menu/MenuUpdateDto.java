@@ -1,4 +1,4 @@
-package com.yj.pojo;
+package com.yj.pojo.system.menu;
 
 import io.swagger.annotations.ApiModelProperty;
 
