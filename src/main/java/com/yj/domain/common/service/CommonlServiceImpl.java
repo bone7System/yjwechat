@@ -115,7 +115,7 @@ public class CommonlServiceImpl implements CommonlService {
         // 如果是代码库，则直接获取默认sql语句，否则去获取设置的sql语句
         if (sign.toUpperCase().startsWith("DMK_")) {
             String fl_sign = sign.substring(4);
-            sql = "select DM as value,MC as label  from YJ_DMK_CL t where IFNULL(t.ZT,'0')='1'  and  UPPER(DMBZ)=UPPER('"+fl_sign+"')  order by t.PXH,t.DM";
+            sql = "select DM as value,MC as label  from yj_dmk_cl t where IFNULL(t.ZT,'0')='1'  and  UPPER(DMBZ)=UPPER('"+fl_sign+"')  order by t.PXH,t.DM";
         } else {
             try {
                 Map<String, Object> params = NHDataSourceXmlReader.read("select", sign);

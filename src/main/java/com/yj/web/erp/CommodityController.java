@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/commodity")
 @Api("商品数据操作相关服务API")
@@ -27,7 +29,7 @@ public class CommodityController {
     @RequestMapping(value = "/getByPkid", method = RequestMethod.GET)
     public JsonResult getByPkid(@RequestParam(value="pkid",required=true) Integer pkid) {
         try {
-            ErpCommodityPojo dto = erpCommodityService.get(pkid);
+            Map<String, Object> dto = erpCommodityService.get(pkid);
             return JsonResult.success(dto);
         } catch (Exception e) {
             logger.error(e.getMessage());

@@ -3,8 +3,20 @@
     <dataSource id="yj_background_dmk_cl">
         <description>代码常量数据</description>
         <sql>
-            select t.pkid,t.dm,t.mc,t.jc,t.pxh,t.bq,t.zt,t1.dmbz,t1.dmmc  from YJ_DMK_CL t
-            left join YJ_DMK_FL t1 on t1.dmbz=t.dmbz
+            select t.pkid,t.dm,t.mc,t.jc,t.pxh,t.bq,t.zt,t1.dmbz,t1.dmmc  from yj_dmk_cl t
+            left join yj_dmk_fl t1 on t1.dmbz=t.dmbz
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_commondity">
+        <description>进销存-商品列表</description>
+        <sql>
+            select t.id as spid,t.spbm,t.spmc,t.spms,t.splxdm,t.sppp,t.mdid,t1.id as spxqid,t1.gg,t1.dj,t1.dwdm,t2.id as spjgid,t2.bzjg,t3.mc as dw,t4.mc as splx
+            from erp_commodity t
+            left join erp_commodity_detail t1 on t1.spid=t.id
+            left join erp_commodity_price t2 on t2.spxqid=t1.id
+            left join yj_dmk_cl t3 on t3.dmbz='DW' and t3.dm=t1.dwdm
+            left join yj_dmk_cl t4 on t4.dmbz='SPLX' and t4.dm=t.splxdm
+            where t.del_flag=0
         </sql>
     </dataSource>
 </dataSources>  

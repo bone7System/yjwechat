@@ -4,6 +4,8 @@ package com.yj.domain.commondity.service;
 import com.yj.common.exception.NHDBUniqueException;
 import com.yj.pojo.commidity.ErpCommodityPojo;
 
+import java.util.Map;
+
 public interface ErpCommodityService {
 
 
@@ -11,7 +13,7 @@ public interface ErpCommodityService {
 
     Integer update(ErpCommodityPojo dto) throws Exception;
 
-    ErpCommodityPojo get(Integer pkid);
+    Map<String, Object> get(Integer pkid);
 
     Integer deleteMulti(Integer[] pkids);
 }

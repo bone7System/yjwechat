@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface ErpCommodityPriceRepository extends JpaRepository<ErpCommodityPriceEntity, Integer> {
 
     @Modifying
-    @Query("update erp_commodity_price set del_flag= ?1 where spxqid in (" +
+    @Query(value = "update erp_commodity_price set del_flag= ?1 where spxqid in (" +
             " select id from erp_commodity_detail a where a.spid in ?2" +
-            ")")
+            ")", nativeQuery = true)
     int updateDelFlag(Integer status,Integer[] ids);
 
 

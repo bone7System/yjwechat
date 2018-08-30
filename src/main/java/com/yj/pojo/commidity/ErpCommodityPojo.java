@@ -2,7 +2,7 @@ package com.yj.pojo.commidity;
 
 public class ErpCommodityPojo {
     private Integer spid;//商品ID
-    private String spbm;//商品代码
+    private String spbm;//商品编码
     private String spmc;//商品名称
     private String spms;//商品描述
     private String splxdm;//商品类型代码

@@ -63,7 +63,7 @@ public class YjDmkFlServiceImpl implements YjDmkFlService {
 
     @Override
     public List<Map<String,Object>> queryClList(String dmbz) {
-        String sql="select t.pkid,t.dm,t.mc,t.jc,t.pxh,t.bq,t.zt,t.fid,t1.dmbz,t1.dmmc ,t3.mc as fmc from YJ_DMK_CL t left join YJ_DMK_FL t1 on t1.dmbz=t.dmbz left join YJ_DMK_FL t2 on t2.pkid=t1.fflid  left join YJ_DMK_CL t3 on t3.dmbz=t2.dmbz and t3.pkid=t.fid where t.dmbz='"+dmbz+"' ";
+        String sql="select t.pkid,t.dm,t.mc,t.jc,t.pxh,t.bq,t.zt,t.fid,t1.dmbz,t1.dmmc ,t3.mc as fmc from yj_dmk_cl t left join yj_dmk_fl t1 on t1.dmbz=t.dmbz left join yj_dmk_fl t2 on t2.pkid=t1.fflid  left join yj_dmk_cl t3 on t3.dmbz=t2.dmbz and t3.pkid=t.fid where t.dmbz='"+dmbz+"' ";
         List<Map<String,Object>> list=context.getBean(JpaUtil.class).list(sql,null);
         return list;
     }

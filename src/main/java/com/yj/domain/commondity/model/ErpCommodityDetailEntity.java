@@ -15,6 +15,7 @@ public class ErpCommodityDetailEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -49,7 +50,7 @@ public class ErpCommodityDetailEntity {
         return spid;
     }
 
-    public void setSpid(Integer dwdm) {
+    public void setSpid(Integer spid) {
         this.spid = spid;
     }
 
