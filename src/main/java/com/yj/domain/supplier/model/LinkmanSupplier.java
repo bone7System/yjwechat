@@ -44,7 +44,7 @@ public class LinkmanSupplier {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date createTime;
 
-    @Column(name = "createuserid")
+    @Column(name = "createuser")
     private Long createUserid;
 
 

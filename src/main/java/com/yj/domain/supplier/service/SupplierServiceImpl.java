@@ -47,7 +47,7 @@ public class SupplierServiceImpl implements SupplierService {
         if(supplier==null){
             throw  new YjException("供应商编号错误");
         }
-        if(supplier.getClient()!=user.getClient()){
+        if(supplier.getClient().intValue()!=user.getClient().intValue()){
             throw  new YjException("客户端错误");
         }
         BeanUtils.copyProperties(supplierDtoU,supplier);
@@ -68,21 +68,21 @@ public class SupplierServiceImpl implements SupplierService {
                 List<Predicate> predicates = Lists.newArrayList();
                 //client 是必须的
                 predicates.add(cb.equal(root.get("client"),user.getClient()));
-
+                predicates.add(cb.gt(root.get("flag"),-1));
                 if(!StringUtils.isEmpty(dto.getName())){
-                    predicates.add(cb.like(root.get("name"),dto.getName()));
+                    predicates.add(cb.like(root.get("name"),"%"+dto.getName()+"%"));
 
                 }
                 if(!StringUtils.isEmpty(dto.getAddress())){
-                    predicates.add(cb.like(root.get("address"),dto.getAddress()));
+                    predicates.add(cb.like(root.get("address"),"%"+dto.getAddress()+"%"));
 
                 }
                 if(!StringUtils.isEmpty(dto.getCity())){
-                    predicates.add(cb.like(root.get("city"),dto.getCity()));
+                    predicates.add(cb.like(root.get("city"),"%"+dto.getCity()+"%"));
 
                 }
                 if(!StringUtils.isEmpty(dto.getJlfw())){
-                    predicates.add(cb.like(root.get("jlfw"),dto.getJlfw()));
+                    predicates.add(cb.like(root.get("jlfw"),"%"+dto.getJlfw()+"%"));
 
                 }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getGroupRestriction();
@@ -99,7 +99,7 @@ public class SupplierServiceImpl implements SupplierService {
         if(supplier==null){
             throw  new YjException("供应商编号错误");
         }
-        if(supplier.getClient()!=user.getClient()){
+        if(supplier.getClient().intValue()!=user.getClient().intValue()){
             throw  new YjException("客户端错误");
         }
 

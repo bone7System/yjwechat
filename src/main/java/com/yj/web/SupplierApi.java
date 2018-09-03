@@ -28,7 +28,6 @@ public class SupplierApi {
         return supplierService.addSupplier(supplierDtoC,user);
     }
 
-
     @ApiOperation(value = "/supplier/update", nickname = "修改供应商", notes = "修改供应商")
     @RequestMapping(value = "/supplier/update", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'supplier:update')")
@@ -37,7 +36,7 @@ public class SupplierApi {
     }
 
     @ApiOperation(value = "/supplier/search", nickname = "查询供应商", notes = "查询供应商")
-    @RequestMapping(value = "/supplier/search", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/supplier/search", method = RequestMethod.GET, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'supplier:search')")
     ReSult searchRole(SupplierDtoS supplierDtoS, @SessionAttribute("user") UserDetail user, Pageable pageable) throws YjException {
         return supplierService.searchSupplier(supplierDtoS,user,pageable);
@@ -45,7 +44,7 @@ public class SupplierApi {
 
     @ApiOperation(value = "/supplier/delete", nickname = "删除供应商", notes = "删除供应商")
     @RequestMapping(value = "/supplier/delete", method = RequestMethod.POST, produces = {"application/json"})
-    @PreAuthorize("hasPermission('', 'supplier:update')")
+    @PreAuthorize("hasPermission('', 'supplier:delete')")
     ReSult searchRole(Long id, @SessionAttribute("user") UserDetail user ) throws YjException {
         return supplierService.deleteSupplier(id,user);
     }

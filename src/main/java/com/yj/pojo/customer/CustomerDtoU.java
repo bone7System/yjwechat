@@ -2,19 +2,20 @@ package com.yj.pojo.customer;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
-public class CustomerDto {
+public class CustomerDtoU {
 
     @ApiModelProperty("id")
     private Long id;
+
+    @NotNull
     @ApiModelProperty("类型")
     private String type;
-    @ApiModelProperty("姓名")
+    @NotNull
+    @ApiModelProperty("名称")
     private String name;
+    @NotNull
     @ApiModelProperty("地址")
     private String address;
     @ApiModelProperty("客户负责人")
@@ -29,16 +30,12 @@ public class CustomerDto {
     private String fhaddr;
     @ApiModelProperty("发货方式")
     private String fhfs;
-
     @ApiModelProperty("接收人")
     private String goodsman;
-
     @ApiModelProperty("接收人电话")
     private String goodsphone;
-
     @ApiModelProperty("邮编")
     private String yb;
-
     @ApiModelProperty("备注")
     private String remark;
 

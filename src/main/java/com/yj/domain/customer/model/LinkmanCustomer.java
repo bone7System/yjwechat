@@ -45,7 +45,7 @@ public class LinkmanCustomer {
     private Date createTime;
 
 
-    @Column(name = "createuserid")
+    @Column(name = "createuser")
     private Long createUserid;
 
     public Long getCreateUserid() {

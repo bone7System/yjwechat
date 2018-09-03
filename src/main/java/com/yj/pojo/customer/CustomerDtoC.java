@@ -1,103 +1,40 @@
-package com.yj.domain.customer.model;
+package com.yj.pojo.customer;
 
+import io.swagger.annotations.ApiModelProperty;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.NotNull;
 
-import javax.persistence.*;
-import java.util.Date;
+public class CustomerDtoC {
 
-@Entity
-@Table(name = "erp_kan1")
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "client")
-    private Long client;
-    @Column(name = "type")
+    @NotNull
+    @ApiModelProperty("类型")
     private String type;
-    @Column(name = "name")
+    @NotNull
+    @ApiModelProperty("名称")
     private String name;
-    @Column(name = "address")
+    @NotNull
+    @ApiModelProperty("地址")
     private String address;
-    @Column(name = "khfzr")
+    @ApiModelProperty("客户负责人")
     private String khfzr;
-    @Column(name = "khphone")
+    @ApiModelProperty("客户负责人电话")
     private String khphone;
-    @Column(name = "ywfzr")
+    @ApiModelProperty("业务负责人")
     private String ywfzr;
-    @Column(name = "ywphone")
+    @ApiModelProperty("业务负责人电话")
     private String ywphone;
-    @Column(name = "fhaddr")
+    @ApiModelProperty("发货地址")
     private String fhaddr;
-
-    @Column(name = "fhfs")
+    @ApiModelProperty("发货方式")
     private String fhfs;
-
-    @Column(name = "goodsman")
+    @ApiModelProperty("接收人")
     private String goodsman;
-
-    @Column(name = "goodsphone")
+    @ApiModelProperty("接收人电话")
     private String goodsphone;
-
-    @Column(name = "yb")
+    @ApiModelProperty("邮编")
     private String yb;
-
-    @Column(name = "remark")
+    @ApiModelProperty("备注")
     private String remark;
-
-    @Column(name = "createtime")
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    private Date createTime;
-
-    @Column(name = "createuser")
-    private Long createUserid;
-
-    @Column(name = "flag")
-    private Long flag;
-
-    public Long getFlag() {
-        return flag;
-    }
-
-    public void setFlag(Long flag) {
-        this.flag = flag;
-    }
-
-    public Long getCreateUserid() {
-        return createUserid;
-    }
-
-    public void setCreateUserid(Long createUserid) {
-        this.createUserid = createUserid;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getClient() {
-        return client;
-    }
-
-    public void setClient(Long client) {
-        this.client = client;
-    }
 
     public String getType() {
         return type;
