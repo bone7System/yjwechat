@@ -2,12 +2,10 @@ package com.yj.pojo.commidity;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ErpCommodityPojo {
+public class ErpCommodityU {
 
     @ApiModelProperty(value = "商品ID")
     private Integer spid;
-    @ApiModelProperty(value = "商品编码")
-    private String spbm;
     @ApiModelProperty(value = "商品名称")
     private String spmc;
     @ApiModelProperty(value = "商品描述")
@@ -23,20 +21,13 @@ public class ErpCommodityPojo {
     @ApiModelProperty(value = "单位代码")
     private String dwdm;
 
+
     public Integer getSpid() {
         return spid;
     }
 
     public void setSpid(Integer spid) {
         this.spid = spid;
-    }
-
-    public String getSpbm() {
-        return spbm;
-    }
-
-    public void setSpbm(String spbm) {
-        this.spbm = spbm;
     }
 
     public String getSpmc() {
@@ -70,8 +61,6 @@ public class ErpCommodityPojo {
     public void setSppp(String sppp) {
         this.sppp = sppp;
     }
-
-
 
     public String getGg() {
         return gg;

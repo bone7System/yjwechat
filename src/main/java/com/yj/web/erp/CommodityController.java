@@ -2,7 +2,9 @@ package com.yj.web.erp;
 
 import com.yj.common.json.JsonResult;
 import com.yj.domain.commondity.service.ErpCommodityService;
+import com.yj.domain.user.model.UserDetail;
 import com.yj.pojo.commidity.ErpCommodityPojo;
+import com.yj.pojo.commidity.ErpCommodityU;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -40,9 +42,9 @@ public class CommodityController {
     @ApiOperation(value = "插入一个商品", notes = "插入一个商品")
     @ApiImplicitParam(paramType = "body", name = "ErpCommodityPojo", value = "一条数据", required = true, dataType = "ErpCommodityPojo")
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public JsonResult insert(@RequestBody ErpCommodityPojo dto) {
+    public JsonResult insert(@RequestBody ErpCommodityPojo dto, @SessionAttribute("user") UserDetail user) {
         try {
-            Integer rs = erpCommodityService.insert(dto);
+            Integer rs = erpCommodityService.insert(dto,user);
             return JsonResult.success(rs);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -53,9 +55,9 @@ public class CommodityController {
     @ApiOperation(value = "修改一个商品", notes = "修改入一个商品")
     @ApiImplicitParam(paramType = "body", name = "ErpCommodityPojo", value = "一条数据", required = true, dataType = "ErpCommodityPojo")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public JsonResult update(@RequestBody ErpCommodityPojo dto) {
+    public JsonResult update(@RequestBody ErpCommodityU dto, @SessionAttribute("user") UserDetail user) {
         try {
-            Integer rs = erpCommodityService.update(dto);
+            Integer rs = erpCommodityService.update(dto,user);
             return JsonResult.success(rs);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -66,9 +68,9 @@ public class CommodityController {
     @ApiOperation("根据主键删除信息")
     @ApiImplicitParam(paramType = "body", name = "params", value = "主键数组")
     @RequestMapping(value = "/deleteMulti", method = RequestMethod.POST)
-    public JsonResult delete(@RequestBody Integer[] pkids) {
+    public JsonResult delete(@RequestBody Integer[] pkids,Boolean isDelete) {
         try {
-            Integer rs = erpCommodityService.deleteMulti(pkids);
+            Integer rs = erpCommodityService.deleteMulti(pkids,isDelete);
             return JsonResult.success(rs);
         } catch (Exception e) {
             logger.error(e.getMessage());

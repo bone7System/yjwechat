@@ -7,13 +7,58 @@ import java.util.Objects;
 @Table(name = "erp_commodity", schema = "yj", catalog = "")
 public class ErpCommodityEntity {
     private Integer id;
-    private String spbm;
-    private String spmc;
-    private String spms;
-    private String splxdm;
-    private String sppp;
-    private Integer mdid;
+    private Long client;
+    private String spbm;//商品编号
+    private String spmc;//名称
+    private String spms;//描述
+    private String splxdm;//商品类型
+    private String sppp;//品牌
+    private String gg;//规格
+    private String dj;//等级
+    private String dwdm;//单位
+    private float kbetr;//移动平均价
     private Integer delFlag;
+
+
+    public Long getClient() {
+        return client;
+    }
+
+    public void setClient(Long client) {
+        this.client = client;
+    }
+
+    public String getGg() {
+        return gg;
+    }
+
+    public void setGg(String gg) {
+        this.gg = gg;
+    }
+
+    public String getDj() {
+        return dj;
+    }
+
+    public void setDj(String dj) {
+        this.dj = dj;
+    }
+
+    public String getDwdm() {
+        return dwdm;
+    }
+
+    public void setDwdm(String dwdm) {
+        this.dwdm = dwdm;
+    }
+
+    public float getKbetr() {
+        return kbetr;
+    }
+
+    public void setKbetr(float kbetr) {
+        this.kbetr = kbetr;
+    }
 
     @Id
     @Column(name = "id")
@@ -66,15 +111,6 @@ public class ErpCommodityEntity {
         this.splxdm = splxdm;
     }
 
-    @Basic
-    @Column(name = "mdid")
-    public Integer getMdid() {
-        return mdid;
-    }
-
-    public void setMdid(Integer mdid) {
-        this.mdid = mdid;
-    }
 
     @Basic
     @Column(name = "sppp")
@@ -107,8 +143,6 @@ public class ErpCommodityEntity {
                 Objects.equals(spmc, that.spmc) &&
                 Objects.equals(spms, that.spms) &&
                 Objects.equals(splxdm, that.splxdm) &&
-                Objects.equals(sppp, that.sppp) &&
-                Objects.equals(mdid, that.mdid) &&
                 Objects.equals(delFlag, that.delFlag);
     }
 
@@ -121,7 +155,6 @@ public class ErpCommodityEntity {
         result = 31 * result + Objects.hashCode(spms);
         result = 31 * result + Objects.hashCode(splxdm);
         result = 31 * result + Objects.hashCode(sppp);
-        result = 31 * result + Objects.hashCode(mdid);
         result = 31 * result + Objects.hashCode(delFlag);
         return result;
     }

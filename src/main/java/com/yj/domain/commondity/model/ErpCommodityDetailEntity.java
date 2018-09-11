@@ -11,6 +11,7 @@ public class ErpCommodityDetailEntity {
     private String dj;
     private String dwdm;
     private Integer spid;
+    private Float count;//数量
     private Integer delFlag;
 
     @Id
@@ -90,5 +91,13 @@ public class ErpCommodityDetailEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, gg, dj, dwdm , spid , delFlag);
+    }
+
+    public Float getCount() {
+        return count;
+    }
+
+    public void setCount(Float count) {
+        this.count = count;
     }
 }
