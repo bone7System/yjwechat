@@ -22,9 +22,10 @@
     <dataSource id="yj_erp_menu">
         <description>进销存-菜单管理</description>
         <sql>
-            SELECT t.id,t.title,t.url,t.icon,t.parentId,t.isDirectory,t.sort,t.`status`,t.createTime,t.path ,t1.title as parent_title
+            SELECT t.id,t.title,t.url,t.icon,t.parentId,t.isDirectory,t.sort,t.del_flag,t.createTime,t.path ,t1.title as parent_title
             FROM erp_menu t
             left join erp_menu t1 on t.parentId=t1.id
+            where ifnull(t.del_flag,0)!=-1
         </sql>
     </dataSource>
     <dataSource id="yj_erp_permission">

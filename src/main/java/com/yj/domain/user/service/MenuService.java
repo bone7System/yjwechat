@@ -1,5 +1,6 @@
 package com.yj.domain.user.service;
 
+import com.yj.domain.user.model.Menu;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.pojo.system.menu.MenuDto;
 import com.yj.pojo.system.menu.MenuUpdateDto;
@@ -7,6 +8,7 @@ import com.yj.pojo.ReSult;
 import com.yj.security.MyGrantedAuthority;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface MenuService {
@@ -18,4 +20,7 @@ public interface MenuService {
 
     ReSult searchUserMenu(List<MyGrantedAuthority> list);
 
+    ReSult getById(Long id);
+
+    ReSult deleteById(Long id);
 }

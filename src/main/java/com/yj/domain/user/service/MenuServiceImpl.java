@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +35,7 @@ public class MenuServiceImpl implements  MenuService{
         ps.setCreateTime(new Date());
         menuRepository.saveAndFlush(ps);
         ps.setPath("/"+ps.getId());
-        ps.setStauts(1L);
+        ps.setDelFlag(1L);
         if(ps.getParentId()!=null){
             Menu menu=  menuRepository.getOne(ps.getParentId());
             ps.setPath(menu.getPath()+"/"+ps.getId());
@@ -83,6 +80,20 @@ public class MenuServiceImpl implements  MenuService{
             }
         }
         return ReSult.error(500L,"未定义菜单");
+    }
+
+    @Override
+    public ReSult getById(Long id) {
+        Optional<Menu> po = menuRepository.findById(id);
+        return ReSult.success(po);
+    }
+
+    @Override
+    public ReSult deleteById(Long id) {
+        Optional<Menu> po = menuRepository.findById(id);
+        po.get().setDelFlag(-1L);
+        menuRepository.save(po.get());
+        return ReSult.success();
     }
 
     private ReSult menuList(List<Menu> newMenu) {
