@@ -5,9 +5,7 @@ import com.yj.domain.image.service.ImageService;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
-import com.yj.pojo.customer.CustomerDtoC;
-import com.yj.pojo.customer.CustomerDtoS;
-import com.yj.pojo.customer.CustomerDtoU;
+import com.yj.pojo.customer.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +37,47 @@ public class CustomerApi {
     }
 
     @ApiOperation(value = "/customer/search", nickname = "查询客户", notes = "查询客户")
-    @RequestMapping(value = "/customer/search", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/customer/search", method = RequestMethod.GET, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'customer:search')")
-    ReSult addCustomer(@RequestBody  @Valid CustomerDtoS dto, @SessionAttribute("user") UserDetail user, Pageable pageable) throws IOException, YjException {
+    ReSult addCustomer(@RequestBody   CustomerDtoS dto, @SessionAttribute("user") UserDetail user, Pageable pageable) throws IOException, YjException {
         return customerService.searchCustomer(dto,user,pageable);
     }
 
     @ApiOperation(value = "/customer/delete", nickname = "删除客户", notes = "删除客户")
     @RequestMapping(value = "/customer/delete", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'customer:delete')")
-    ReSult searchRole(Long id, @SessionAttribute("user") UserDetail user ) throws YjException {
+    ReSult searchCustomer(Long id, @SessionAttribute("user") UserDetail user ) throws YjException {
         return customerService.deleteCustomer(id,user);
+    }
+
+    @ApiOperation(value = "/customer-linkman/add", nickname = "添加客户联系人", notes = "添加客户联系人")
+    @RequestMapping(value = "/customer-linkman/add", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'customer:add')")
+    ReSult addCustomerLinkMan(@RequestBody @Valid CustomerLinkManDtoC dto, @SessionAttribute("user") UserDetail user) throws IOException {
+        return customerService.addCustomerLinkMan(dto,user);
+    }
+
+    @ApiOperation(value = "/customer-linkman/update", nickname = "添加客户联系人", notes = "添加客户联系人")
+    @RequestMapping(value = "/customer-linkman/update", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'customer:update')")
+    ReSult updateCustomerLinkMan(@RequestBody CustomerLinkManDtoU dto, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        return customerService.updateCustomerLinkMan(dto,user);
+    }
+
+
+    @ApiOperation(value = "/customer-linkman/search", nickname = "查询客户联系人", notes = "查询客户联系人")
+    @RequestMapping(value = "/customer-linkman/search", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'customer:search')")
+    ReSult searchCustomerLinkMan(Long khbh, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        return customerService.searchCustomerLinkMan(khbh,user);
+    }
+
+
+    @ApiOperation(value = "/customer-linkman/delete", nickname = "删除客户联系人", notes = "删除客户联系人")
+    @RequestMapping(value = "/customer-linkman/delete", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'customer:delete')")
+    ReSult deleteLinkManCustomer(Long id, @SessionAttribute("user") UserDetail user ) throws YjException {
+        return customerService.deleteLinkManCustomer(id,user);
     }
 
 }

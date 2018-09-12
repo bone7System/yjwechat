@@ -113,6 +113,7 @@ public class UserServiceImpl implements UserService {
             @Nullable
             @Override
             public Predicate toPredicate(Root<UserDetail> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                //Root<User> user= query.from(User.class);
                 List<Predicate> predicates = Lists.newArrayList();
                 //client 是必须的
                  predicates.add(cb.equal(root.get("client"),dto.getClient()));

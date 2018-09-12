@@ -2,15 +2,16 @@ package com.yj.domain.customer.service;
 
 import com.google.common.collect.Lists;
 import com.yj.domain.customer.model.Customer;
+import com.yj.domain.customer.model.LinkmanCustomer;
 import com.yj.domain.customer.repository.CustomerRepository;
+import com.yj.domain.customer.repository.LinkmanCustomerRepository;
 import com.yj.domain.supplier.model.Supplier;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
-import com.yj.pojo.customer.CustomerDtoC;
-import com.yj.pojo.customer.CustomerDtoS;
-import com.yj.pojo.customer.CustomerDtoU;
+import com.yj.pojo.customer.*;
 import com.yj.utils.StringUtils;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,6 +34,8 @@ import java.util.List;
 public class CustomerServiceImpl implements  CustomerService{
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private LinkmanCustomerRepository linkmanCustomerRepository;
     @Override
     public ReSult addCustomer(CustomerDtoC dto, UserDetail user) {
         Customer customer = new Customer();
@@ -101,6 +104,54 @@ public class CustomerServiceImpl implements  CustomerService{
         }
         customer.setFlag(-1L);
         customerRepository.save(customer);
+        return ReSult.success();
+    }
+
+    @Override
+    public ReSult addCustomerLinkMan(CustomerLinkManDtoC dto, UserDetail user) {
+        LinkmanCustomer customer = new LinkmanCustomer();
+        BeanUtils.copyProperties(dto,customer);
+        customer.setCreateTime(new Date());
+        customer.setClient(user.getClient());
+        customer.setCreateUserid(user.getId());
+        linkmanCustomerRepository.save(customer);
+
+        return ReSult.success();
+    }
+
+    @Override
+    public ReSult updateCustomerLinkMan(CustomerLinkManDtoU dto, UserDetail user) throws YjException {
+
+      LinkmanCustomer customer=
+              linkmanCustomerRepository.getOne(dto.getId());
+        if(customer==null){
+            throw  new YjException("联系人编号错误");
+        }
+        if(customer.getClient().intValue()!=user.getClient().intValue()){
+            throw  new YjException("客户端错误");
+        }
+        BeanUtils.copyProperties(dto,customer,StringUtils.getNullPropertyNames(dto));
+        linkmanCustomerRepository.save(customer);
+        return ReSult.success();
+    }
+
+    @Override
+    public ReSult searchCustomerLinkMan(Long khbh, UserDetail user) {
+       List list= linkmanCustomerRepository.findByKaidAndClientOrderByCreateTimeAsc(khbh,user.getClient());
+
+        return ReSult.success(list);
+    }
+
+    @Override
+    public ReSult deleteLinkManCustomer(Long id, UserDetail user) throws YjException {
+       LinkmanCustomer customer= linkmanCustomerRepository.getOne(id);
+        if(customer==null){
+            throw  new YjException("联系人编号错误");
+        }
+        if(customer.getClient().intValue()!=user.getClient().intValue()){
+            throw  new YjException("客户端错误");
+        }
+        linkmanCustomerRepository.delete(customer);
         return ReSult.success();
     }
 

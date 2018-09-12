@@ -55,7 +55,7 @@ public class DeptServiceImpl implements DeptService {
         //设置path路径
         dept.setPath("/"+dept.getId());
         deptRepository.save(dept);
-        
+
 
         //创建老板
         User login = new User();
@@ -92,7 +92,6 @@ public class DeptServiceImpl implements DeptService {
     public   ReSult  addNewDept(Dept dept, UserDetail user){
 
         dept.setClient(user.getClient());
-        dept.setIsSystem(1L);//系统注册
         dept.setCreateTime(new Date());
         dept.setCreateUser(user.getId());
 

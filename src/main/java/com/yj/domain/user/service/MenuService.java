@@ -16,6 +16,6 @@ public interface MenuService {
 
     ReSult getMenu();
 
-    ReSult searchUserMenu(List<MyGrantedAuthority> list, UserDetail userDetail);
+    ReSult searchUserMenu(List<MyGrantedAuthority> list);
 
 }

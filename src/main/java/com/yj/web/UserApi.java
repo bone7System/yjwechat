@@ -68,6 +68,6 @@ public class UserApi {
         SecurityContext context=SecurityContextHolder.getContext();
         Authentication au= context.getAuthentication();
         List<MyGrantedAuthority> list= (List<MyGrantedAuthority>) au.getAuthorities();
-        return menuService.searchUserMenu(list,userDetail);
+        return menuService.searchUserMenu(list);
     }
 }

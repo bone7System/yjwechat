@@ -1,10 +1,14 @@
 package com.yj.web;
 
 
+import com.yj.domain.user.model.Menu;
 import com.yj.domain.user.model.UserDetail;
+import com.yj.domain.user.service.MenuService;
 import com.yj.domain.user.service.UserService;
+import com.yj.pojo.ReSult;
 import com.yj.pojo.login.LoginCredencial;
 import com.yj.pojo.login.LoginResponse;
+import com.yj.security.MyGrantedAuthority;
 import com.yj.security.MyUserDetailsService;
 import io.swagger.annotations.Api;
 
@@ -32,8 +36,8 @@ public class LoginApi {
 
     @Autowired
     private UserService userService;
-
-
+    @Autowired
+    private MenuService menuService;
 
     @ApiOperation(value = "/wechat/login", nickname = "微信端登陆", notes = "微信端登陆")
     @RequestMapping(value = "/wechat/login", method = RequestMethod.POST, produces = {"application/json"})
@@ -50,11 +54,18 @@ public class LoginApi {
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(RequestContextHolder.currentRequestAttributes().getSessionId());
-        MyUserDetailsService.MyUserDetail detail= (MyUserDetailsService.MyUserDetail) authentication.getPrincipal();
+        MyUserDetailsService.MyUserDetail detail=
+                (MyUserDetailsService.MyUserDetail) authentication.getPrincipal();
+        //权限
+        List<MyGrantedAuthority> list= (List<MyGrantedAuthority>) authentication.getAuthorities();
 
         UserDetail user= userService.findByUserId(detail.getUserId());
         session.setAttribute("user", user);
         session.setAttribute("userName",credencial.getUserName());
+
+        ReSult reSult= menuService.searchUserMenu(list);
+        loginResponse.setMens((List<Menu>) reSult.getData());
+        session.setAttribute("menus",reSult.getData());
         loginResponse.setUser(user);
         return loginResponse;
     }

@@ -1,14 +1,15 @@
 package com.yj.domain.supplier.service;
 
 import com.google.common.collect.Lists;
+import com.yj.domain.customer.model.LinkmanCustomer;
+import com.yj.domain.supplier.model.LinkmanSupplier;
 import com.yj.domain.supplier.model.Supplier;
+import com.yj.domain.supplier.repository.LinkmanSupplierRepository;
 import com.yj.domain.supplier.repository.SupplierRepository;
 import com.yj.domain.user.model.UserDetail;
 import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
-import com.yj.pojo.supplier.SupplierDtoC;
-import com.yj.pojo.supplier.SupplierDtoS;
-import com.yj.pojo.supplier.SupplierDtoU;
+import com.yj.pojo.supplier.*;
 import com.yj.utils.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ import java.util.List;
 public class SupplierServiceImpl implements SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;
+    @Autowired
+    private LinkmanSupplierRepository linkmanSupplierRepository;
     @Override
     public ReSult addSupplier(SupplierDtoC supplierDtoC, UserDetail user) {
         Supplier supplier = new Supplier();
@@ -105,6 +108,55 @@ public class SupplierServiceImpl implements SupplierService {
 
         supplier.setFlag(-1L);
         supplierRepository.save(supplier);
+        return ReSult.success();
+    }
+
+    @Override
+    public ReSult addSpplierSpplier(SupplierLinkManDtoC dto, UserDetail user) {
+
+        LinkmanSupplier lifnr = new LinkmanSupplier();
+        BeanUtils.copyProperties(dto,lifnr);
+        lifnr.setCreateTime(new Date());
+        lifnr.setClient(user.getClient());
+        lifnr.setCreateUserid(user.getId());
+        linkmanSupplierRepository.save(lifnr);
+
+        return ReSult.success();
+    }
+
+    @Override
+    public ReSult updateCustomerSpplier(SupplierLinkManDtoU dto, UserDetail user) throws YjException {
+        LinkmanSupplier lifnr=
+                linkmanSupplierRepository.getOne(dto.getId());
+        if(lifnr==null){
+            throw  new YjException("联系人编号错误");
+        }
+        if(lifnr.getClient().intValue()!=user.getClient().intValue()){
+            throw  new YjException("客户端错误");
+        }
+        BeanUtils.copyProperties(dto,lifnr,StringUtils.getNullPropertyNames(dto));
+        linkmanSupplierRepository.save(lifnr);
+        return ReSult.success();
+    }
+
+    @Override
+    public ReSult searchCustomerSpplier(Long khbh, UserDetail user) {
+        List list= linkmanSupplierRepository.findByLfidAndClientOrderByCreateTimeAsc(khbh,user.getClient());
+
+        return ReSult.success(list);
+    }
+
+    @Override
+    public ReSult deleteLinkManSpplier(Long id, UserDetail user) throws YjException {
+
+        LinkmanSupplier customer= linkmanSupplierRepository.getOne(id);
+        if(customer==null){
+            throw  new YjException("联系人编号错误");
+        }
+        if(customer.getClient().intValue()!=user.getClient().intValue()){
+            throw  new YjException("客户端错误");
+        }
+        linkmanSupplierRepository.delete(customer);
         return ReSult.success();
     }
 }

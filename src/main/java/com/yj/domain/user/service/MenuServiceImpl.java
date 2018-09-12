@@ -68,7 +68,7 @@ public class MenuServiceImpl implements  MenuService{
     }
 
     @Override
-    public ReSult searchUserMenu(List<MyGrantedAuthority> list, UserDetail userDetail) {
+    public ReSult searchUserMenu(List<MyGrantedAuthority> list) {
         if(list!=null&&list.size()>0){
             MyGrantedAuthority ma=list.get(0);
             List<Permission> pms= permissionRepository.findByPermissionIn(ma.getPermissions());
