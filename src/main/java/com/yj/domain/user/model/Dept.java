@@ -31,6 +31,16 @@ public class Dept implements Serializable {
     private Date createTime;
     @Column(name = "createuser")
     private Long createUser;
+    @Column(name = "path")
+    private String path;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public Long getStatus() {
         return status;

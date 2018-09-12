@@ -29,6 +29,13 @@ public class DeptServiceImpl implements DeptService {
     RoleRepository roleRepository;
     @Autowired
     UserRoleRepository userRoleRepository;
+
+    /**
+     * 超级管理员添加门店
+     * @param dept
+     * @param user
+     * @return
+     */
     @Override
     public synchronized  ReSult  addDept(Dept dept, UserDetail user) {
         //生成client客户端
@@ -41,8 +48,14 @@ public class DeptServiceImpl implements DeptService {
         dept.setIsSystem(1L);//系统注册
         dept.setCreateTime(new Date());
         dept.setCreateUser(user.getId());
+
         //创建门店
-        deptRepository.saveAndFlush(dept);
+        deptRepository.save(dept);
+
+        //设置path路径
+        dept.setPath("/"+dept.getId());
+        deptRepository.save(dept);
+        
 
         //创建老板
         User login = new User();
@@ -68,6 +81,34 @@ public class DeptServiceImpl implements DeptService {
         userRoleRepository.save(ur);
 
         return ReSult.success(login);
+    }
+
+    /**
+     * 门店人员添加部门
+     * @param dept
+     * @param user
+     * @return
+     */
+    public   ReSult  addNewDept(Dept dept, UserDetail user){
+
+        dept.setClient(user.getClient());
+        dept.setIsSystem(1L);//系统注册
+        dept.setCreateTime(new Date());
+        dept.setCreateUser(user.getId());
+
+        Long pid = dept.getParentId();
+
+        //创建部门
+        deptRepository.save(dept);
+
+        Dept pdept= deptRepository.getOne(pid);
+        //设置path路径
+        dept.setPath(pdept.getPath()+"/"+dept.getId());
+
+        deptRepository.save(dept);
+
+        return ReSult.success();
+
     }
 
     @Override
