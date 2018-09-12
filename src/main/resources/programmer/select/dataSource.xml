@@ -21,7 +21,28 @@
             select t.pkid as value,t.dmmc as label from yj_dmk_fl t order by pxh
         </sql>
     </dataSource>
-
-
-    
+    <dataSource id="yj_menu_directory">
+        <description>分类下拉框</description>
+        <sql>
+            SELECT t.id as value,t.title as label FROM erp_menu t where t.isDirectory='0'
+        </sql>
+    </dataSource>
+    <dataSource id="yj_menu">
+        <description>所有的菜单</description>
+        <sql>
+            SELECT t.id as value,t.title as label FROM erp_menu t
+        </sql>
+    </dataSource>
+    <dataSource id="yj_perssion">
+        <description>所有的权限</description>
+        <sql>
+            SELECT t.id as value,t.permission as label FROM erp_permission t
+        </sql>
+    </dataSource>
+    <dataSource id="yj_dept">
+        <description>当前用户的部门信息</description>
+        <sql>
+            SELECT t.id as value,t.deptname as label,t.path FROM erp_dept t where IFNULL(t.`status`,0)=0
+        </sql>
+    </dataSource>
 </dataSources>  

@@ -110,7 +110,7 @@ public class CommonlServiceImpl implements CommonlService {
     }
 
     @Override
-    public List<Map<String, Object>> selectDataList(String sign) throws Exception {
+    public List<Map<String, Object>> selectDataList(String sign, Map<String, Object> params, Map<String, Object> sqlParams) throws Exception {
         String sql = "";
         // 如果是代码库，则直接获取默认sql语句，否则去获取设置的sql语句
         if (sign.toUpperCase().startsWith("DMK_")) {
@@ -118,11 +118,15 @@ public class CommonlServiceImpl implements CommonlService {
             sql = "select DM as value,MC as label  from yj_dmk_cl t where IFNULL(t.ZT,'0')='1'  and  UPPER(DMBZ)=UPPER('"+fl_sign+"')  order by t.PXH,t.DM";
         } else {
             try {
-                Map<String, Object> params = NHDataSourceXmlReader.read("select", sign);
-                sql = (String) params.get("sql");
+                Map<String, Object> map = NHDataSourceXmlReader.read("select", sign);
+                sql = (String) map.get("sql");
             } catch (Exception e1) {
                 throw new Exception("列表未获取到对应的查询语句，请联系管理员！");
             }
+        }
+        sql=NHSqlUtils.buildSqlParams(sql,sqlParams);
+        if(params!=null){
+            sql="select * from ("+sql+") aa where 1=1 "+NHSqlUtils.buildSearchSql(params);
         }
         try {
             List<Map<String, Object>> resultList = context.getBean(JpaUtil.class).list(sql,null);
