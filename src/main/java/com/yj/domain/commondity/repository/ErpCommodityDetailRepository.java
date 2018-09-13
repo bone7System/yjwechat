@@ -19,5 +19,5 @@ public interface ErpCommodityDetailRepository extends JpaRepository<ErpCommodity
      * @param count
      * @return
      */
-    List<ErpCommodityDetailEntity> findBySpidAndCountGgGreaterThan(Integer id,Float count);
+    List<ErpCommodityDetailEntity> findBySpidAndCountGreaterThan(Integer id,Float count);
 }

@@ -1,52 +1,33 @@
-package com.yj.domain.purchase.model;
+package com.yj.pojo.purchase;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "erp_purchase")
-public class Purchase {
+public class PurchaseDtoU {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty("id")
     private Long id;
-    @Column(name = "client")
-    private Long client;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    @Column
+    @ApiModelProperty("签单日期")
     private Date qdrq;
-    @Column
+    @ApiModelProperty("来源单据")
     private String ydlx;
-    @Column
+    @ApiModelProperty("交货方式")
     private String jhfs;
-    @Column
+    @ApiModelProperty("运送方式")
     private String ysfs;
-    @Column
+    @ApiModelProperty("结算方式")
     private String jsfs;
-    @Column
+    @ApiModelProperty("支付方式")
     private String zffs;
-    @Column
+    @ApiModelProperty("供应商")
     private Long  lifnr;
-    @Column
+    @ApiModelProperty("供应商订单号")
     private String lifnrOrder;
-    @Column
+    @ApiModelProperty("备注")
     private String remark;
-    @Column
+    @ApiModelProperty("状态")
     private String status;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    @Column(name = "createtime")
-    private Date createTime;
-    @Column(name = "createuser")
-    private Long createUser;
-
 
     public Long getId() {
         return id;
@@ -54,14 +35,6 @@ public class Purchase {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getClient() {
-        return client;
-    }
-
-    public void setClient(Long client) {
-        this.client = client;
     }
 
     public Date getQdrq() {
@@ -142,21 +115,5 @@ public class Purchase {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Long createUser) {
-        this.createUser = createUser;
     }
 }

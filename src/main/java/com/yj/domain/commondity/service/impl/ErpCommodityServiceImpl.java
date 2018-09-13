@@ -62,7 +62,7 @@ public class ErpCommodityServiceImpl implements ErpCommodityService {
         //商品存在数量的情况下，不允许修改单位
         if(StringUtils.isEmpty(dto.getDwdm())){
             List<ErpCommodityDetailEntity> listDetail=
-                    erpCommodityDetailRepository.findBySpidAndCountGgGreaterThan(dto.getSpid(),0F);
+                    erpCommodityDetailRepository.findBySpidAndCountGreaterThan(dto.getSpid(),0F);
 
             if(listDetail!=null&&listDetail.size()>0){
                 //商品存在数量 不允许 修改
@@ -127,7 +127,7 @@ public class ErpCommodityServiceImpl implements ErpCommodityService {
             //商品删除 查看明细表是否有数量
             if(!isDelete){
                List list=
-                       erpCommodityDetailRepository.findBySpidAndCountGgGreaterThan(pkid,0F);
+                       erpCommodityDetailRepository.findBySpidAndCountGreaterThan(pkid,0F);
                if(list!=null&&list.size()>0){
 
                    throw new YjException("商品删除失败："+entity.getSpms());

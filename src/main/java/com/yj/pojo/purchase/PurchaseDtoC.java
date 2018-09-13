@@ -1,68 +1,34 @@
-package com.yj.domain.purchase.model;
+package com.yj.pojo.purchase;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Entity
-@Table(name = "erp_purchase")
-public class Purchase {
+public class PurchaseDtoC {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "client")
-    private Long client;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    @Column
-    private Date qdrq;
-    @Column
-    private String ydlx;
-    @Column
-    private String jhfs;
-    @Column
-    private String ysfs;
-    @Column
-    private String jsfs;
-    @Column
-    private String zffs;
-    @Column
+    @NotNull
+    @ApiModelProperty("供应商")
     private Long  lifnr;
-    @Column
+    @ApiModelProperty("签单日期")
+    private Date qdrq;
+    @ApiModelProperty("来源单据")
+    private String ydlx;
+    @ApiModelProperty("交货方式")
+    private String jhfs;
+    @ApiModelProperty("运送方式")
+    private String ysfs;
+    @ApiModelProperty("结算方式")
+    private String jsfs;
+    @ApiModelProperty("支付方式")
+    private String zffs;
+
+    @ApiModelProperty("供应商订单号")
     private String lifnrOrder;
-    @Column
+    @ApiModelProperty("备注")
     private String remark;
-    @Column
+    @ApiModelProperty("状态")
     private String status;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    @Column(name = "createtime")
-    private Date createTime;
-    @Column(name = "createuser")
-    private Long createUser;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getClient() {
-        return client;
-    }
-
-    public void setClient(Long client) {
-        this.client = client;
-    }
 
     public Date getQdrq() {
         return qdrq;
@@ -142,21 +108,5 @@ public class Purchase {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Long createUser) {
-        this.createUser = createUser;
     }
 }

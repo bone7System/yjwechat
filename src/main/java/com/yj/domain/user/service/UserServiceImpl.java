@@ -25,10 +25,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.Date;
 import java.util.List;
 
@@ -113,7 +110,7 @@ public class UserServiceImpl implements UserService {
             @Nullable
             @Override
             public Predicate toPredicate(Root<UserDetail> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                //Root<User> user= query.from(User.class);
+
                 List<Predicate> predicates = Lists.newArrayList();
                 //client 是必须的
                  predicates.add(cb.equal(root.get("client"),dto.getClient()));

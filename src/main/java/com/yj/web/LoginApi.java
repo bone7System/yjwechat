@@ -44,7 +44,6 @@ public class LoginApi {
     //@PreAuthorize("hasPermission('wechat', 'login')")
     LoginResponse wechatLogin(HttpServletRequest request, @RequestBody LoginCredencial credencial) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credencial.getUserName(), credencial.getPassWord());
-
         // Authenticate the user
         Authentication authentication = authenticationProvider.authenticate(token);
         SecurityContext securityContext = SecurityContextHolder.getContext();
