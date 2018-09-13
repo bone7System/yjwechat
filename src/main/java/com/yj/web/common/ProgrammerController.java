@@ -153,10 +153,13 @@ public class ProgrammerController {
         @ApiImplicitParam(paramType = "query", name = "sign", dataType = "String", required = true, value = "查询数据的标志"),
         @ApiImplicitParam(paramType = "query", name = "cascaderValue", dataType = "String", required = false, value = "用来过滤的上级数据标志")
     })
-    @RequestMapping(value = "/selectDataList", method = RequestMethod.GET)
-    public JsonResult selectDataList(@RequestParam("sign") String sign) {
+    @RequestMapping(value = "/selectDataList", method = RequestMethod.POST)
+    public JsonResult selectDataList(@RequestBody Map<String,Object> map) {
     	try {
-    		List<Map<String,Object>> list=commonService.selectDataList(sign);
+    		String sign= (String) map.get("sign");
+    		Map<String,Object> params= (Map<String, Object>) map.get("params");
+			Map<String,Object> sqlParams= (Map<String, Object>) map.get("sqlParams");
+    		List<Map<String,Object>> list=commonService.selectDataList(sign,params,sqlParams);
     		return JsonResult.success(list);
     	} catch (Exception e) {
     		logger.error(e.getMessage(), e);

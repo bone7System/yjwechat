@@ -24,8 +24,8 @@ public class MenuDto{
         private Long isDirectory;
         @ApiModelProperty("排序码 ")
         private Long sort;
-        @ApiModelProperty("状态 ")
-        private Long status;
+        @ApiModelProperty("删除标志 ")
+        private Long delFlag;
 
         @ApiModelProperty("id路径 ")
         private String path;
@@ -92,12 +92,12 @@ public class MenuDto{
                 this.sort = sort;
         }
 
-        public Long getStatus() {
-                return status;
+        public Long getDelFlag() {
+                return delFlag;
         }
 
-        public void setStatus(Long status) {
-                this.status = status;
+        public void setDelFlag(Long delFlag) {
+                this.delFlag = delFlag;
         }
 
         public String getPath() {

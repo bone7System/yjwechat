@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 
 @RestController
@@ -109,6 +110,23 @@ public class SystemApi {
     ReSult getMenu() {
 
         return menuService.getMenu();
+
+    }
+
+    @ApiOperation(value = "/menu/getById", nickname = "获取菜单", notes = "获取菜单")
+    @RequestMapping(value = "/menu/getById", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult getMenuById(@RequestParam Long id) {
+        return menuService.getById(id);
+
+    }
+
+    @ApiOperation(value = "/menu/delete", nickname = "删除菜单", notes = "删除菜单")
+    @RequestMapping(value = "/menu/delete", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult menuDelete(@RequestBody Map<String,Object> params) {
+        Integer id= (Integer) params.get("id");
+        return menuService.deleteById(Long.parseLong(id+""));
 
     }
 

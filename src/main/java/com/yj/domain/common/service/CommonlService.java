@@ -13,7 +13,7 @@ public interface CommonlService {
 
     List<Map<String, Object>> selectCascaderList(Integer level, String sign, String cascaderValue) throws Exception;
 
-    List<Map<String, Object>> selectDataList(String sign) throws Exception;
+    List<Map<String, Object>> selectDataList(String sign, Map<String, Object> params, Map<String, Object> sqlParams) throws Exception;
 
     List<Map<String, Object>> getTreeList(String sign, Map<String, Object> csMapm, Map<String, Object> sqlParams) throws Exception;
 
