@@ -13,4 +13,6 @@ public interface PurchaseService {
     ReSult updatePurchase(PurchaseUpdateDto dto, UserDetail user);
 
     ReSult searchPurchase(PurchaseDtoS dto, Pageable pageable, UserDetail user);
+
+    ReSult searchPurchase(Long id, UserDetail user);
 }

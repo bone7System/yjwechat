@@ -37,7 +37,7 @@ public class MenuServiceImpl implements  MenuService{
         ps.setPath("/"+ps.getId());
         ps.setDelFlag(1L);
         if(ps.getParentId()!=null){
-            Menu menu=  menuRepository.getOne(ps.getParentId());
+            Menu menu=  menuRepository.findById(ps.getParentId()).get();
             ps.setPath(menu.getPath()+"/"+ps.getId());
 
         }
@@ -49,7 +49,7 @@ public class MenuServiceImpl implements  MenuService{
     @Override
     public ReSult updateMenu(MenuUpdateDto dto, UserDetail user) {
 
-        Menu menu= menuRepository.getOne(dto.getId());
+        Menu menu= menuRepository.findById(dto.getId()).get();
         if(menu!=null){
             BeanUtils.copyProperties(dto,menu);
             menuRepository.save(menu);

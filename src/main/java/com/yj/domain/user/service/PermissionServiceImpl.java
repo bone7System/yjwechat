@@ -31,7 +31,7 @@ public class PermissionServiceImpl implements  PermissionService{
         ps.setPath("/"+ps.getId());
 
         if(ps.getParentId()!=null){
-            Permission permission=  permissionRepository.getOne(ps.getParentId());
+            Permission permission=  permissionRepository.findById(ps.getParentId()).get();
             ps.setPath(permission.getPath()+"/"+ps.getId());
 
         }
@@ -42,7 +42,7 @@ public class PermissionServiceImpl implements  PermissionService{
 
     @Override
     public ReSult updatePermission(PermissionDto permissionDto, UserDetail user) {
-       Permission permission= permissionRepository.getOne(permissionDto.getId());
+       Permission permission= permissionRepository.findById(permissionDto.getId()).get();
        if(!StringUtils.isEmpty(permissionDto.getDescription())){
            permission.setDescription(permissionDto.getDescription());
        }
@@ -63,7 +63,7 @@ public class PermissionServiceImpl implements  PermissionService{
        if(list!=null&&list.size()>0){
            throw new YjException("已存在子节点,不能删除");
        }
-       permissionRepository.delete(permissionRepository.getOne(id));
+       permissionRepository.delete(permissionRepository.findById(id).get());
         return ReSult.success() ;
     }
 }

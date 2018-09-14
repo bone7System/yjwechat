@@ -1,39 +1,39 @@
 package com.yj.domain.purchase.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "erp_purchase")
-public class Purchase {
-
+public class PurchaseResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "client")
     private Long client;
-
-        @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date qdrq;
     @Column
     private String ydlx;
     @Column
     private String jhfs;
+    @Transient
+    private String jhfsName;
     @Column
     private String ysfs;
+    @Transient
+    private String ysfsName;
     @Column
     private String jsfs;
+    @Transient
+    private String jsfsName;
     @Column
     private String zffs;
     @Column
     private Long  lifnr;
-    @Column(name = "lifnrorder")
+    private String  lifnrName;
     private String lifnrOrder;
     @Column
     private String remark;
@@ -41,21 +41,11 @@ public class Purchase {
     private String status;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "createtime")
     private Date createTime;
-    @Column(name = "createuser")
+
     private Long createUser;
-    @Column(name = "kbetr")
+    private String userName;
     private BigDecimal kbetr;
-
-    public BigDecimal getKbetr() {
-        return kbetr;
-    }
-
-    public void setKbetr(BigDecimal kbetr) {
-        this.kbetr = kbetr;
-    }
-
     public Long getId() {
         return id;
     }
@@ -96,6 +86,14 @@ public class Purchase {
         this.jhfs = jhfs;
     }
 
+    public String getJhfsName() {
+        return jhfsName;
+    }
+
+    public void setJhfsName(String jhfsName) {
+        this.jhfsName = jhfsName;
+    }
+
     public String getYsfs() {
         return ysfs;
     }
@@ -104,12 +102,28 @@ public class Purchase {
         this.ysfs = ysfs;
     }
 
+    public String getYsfsName() {
+        return ysfsName;
+    }
+
+    public void setYsfsName(String ysfsName) {
+        this.ysfsName = ysfsName;
+    }
+
     public String getJsfs() {
         return jsfs;
     }
 
     public void setJsfs(String jsfs) {
         this.jsfs = jsfs;
+    }
+
+    public String getJsfsName() {
+        return jsfsName;
+    }
+
+    public void setJsfsName(String jsfsName) {
+        this.jsfsName = jsfsName;
     }
 
     public String getZffs() {
@@ -126,6 +140,14 @@ public class Purchase {
 
     public void setLifnr(Long lifnr) {
         this.lifnr = lifnr;
+    }
+
+    public String getLifnrName() {
+        return lifnrName;
+    }
+
+    public void setLifnrName(String lifnrName) {
+        this.lifnrName = lifnrName;
     }
 
     public String getLifnrOrder() {
@@ -166,5 +188,21 @@ public class Purchase {
 
     public void setCreateUser(Long createUser) {
         this.createUser = createUser;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public BigDecimal getKbetr() {
+        return kbetr;
+    }
+
+    public void setKbetr(BigDecimal kbetr) {
+        this.kbetr = kbetr;
     }
 }

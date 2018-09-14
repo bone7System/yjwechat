@@ -11,7 +11,9 @@ public interface YjDmkClService {
 
     Integer deleteByDmbzAndDm(YjDmkClEntity dto);
 
-    List<Map<String,Object>> getFdmListByFflid(Integer fflid);
+    List<Map<String,Object>> getFdmListByFflid(String dm);
 
     Integer operateStatus(Integer[] pkids, String zt);
+
+    YjDmkClEntity findByDm(String dm);
 }

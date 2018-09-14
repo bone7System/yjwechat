@@ -123,7 +123,7 @@ public class CustomerServiceImpl implements  CustomerService{
     public ReSult updateCustomerLinkMan(CustomerLinkManDtoU dto, UserDetail user) throws YjException {
 
       LinkmanCustomer customer=
-              linkmanCustomerRepository.getOne(dto.getId());
+              linkmanCustomerRepository.findById(dto.getId()).get();
         if(customer==null){
             throw  new YjException("联系人编号错误");
         }
@@ -144,7 +144,7 @@ public class CustomerServiceImpl implements  CustomerService{
 
     @Override
     public ReSult deleteLinkManCustomer(Long id, UserDetail user) throws YjException {
-       LinkmanCustomer customer= linkmanCustomerRepository.getOne(id);
+       LinkmanCustomer customer= linkmanCustomerRepository.findById(id).get();
         if(customer==null){
             throw  new YjException("联系人编号错误");
         }

@@ -3,6 +3,7 @@ package com.yj.pojo.purchase;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PurchaseDtoC {
@@ -22,13 +23,22 @@ public class PurchaseDtoC {
     private String jsfs;
     @ApiModelProperty("支付方式")
     private String zffs;
-
     @ApiModelProperty("供应商订单号")
     private String lifnrOrder;
     @ApiModelProperty("备注")
     private String remark;
     @ApiModelProperty("状态")
     private String status;
+    @ApiModelProperty("总价格")
+    private BigDecimal kbetr;
+
+    public BigDecimal getKbetr() {
+        return kbetr;
+    }
+
+    public void setKbetr(BigDecimal kbetr) {
+        this.kbetr = kbetr;
+    }
 
     public Date getQdrq() {
         return qdrq;

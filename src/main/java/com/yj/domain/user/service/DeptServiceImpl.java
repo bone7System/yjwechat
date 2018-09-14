@@ -100,7 +100,7 @@ public class DeptServiceImpl implements DeptService {
         //创建部门
         deptRepository.save(dept);
 
-        Dept pdept= deptRepository.getOne(pid);
+        Dept pdept= deptRepository.findById(pid).get();
         //设置path路径
         dept.setPath(pdept.getPath()+"/"+dept.getId());
 
@@ -112,7 +112,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public ReSult updateDept(Dept dept, UserDetail user) {
-        Dept dp=deptRepository.getOne(dept.getId());
+        Dept dp=deptRepository.findById(dept.getId()).get();
         if(!StringUtils.isEmpty(dept.getDeptName())){
             dp.setDeptName(dept.getDeptName());
         }
@@ -120,9 +120,16 @@ public class DeptServiceImpl implements DeptService {
         return ReSult.success();
     }
 
+    /**
+     * 超级管理员权限 删除门店
+     * @param id
+     * @param user
+     * @return
+     * @throws YjException
+     */
     @Override
     public ReSult deleteDept(Long id, UserDetail user) throws YjException {
-        Dept dept=deptRepository.getOne(id);
+        Dept dept=deptRepository.findById(id).get();
         if(dept==null){
             throw  new YjException("门店未找到");
         }
@@ -131,7 +138,7 @@ public class DeptServiceImpl implements DeptService {
         List<UserDetail> list =userDetailRepository.findByClient(dept.getClient());
         if(list!=null){
             list.stream().forEach(detail->{
-               User u= userRepository.getOne(detail.getUserId());
+               User u= userRepository.findById(detail.getUserId()).get();
                if(u!=null){
                    u.setStatus(-1L);
                    userRepository.save(u);
@@ -139,6 +146,26 @@ public class DeptServiceImpl implements DeptService {
             });
         }
 
-        return null;
+        return ReSult.success();
+    }
+
+    /**
+     * 普通人员权限 删除一个部门
+     * @param id
+     * @param user
+     * @return
+     * @throws YjException
+     */
+    public ReSult deleteNormarDept(Long id, UserDetail user) throws YjException {
+        Dept dept=  deptRepository.findById(id).get();
+        if(dept.getClient().intValue()!=user.getClient().intValue()){
+            throw  new YjException("客户端错误");
+        }
+       List<Dept> list= deptRepository.findByParentId(id);
+       if(list!=null && list.size()>0){
+           throw  new YjException("该部门存在子部门，不允许删除");
+       }
+        deptRepository.deleteById(id);
+        return ReSult.success();
     }
 }
