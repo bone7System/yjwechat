@@ -39,9 +39,16 @@ public class PurchaseApi {
 
     @ApiOperation(value = "/purchase/search", nickname = "查询采购信息", notes = "查询采购信息")
     @RequestMapping(value = "/purchase/search", method = RequestMethod.POST, produces = {"application/json"})
-    ReSult update(PurchaseDtoS dto, Pageable pageable, @SessionAttribute("user") UserDetail user)  {
+    ReSult search(PurchaseDtoS dto, Pageable pageable, @SessionAttribute("user") UserDetail user)  {
 
         return purchaseService.searchPurchase(dto,pageable,user);
     }
 
+
+    @ApiOperation(value = "/purchase/search-byid", nickname = "查询一个采购订单", notes = "查询一个采购订单")
+    @RequestMapping(value = "/purchase/search-byid", method = RequestMethod.POST, produces = {"application/json"})
+    ReSult searchSingle(Long id, @SessionAttribute("user") UserDetail user)  {
+
+        return purchaseService.searchPurchase(id,user);
+    }
 }

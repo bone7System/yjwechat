@@ -1,13 +1,16 @@
-package com.yj.pojo.purchase;
+package com.yj.pojo.purchase.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
-
-public class PurchaseDtoU {
+@Entity
+public class PurchaseVo {
 
     @ApiModelProperty("id")
+    @Id
     private Long id;
     @ApiModelProperty("签单日期")
     private Date qdrq;
@@ -32,13 +35,6 @@ public class PurchaseDtoU {
     @ApiModelProperty("总价格")
     private BigDecimal kbetr;
 
-    public BigDecimal getKbetr() {
-        return kbetr;
-    }
-
-    public void setKbetr(BigDecimal kbetr) {
-        this.kbetr = kbetr;
-    }
     public Long getId() {
         return id;
     }
@@ -125,5 +121,13 @@ public class PurchaseDtoU {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public BigDecimal getKbetr() {
+        return kbetr;
+    }
+
+    public void setKbetr(BigDecimal kbetr) {
+        this.kbetr = kbetr;
     }
 }

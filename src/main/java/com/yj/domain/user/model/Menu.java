@@ -26,7 +26,7 @@ public class Menu implements Serializable{
     @Column(name="sort")
     private Long sort;
 
-    @Column(name="del_flag")
+    @Column(name="delFlag")
     private Long delFlag;
 
     @Column(name="path")

@@ -127,7 +127,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public ReSult updateCustomerSpplier(SupplierLinkManDtoU dto, UserDetail user) throws YjException {
         LinkmanSupplier lifnr=
-                linkmanSupplierRepository.getOne(dto.getId());
+                linkmanSupplierRepository.findById(dto.getId()).get();
         if(lifnr==null){
             throw  new YjException("联系人编号错误");
         }
@@ -149,7 +149,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public ReSult deleteLinkManSpplier(Long id, UserDetail user) throws YjException {
 
-        LinkmanSupplier customer= linkmanSupplierRepository.getOne(id);
+        LinkmanSupplier customer= linkmanSupplierRepository.findById(id).get();
         if(customer==null){
             throw  new YjException("联系人编号错误");
         }

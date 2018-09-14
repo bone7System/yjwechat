@@ -147,9 +147,9 @@ public class DmkController {
 
     @ApiOperation("根据主键删除信息")
     @RequestMapping(value = "/cl/getFdmListByFflid/{fflid}", method = RequestMethod.GET)
-    public JsonResult getFdmListByFflid(@PathVariable Integer fflid) {
+    public JsonResult getFdmListByFflid(@PathVariable String dm) {
         try {
-            List<Map<String,Object>> list=yjDmkClService.getFdmListByFflid(fflid);
+            List<Map<String,Object>> list=yjDmkClService.getFdmListByFflid(dm);
             return JsonResult.success(list);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

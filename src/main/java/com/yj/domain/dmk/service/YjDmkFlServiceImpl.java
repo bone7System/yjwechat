@@ -9,6 +9,8 @@ import com.yj.utils.JpaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +57,7 @@ public class YjDmkFlServiceImpl implements YjDmkFlService {
         return opt.get();
     }
 
+
     @Override
     public Integer delete(Integer pkid) {
         flRepository.deleteById(pkid);
@@ -68,6 +71,7 @@ public class YjDmkFlServiceImpl implements YjDmkFlService {
         return list;
     }
 
+    @CacheEvict(value = "dictionaries",allEntries = true)
     @Override
     public Integer insertClMulti(List<YjDmkClEntity> dtos) {
         for (YjDmkClEntity dto:dtos) {
