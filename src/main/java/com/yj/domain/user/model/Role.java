@@ -17,8 +17,8 @@ public class Role {
     @Column(name = "rolename")
     private String roleName;
 
-    @Column(name = "status", insertable=false)
-    private Long status;
+    @Column(name = "del_flag", insertable=false)
+    private Long delFlag;
 
     @Column(name = "description")
     private String description;
@@ -59,12 +59,12 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Long getStatus() {
-        return status;
+    public Long getDelFlag() {
+        return delFlag;
     }
 
-    public void setStatus(Long status) {
-        this.status = status;
+    public void setDelFlag(Long delFlag) {
+        this.delFlag = delFlag;
     }
 
     public String getDescription() {

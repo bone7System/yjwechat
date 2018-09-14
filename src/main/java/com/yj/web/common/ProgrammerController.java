@@ -44,7 +44,6 @@ public class ProgrammerController {
     @RequestMapping(value = "/gridList", method = RequestMethod.POST)
     public JsonResult queryPage(@RequestBody Map<String,Object> params ) {
     	try {
-			System.out.println("进来了");
     		Map<String,Object> pagination=(Map<String, Object>) params.get("pagination");
     		Map<String,Object> filters=(Map<String, Object>) params.get("filters");
     		Map<String,Object> sorter=(Map<String, Object>) params.get("sorter");

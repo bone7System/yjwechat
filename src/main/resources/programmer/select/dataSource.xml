@@ -45,4 +45,10 @@
             SELECT t.id as value,t.deptname as label,t.path FROM erp_dept t where IFNULL(t.`status`,0)=0
         </sql>
     </dataSource>
+    <dataSource id="yj_erp_role">
+        <description>角色信息</description>
+        <sql>
+            SELECT t.id as value,t.roleName as label FROM erp_role t where t.client=1000 or t.client=#{client}
+        </sql>
+    </dataSource>
 </dataSources>  

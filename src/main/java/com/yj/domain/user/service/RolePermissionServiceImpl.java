@@ -31,4 +31,10 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         });
         return ReSult.success();
     }
+
+    @Override
+    public ReSult selectRolePermission(Long id, UserDetail user) {
+        List<RolePermission> list= rolePermissionRepository.findByRoleIdAndClient(id,user.getClient());
+        return ReSult.success(list);
+    }
 }

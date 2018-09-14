@@ -6,4 +6,6 @@ import com.yj.pojo.ReSult;
 
 public interface RolePermissionService {
     ReSult addRolePermission(RolePermissionDto list, UserDetail user);
+
+    ReSult selectRolePermission(Long id, UserDetail user);
 }

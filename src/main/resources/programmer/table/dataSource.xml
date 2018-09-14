@@ -48,4 +48,18 @@
             where IFNULL(t.`status`,0)=0
         </sql>
     </dataSource>
+    <dataSource id="yj_erp_role">
+        <description>进销存-权限管理</description>
+        <sql>
+            SELECT
+            t.id,t.roleName,t.description,t3.name as createName,date_format(t.createTime,'%Y-%m-%d') as createTime
+            ,group_concat(t2.permission  separator ',' ) as permission
+            FROM erp_role t
+            left join erp_role_permission t1 on t1.roleId=t.id and t1.client=t.client
+            left join erp_permission t2 on t2.id=t1.permissionId
+            left join erp_user_detail t3 on t3.userId=t2.createUser
+            where t.client=1000 or t.client=#{client}
+            group by t.id,t.roleName,t.description,t3.name,t.createTime
+        </sql>
+    </dataSource>
 </dataSources>  

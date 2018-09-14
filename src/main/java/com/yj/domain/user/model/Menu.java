@@ -26,8 +26,8 @@ public class Menu implements Serializable{
     @Column(name="sort")
     private Long sort;
 
-    @Column(name="status")
-    private Long stauts;
+    @Column(name="del_flag")
+    private Long delFlag;
 
     @Column(name="path")
     private String path;
@@ -39,12 +39,12 @@ public class Menu implements Serializable{
     private Date createTime;
 
 
-    public Long getStauts() {
-        return stauts;
+    public Long getDelFlag() {
+        return delFlag;
     }
 
-    public void setStauts(Long stauts) {
-        this.stauts = stauts;
+    public void setDelFlag(Long delFlag) {
+        this.delFlag = delFlag;
     }
 
     public Long getId() {

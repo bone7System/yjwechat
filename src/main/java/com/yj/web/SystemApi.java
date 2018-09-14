@@ -45,7 +45,7 @@ public class SystemApi {
         roleDto.setCreateUser(user.getUserId());
         Role role= roleService.save(roleDto);
         if(role!=null){
-            return ReSult.success(null);
+            return ReSult.success(role.getId());
         }
         return  ReSult.error("添加失败",null);
     }
@@ -61,6 +61,13 @@ public class SystemApi {
         return new ReSult(500L,"修改失败",null);
     }
 
+    @ApiOperation(value = "/role/getById", nickname = "获取角色", notes = "获取角色")
+    @RequestMapping(value = "/role/getById", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult getRoleById(@RequestParam Long id) {
+        return roleService.getById(id);
+
+    }
 
     @ApiOperation(value = "/role/search", nickname = "获取角色", notes = "获取角色")
     @RequestMapping(value = "/role/search", method = RequestMethod.POST, produces = {"application/json"})
@@ -72,9 +79,9 @@ public class SystemApi {
     @ApiOperation(value = "/role/role-delete", nickname = "删除角色", notes = "删除角色")
     @RequestMapping(value = "/role/role-delete", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission({'admin','boss'}, '')")
-    ReSult updateRole(Long roleId) {
-
-        return roleService.deleteRole(roleId);
+    ReSult updateRole(@RequestBody Map<String,Object> params) {
+        Integer roleId= (Integer) params.get("roleId");
+        return roleService.deleteRole(Long.parseLong(roleId+""));
     }
 
     @ApiOperation(value = "/permisstion/add", nickname = "添加权限", notes = "添加权限")
