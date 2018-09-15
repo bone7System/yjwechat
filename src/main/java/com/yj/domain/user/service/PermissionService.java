@@ -12,4 +12,6 @@ public interface PermissionService {
     ReSult updatePermission( PermissionDto permissionDto, UserDetail user);
 
     ReSult deletePermission(Long id) throws YjException;
+
+    ReSult getById(Long id);
 }
