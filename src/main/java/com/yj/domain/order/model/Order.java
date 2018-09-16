@@ -1,27 +1,20 @@
-package com.yj.domain.purchase.model;
+package com.yj.domain.order.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-
 @Entity
-@Table(name = "erp_purchase")
-public class Purchase {
-
+@Table(name = "erp_order")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "client")
     private Long client;
-
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @Temporal(TemporalType.TIMESTAMP)
     @Column
-    private Date qdrq;
+    private String yddh;
     @Column
     private String ydlx;
     @Column
@@ -35,9 +28,9 @@ public class Purchase {
     @Column
     private String zffs;
     @Column
-    private Long  lifnr;
-    @Column(name = "lifnrorder")
-    private String lifnrOrder;
+    private Long  kunnr;
+    @Column(name = "kunnrorder")
+    private String kunnrOrder;
     @Column
     private String remark;
     @Column
@@ -46,26 +39,14 @@ public class Purchase {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "createtime")
     private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "ordertime")
+    private Date orderTime;
     @Column(name = "createuser")
     private Long createUser;
     @Column(name = "kbetr")
     private BigDecimal kbetr;
-
-    public Long getType() {
-        return type;
-    }
-
-    public void setType(Long type) {
-        this.type = type;
-    }
-
-    public BigDecimal getKbetr() {
-        return kbetr;
-    }
-
-    public void setKbetr(BigDecimal kbetr) {
-        this.kbetr = kbetr;
-    }
 
     public Long getId() {
         return id;
@@ -83,12 +64,12 @@ public class Purchase {
         this.client = client;
     }
 
-    public Date getQdrq() {
-        return qdrq;
+    public String getYddh() {
+        return yddh;
     }
 
-    public void setQdrq(Date qdrq) {
-        this.qdrq = qdrq;
+    public void setYddh(String yddh) {
+        this.yddh = yddh;
     }
 
     public String getYdlx() {
@@ -97,6 +78,14 @@ public class Purchase {
 
     public void setYdlx(String ydlx) {
         this.ydlx = ydlx;
+    }
+
+    public Long getType() {
+        return type;
+    }
+
+    public void setType(Long type) {
+        this.type = type;
     }
 
     public String getJhfs() {
@@ -131,20 +120,20 @@ public class Purchase {
         this.zffs = zffs;
     }
 
-    public Long getLifnr() {
-        return lifnr;
+    public Long getKunnr() {
+        return kunnr;
     }
 
-    public void setLifnr(Long lifnr) {
-        this.lifnr = lifnr;
+    public void setKunnr(Long kunnr) {
+        this.kunnr = kunnr;
     }
 
-    public String getLifnrOrder() {
-        return lifnrOrder;
+    public String getKunnrOrder() {
+        return kunnrOrder;
     }
 
-    public void setLifnrOrder(String lifnrOrder) {
-        this.lifnrOrder = lifnrOrder;
+    public void setKunnrOrder(String kunnrOrder) {
+        this.kunnrOrder = kunnrOrder;
     }
 
     public String getRemark() {
@@ -171,11 +160,27 @@ public class Purchase {
         this.createTime = createTime;
     }
 
+    public Date getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
+    }
+
     public Long getCreateUser() {
         return createUser;
     }
 
     public void setCreateUser(Long createUser) {
         this.createUser = createUser;
+    }
+
+    public BigDecimal getKbetr() {
+        return kbetr;
+    }
+
+    public void setKbetr(BigDecimal kbetr) {
+        this.kbetr = kbetr;
     }
 }

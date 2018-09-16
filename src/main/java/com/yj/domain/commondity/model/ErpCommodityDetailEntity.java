@@ -1,27 +1,30 @@
 package com.yj.domain.commondity.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
 @Table(name = "erp_commodity_detail", schema = "yj", catalog = "")
 public class ErpCommodityDetailEntity {
-    private Integer id;
+    private Long id;
+    private Long client;
     private String gg;
     private String dj;
     private String dwdm;
-    private Integer spid;
-    private Float count;//数量
-    private Integer delFlag;
+    private Long spid;
+    private Long cw;
+    private BigDecimal count;//数量
+    private Long delFlag;
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,11 +50,11 @@ public class ErpCommodityDetailEntity {
 
     @Basic
     @Column(name = "spid")
-    public Integer getSpid() {
+    public Long getSpid() {
         return spid;
     }
 
-    public void setSpid(Integer spid) {
+    public void setSpid(Long spid) {
         this.spid = spid;
     }
 
@@ -67,12 +70,31 @@ public class ErpCommodityDetailEntity {
 
     @Basic
     @Column(name = "del_flag", nullable = false)
-    public Integer getDelFlag() {
+    public Long getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Integer delFlag) {
+    public void setDelFlag(Long delFlag) {
         this.delFlag = delFlag;
+    }
+
+    @Basic
+    @Column(name = "cw")
+    public Long getCw() {
+        return cw;
+    }
+
+    public void setCw(Long cw) {
+        this.cw = cw;
+    }
+    @Basic
+    @Column(name = "client")
+    public Long getClient() {
+        return client;
+    }
+
+    public void setClient(Long client) {
+        this.client = client;
     }
 
     @Override
@@ -93,11 +115,11 @@ public class ErpCommodityDetailEntity {
         return Objects.hash(id, gg, dj, dwdm , spid , delFlag);
     }
 
-    public Float getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Float count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 }

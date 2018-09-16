@@ -10,6 +10,11 @@ import java.util.Date;
 
 public class PurchaseDetailDtoC {
 
+
+    @ApiModelProperty("单价")
+    private BigDecimal unitprice;
+    @ApiModelProperty("行项目")
+    private Long rownum;
     @ApiModelProperty("商品编码")
     private String spbm;
     @ApiModelProperty("数量")
@@ -21,13 +26,28 @@ public class PurchaseDetailDtoC {
     @ApiModelProperty("未交付数量")
     private BigDecimal count2;
     @ApiModelProperty("最晚交货日期")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date zwsj;
     @ApiModelProperty("状态")
     private Long status;
     @ApiModelProperty("描述")
     private String remark;
+
+    public BigDecimal getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(BigDecimal unitprice) {
+        this.unitprice = unitprice;
+    }
+
+    public Long getRownum() {
+        return rownum;
+    }
+
+    public void setRownum(Long rownum) {
+        this.rownum = rownum;
+    }
 
     public String getSpbm() {
         return spbm;

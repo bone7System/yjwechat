@@ -1,39 +1,29 @@
-package com.yj.domain.purchase.model;
+package com.yj.domain.order.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
+@Table(name = "erp_order_detail")
 @Entity
-@Table(name = "erp_purchase_detail")
-public class PurchaseDetail {
+public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "client")
     private Long client;
-    private Long rownum;
-    private Long cgid;
     private String spbm;
-    @Column(precision = 11, scale = 2)
     private BigDecimal count;
-    @Column(precision = 11, scale = 2)
-    private BigDecimal kbetr;
-    @Column(precision = 11, scale = 2)
     private BigDecimal count1;
-    @Column(precision = 11, scale = 2)
     private BigDecimal count2;
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @Column(name = "zwsj")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zwsj;
-    private Long status;
     private String remark;
-    private BigDecimal unitprice;
+
 
     public Long getId() {
         return id;
@@ -51,22 +41,6 @@ public class PurchaseDetail {
         this.client = client;
     }
 
-    public Long getRownum() {
-        return rownum;
-    }
-
-    public void setRownum(Long rownum) {
-        this.rownum = rownum;
-    }
-
-    public Long getCgid() {
-        return cgid;
-    }
-
-    public void setCgid(Long cgid) {
-        this.cgid = cgid;
-    }
-
     public String getSpbm() {
         return spbm;
     }
@@ -81,14 +55,6 @@ public class PurchaseDetail {
 
     public void setCount(BigDecimal count) {
         this.count = count;
-    }
-
-    public BigDecimal getKbetr() {
-        return kbetr;
-    }
-
-    public void setKbetr(BigDecimal kbetr) {
-        this.kbetr = kbetr;
     }
 
     public BigDecimal getCount1() {
@@ -115,14 +81,6 @@ public class PurchaseDetail {
         this.zwsj = zwsj;
     }
 
-    public Long getStatus() {
-        return status;
-    }
-
-    public void setStatus(Long status) {
-        this.status = status;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -130,12 +88,5 @@ public class PurchaseDetail {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-
-    public BigDecimal getUnitprice() {
-        return unitprice;
-    }
-
-    public void setUnitprice(BigDecimal unitprice) {
-        this.unitprice = unitprice;
-    }
 }
+

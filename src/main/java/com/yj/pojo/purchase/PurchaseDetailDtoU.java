@@ -28,6 +28,26 @@ public class PurchaseDetailDtoU {
     private Long status;
     @ApiModelProperty("描述")
     private String remark;
+    @ApiModelProperty("单价")
+    private BigDecimal unitprice;
+    @ApiModelProperty("行项目")
+    private Long rownum;
+
+    public BigDecimal getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(BigDecimal unitprice) {
+        this.unitprice = unitprice;
+    }
+
+    public Long getRownum() {
+        return rownum;
+    }
+
+    public void setRownum(Long rownum) {
+        this.rownum = rownum;
+    }
 
     public Long getId() {
         return id;

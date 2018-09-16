@@ -8,6 +8,7 @@ import com.yj.pojo.image.ImageDto;
 import com.yj.pojo.purchase.PurchaseDto;
 import com.yj.pojo.purchase.PurchaseDtoS;
 import com.yj.pojo.purchase.PurchaseUpdateDto;
+import com.yj.pojo.purchase.TakeDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class PurchaseApi {
 
     @ApiOperation(value = "/purchase/add", nickname = "添加采购信息", notes = "添加采购信息")
     @RequestMapping(value = "/purchase/add", method = RequestMethod.POST, produces = {"application/json"})
-    ReSult add(PurchaseDto dto,@SessionAttribute("user") UserDetail user)  {
+    ReSult add(@RequestBody  PurchaseDto dto,@SessionAttribute("user") UserDetail user)  {
 
         return purchaseService.addPurchase(dto,user);
     }
@@ -48,7 +49,19 @@ public class PurchaseApi {
     @ApiOperation(value = "/purchase/search-byid", nickname = "查询一个采购订单", notes = "查询一个采购订单")
     @RequestMapping(value = "/purchase/search-byid", method = RequestMethod.POST, produces = {"application/json"})
     ReSult searchSingle(Long id, @SessionAttribute("user") UserDetail user)  {
-
         return purchaseService.searchPurchase(id,user);
+    }
+
+
+    @ApiOperation(value = "/take/add", nickname = "添加入库单", notes = "添加入库单")
+    @RequestMapping(value = "/take/add", method = RequestMethod.POST, produces = {"application/json"})
+    ReSult add(@RequestBody TakeDto dto, @SessionAttribute("user") UserDetail user) throws Exception {
+
+        ReSult result= purchaseService.addTake(dto,user);
+        //采购入库 检测状态
+        if(result.getCode().intValue()==200 && dto.getHead().getType().intValue()==1){
+            purchaseService.updatePurchaseStatus(dto.getHead().getYddh(),user);
+        }
+        return result;
     }
 }

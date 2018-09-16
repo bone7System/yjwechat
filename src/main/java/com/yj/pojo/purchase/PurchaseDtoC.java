@@ -1,5 +1,6 @@
 package com.yj.pojo.purchase;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
@@ -8,10 +9,13 @@ import java.util.Date;
 
 public class PurchaseDtoC {
 
+    @ApiModelProperty("类型（1采购 2退货）")
+    private Long type=1l;
     @NotNull
     @ApiModelProperty("供应商")
     private Long  lifnr;
     @ApiModelProperty("签单日期")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date qdrq;
     @ApiModelProperty("来源单据")
     private String ydlx;
@@ -31,6 +35,7 @@ public class PurchaseDtoC {
     private String status;
     @ApiModelProperty("总价格")
     private BigDecimal kbetr;
+
 
     public BigDecimal getKbetr() {
         return kbetr;

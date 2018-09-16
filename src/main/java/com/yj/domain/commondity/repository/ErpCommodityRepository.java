@@ -24,4 +24,7 @@ public interface ErpCommodityRepository extends JpaRepository<ErpCommodityEntity
     @Modifying
     @Query(value = "update erp_commodity set del_flag= ?1 where id in ?2", nativeQuery = true)
     int updateDelFlag(Integer status,Integer[] ids);
+
+
+    ErpCommodityEntity findBySpbm(String spbm);
 }

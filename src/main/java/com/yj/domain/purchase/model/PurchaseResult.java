@@ -1,6 +1,7 @@
 package com.yj.domain.purchase.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,14 +20,17 @@ public class PurchaseResult {
     private String ydlx;
     @Column
     private String jhfs;
+    @JsonSerialize
     @Transient
-    private String jhfsName;
+    protected String jhfsName;
     @Column
     private String ysfs;
+    @JsonSerialize
     @Transient
     private String ysfsName;
     @Column
     private String jsfs;
+    @JsonSerialize
     @Transient
     private String jsfsName;
     @Column

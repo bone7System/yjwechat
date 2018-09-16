@@ -15,10 +15,13 @@ public class PurchaseDetailResult {
     @Column(name = "client")
     private Long client;
     private Long cgid;
+    private Long rownum;
     private String spbm;
     private String spmc;
     private String sppp;
     private String gg;
+    private String dj;
+    private String dwdm;
     private BigDecimal count;
     private BigDecimal kbetr;
     private BigDecimal count1;
@@ -30,6 +33,30 @@ public class PurchaseDetailResult {
     private Date zwsj;
     private Long status;
     private String remark;
+
+    public Long getRownum() {
+        return rownum;
+    }
+
+    public void setRownum(Long rownum) {
+        this.rownum = rownum;
+    }
+
+    public String getDj() {
+        return dj;
+    }
+
+    public void setDj(String dj) {
+        this.dj = dj;
+    }
+
+    public String getDwdm() {
+        return dwdm;
+    }
+
+    public void setDwdm(String dwdm) {
+        this.dwdm = dwdm;
+    }
 
     public String getSpmc() {
         return spmc;

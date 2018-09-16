@@ -1,12 +1,13 @@
 package com.yj.domain.commondity.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
 @Table(name = "erp_commodity", schema = "yj", catalog = "")
 public class ErpCommodityEntity {
-    private Integer id;
+    private Long id;
     private Long client;
     private String spbm;//商品编号
     private String spmc;//名称
@@ -16,7 +17,7 @@ public class ErpCommodityEntity {
     private String gg;//规格
     private String dj;//等级
     private String dwdm;//单位
-    private float kbetr;//移动平均价
+    private BigDecimal kbetr;//移动平均价
     private Integer delFlag;
 
 
@@ -52,22 +53,22 @@ public class ErpCommodityEntity {
         this.dwdm = dwdm;
     }
 
-    public float getKbetr() {
+    public BigDecimal getKbetr() {
         return kbetr;
     }
 
-    public void setKbetr(float kbetr) {
+    public void setKbetr(BigDecimal kbetr) {
         this.kbetr = kbetr;
     }
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
