@@ -20,6 +20,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -83,6 +84,12 @@ public class RoleServiceImpl implements RoleService {
             return ReSult.success(null);
         }
         return ReSult.error("删除失败",null);
+    }
+
+    @Override
+    public ReSult getById(Long id) {
+        Optional<Role> role = roleRepository.findById(id);
+        return ReSult.success(role);
     }
 
 

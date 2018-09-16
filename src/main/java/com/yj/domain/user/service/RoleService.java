@@ -30,4 +30,6 @@ public interface RoleService {
     ReSult seachRole(RoleSearchDto roleDto);
 
     ReSult deleteRole(Long roleId);
+
+    ReSult getById(Long id);
 }

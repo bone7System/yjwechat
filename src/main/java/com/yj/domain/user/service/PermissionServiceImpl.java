@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PermissionServiceImpl implements  PermissionService{
@@ -65,5 +66,11 @@ public class PermissionServiceImpl implements  PermissionService{
        }
        permissionRepository.delete(permissionRepository.findById(id).get());
         return ReSult.success() ;
+    }
+
+    @Override
+    public ReSult getById(Long id) {
+        Optional<Permission> po = permissionRepository.findById(id);
+        return ReSult.success(po) ;
     }
 }

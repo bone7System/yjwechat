@@ -26,4 +26,11 @@ public class RolePermissionApi {
     ReSult createPermission(@RequestBody RolePermissionDto dto, @SessionAttribute(name = "user") UserDetail user) {
         return rolePermissionService.addRolePermission(dto,user);
     }
+
+    @ApiOperation(value = "/role-permission/get", nickname = "获取角色权限", notes = "获取角色权限")
+    @RequestMapping(value = "/role-permission/get", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('boss', '')")
+    ReSult getPermission(@RequestParam Long id, @SessionAttribute(name = "user") UserDetail user) {
+        return rolePermissionService.selectRolePermission(id,user);
+    }
 }

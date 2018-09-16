@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Long>,JpaSpecificationExecutor<Role> {
-
-    @Query(value = "select r.* from erp_user_role ur left join erp_role r on ur.roleId=r.id where  r.del_flag = 1 and ur.userid=:userId ", nativeQuery = true)
+    
+    @Query(value = "select r.* from erp_user_role ur left join erp_role r on ur.roleId=r.id where  ifnull(r.del_flag,1) = 1 and ur.userid=:userId ", nativeQuery = true)
     List<Role> findRoleByUserId(@Param("userId") Long userId);
 
 

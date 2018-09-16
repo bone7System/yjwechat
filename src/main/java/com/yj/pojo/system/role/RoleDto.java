@@ -16,9 +16,11 @@ public class RoleDto {
     @NotNull
     private String description;
 
-    private Long parenId;
+    private Long parentId;
 
     private Long createUser;
+
+    private Long client;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
@@ -64,11 +66,20 @@ public class RoleDto {
         this.description = description;
     }
 
-    public Long getParenId() {
-        return parenId;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParenId(Long parenId) {
-        this.parenId = parenId;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+
+    public Long getClient() {
+        return client;
+    }
+
+    public void setClient(Long client) {
+        this.client = client;
     }
 }

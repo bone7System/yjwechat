@@ -32,20 +32,52 @@
         <description>进销存-权限管理</description>
         <sql>
             SELECT
-            t.id,t.menuId,t.permission,t.parentId,t.createTime,t.createUser,t.description,t.sort,t.path,t1.title as menuTitle,t2.permission as parentPermission
+            t.id,t.menuId,t.permission,t.parentId,date_format(t.createTime,'%Y-%m-%d') as createTime,t.createUser,t.description
+                ,t.sort,t.path,t1.title as menuTitle,t2.permission as parentPermission,t3.name as createName
             FROM erp_permission  t
             left join erp_menu t1 on t1.id=t.menuId
             left join erp_permission t2 on t2.id=t.parentId
+            left join erp_user_detail t3 on t3.userId=t.createUser
         </sql>
     </dataSource>
     <dataSource id="yj_erp_dept">
         <description>进销存-部门管理</description>
         <sql>
             SELECT
-            t.id,t.client,t.deptName,t.parentId,t.isSystem,t.createTime,t.createUser,t1.deptName AS parentDeptName,IFNULL(t.`status`,0) as `status`,t.path
+            t.id,t.client,t.deptName,t.parentId,t.isSystem,date_format(t.createTime,'%Y-%m-%d') as createTime,t.createUser
+            ,t1.deptName AS parentDeptName,IFNULL(t.`status`,0) as `status`,t.path,t3.name as createName
             FROM erp_dept t
             left join erp_dept t1 on t1.id=t.parentId
+            left join erp_user_detail t3 on t3.userId=t.createUser
             where IFNULL(t.`status`,0)=0
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_role">
+        <description>进销存-权限管理</description>
+        <sql>
+            SELECT
+            t.id,t.roleName,t.description,t3.name as createName,date_format(t.createTime,'%Y-%m-%d') as createTime
+            ,group_concat(t2.permission  separator ',' ) as permission
+            FROM erp_role t
+            left join erp_role_permission t1 on t1.roleId=t.id and t1.client=t.client
+            left join erp_permission t2 on t2.id=t1.permissionId
+            left join erp_user_detail t3 on t3.userId=t2.createUser
+            where t.client=1000 or t.client=#{client}
+            group by t.id,t.roleName,t.description,t3.name,t.createTime
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_user">
+        <description>进销存-用户管理</description>
+        <sql>
+            select t.userName,t1.id,t1.client,t1.deptId,t1.`type`,t1.name,t1.sex,t1.birthday,t1.certificate,t1.interest,t1.phone,t1.userId,t1.email,t2.deptName,t3.mc as typeMc
+            ,group_concat(t5.description  separator ',' ) as roleName
+            from erp_user t
+            left join  erp_user_detail t1 on t1.userId=t.id
+            left join erp_dept t2 on t2.id=t1.deptId
+            left join yj_dmk_cl t3 on t3.dm=t1.`type`
+            left join erp_user_role t4 on t4.userId=t.id and t4.client=t1.client
+            left join erp_role t5 on t5.id=t4.roleId and t5.client=t4.client
+            group by t.userName,t1.id,t1.client,t1.deptId,t1.`type`,t1.name,t1.sex,t1.birthday,t1.certificate,t1.interest,t1.phone,t1.userId,t1.email,t2.deptName,t3.mc
         </sql>
     </dataSource>
 </dataSources>  
