@@ -24,27 +24,27 @@ public class YjExceptionAdvice {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//    @ExceptionHandler(YjException.class)
-//    public ReSult handleInvalidInput(YjException ex){
-//        return ReSult.error(400L,ex.getMessage());
-//    }
+    @ExceptionHandler(YjException.class)
+    public ReSult handleInvalidInput(YjException ex){
+        return ReSult.error(400L,ex.getMessage());
+    }
+
+    @ExceptionHandler(value = { NoHandlerFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ReSult handleInvalidInput(NoHandlerFoundException ex){
+        return ReSult.error(404L,ex.getMessage());
+    }
 //
-//    @ExceptionHandler(value = { NoHandlerFoundException.class })
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public ReSult handleInvalidInput(NoHandlerFoundException ex){
-//        return ReSult.error(404L,ex.getMessage());
-//    }
+    @ExceptionHandler(value = {AccessDeniedException.class})
+    @ResponseStatus(FORBIDDEN)
+    public ReSult handleInvalidInput(AccessDeniedException ex){
+        return ReSult.error(403L,ex.getMessage());
+    }
 //
-//    @ExceptionHandler(value = {AccessDeniedException.class})
-//    @ResponseStatus(FORBIDDEN)
-//    public ReSult handleInvalidInput(AccessDeniedException ex){
-//        return ReSult.error(403L,ex.getMessage());
-//    }
-//
-//    @ExceptionHandler(Exception.class)
-//    public ReSult handleInvalidInput( Exception ex){
-//        return ReSult.error(500L,ex.getMessage());
-//    }
+    @ExceptionHandler(Exception.class)
+    public ReSult handleInvalidInput( Exception ex){
+        return ReSult.error(500L,ex.getMessage());
+    }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ReSult handleInvalidInput( BadCredentialsException ex){

@@ -7,6 +7,9 @@ import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
 import com.yj.pojo.customer.*;
 import com.yj.pojo.order.OrderDto;
+import com.yj.pojo.order.OrderDtoS;
+import com.yj.pojo.order.OrderTakeDto;
+import com.yj.pojo.order.OrderUpdateDtoU;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +28,60 @@ public class OrderApi {
 
     @ApiOperation(value = "/order/add", nickname = "添加订单", notes = "添加订单")
     @RequestMapping(value = "/order/add", method = RequestMethod.POST, produces = {"application/json"})
-    @PreAuthorize("hasPermission('', 'customer:add')")
-    ReSult addCustomer(@RequestBody @Valid OrderDto dto, @SessionAttribute("user") UserDetail user) throws IOException {
+    @PreAuthorize("hasPermission('', 'order:add')")
+    ReSult addOrder(@RequestBody @Valid OrderDto dto, @SessionAttribute("user") UserDetail user) throws IOException {
         return orderService.addOrder(dto,user);
     }
+
+    @ApiOperation(value = "/order/update", nickname = "修改订单", notes = "修改订单")
+    @RequestMapping(value = "/order/update", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'order:update')")
+    ReSult updateOrder(@RequestBody @Valid OrderUpdateDtoU dto, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        return orderService.updateOrder(dto,user);
+    }
+
+
+    @ApiOperation(value = "/order/delete", nickname = "删除订单", notes = "删除订单")
+    @RequestMapping(value = "/order/delete", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'order:delete')")
+    ReSult addOrder(Long id, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        return orderService.deleteOrder(id,user);
+    }
+
+
+    @ApiOperation(value = "/order-take/add", nickname = "添加订单交货单", notes = "添加订单交货单")
+    @RequestMapping(value = "/order-take/add", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'order-take:add')")
+    ReSult addDelivery(@RequestBody @Valid OrderTakeDto dto, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        ReSult reSult= orderService.addDelivery(dto,user);
+        if(reSult.getCode().intValue()==200){
+            orderService.updateOrderStatus(dto.getHead().getLydh(),user.getClient());
+        }
+
+        return reSult;
+    }
+
+    @ApiOperation(value = "/order-take/readd", nickname = "冲销交货单", notes = "冲销交货单")
+    @RequestMapping(value = "/order-take/readd", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'order-take:add')")
+    ReSult addReDelivery(Long jhid, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        ReSult reSult= orderService.addReDelivery(jhid,user);
+        return reSult;
+    }
+
+
+    @ApiOperation(value = "/order/search", nickname = "冲销交货单", notes = "冲销交货单")
+    @RequestMapping(value = "/order/search", method = RequestMethod.POST, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'order:search')")
+    ReSult searchOrder(OrderDtoS dto, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        ReSult reSult= orderService.searchOrder(dto,user);
+        return reSult;
+    }
+
+
+
+
+
+
 
 }

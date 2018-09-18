@@ -47,6 +47,16 @@ public class Order {
     private Long createUser;
     @Column(name = "kbetr")
     private BigDecimal kbetr;
+    @Column(name = "delflag")
+    private Long delFlag;
+
+    public Long getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Long delFlag) {
+        this.delFlag = delFlag;
+    }
 
     public Long getId() {
         return id;

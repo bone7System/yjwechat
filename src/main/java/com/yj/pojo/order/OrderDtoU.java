@@ -3,20 +3,14 @@ package com.yj.pojo.order;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OrderDtoC {
-
-    @ApiModelProperty("客户编号")
-    private Long  kunnr;
-    @ApiModelProperty("来源单号")
-    private String yddh;
-    @ApiModelProperty("源单类型")
-    private String ydlx;
-    @ApiModelProperty("订单类型")
-    private Long type;
+public class OrderDtoU {
+    @ApiModelProperty("id")
+    private Long id;
     @ApiModelProperty("交货方式")
     private String jhfs;
     @ApiModelProperty("运送方式")
@@ -35,36 +29,13 @@ public class OrderDtoC {
     @ApiModelProperty("订单总金额")
     private BigDecimal kbetr;
 
-    public Long getKunnr() {
-        return kunnr;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setKunnr(Long kunnr) {
-        this.kunnr = kunnr;
-    }
-
-    public String getYddh() {
-        return yddh;
-    }
-
-    public void setYddh(String yddh) {
-        this.yddh = yddh;
-    }
-
-    public String getYdlx() {
-        return ydlx;
-    }
-
-    public void setYdlx(String ydlx) {
-        this.ydlx = ydlx;
-    }
-
-    public Long getType() {
-        return type;
-    }
-
-    public void setType(Long type) {
-        this.type = type;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getJhfs() {

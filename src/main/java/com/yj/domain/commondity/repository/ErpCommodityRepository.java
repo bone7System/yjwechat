@@ -26,5 +26,5 @@ public interface ErpCommodityRepository extends JpaRepository<ErpCommodityEntity
     int updateDelFlag(Integer status,Integer[] ids);
 
 
-    ErpCommodityEntity findBySpbm(String spbm);
+    ErpCommodityEntity findBySpbmAndClient(String spbm,Long client);
 }

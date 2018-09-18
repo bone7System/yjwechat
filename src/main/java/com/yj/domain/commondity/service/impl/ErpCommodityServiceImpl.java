@@ -143,4 +143,7 @@ public class ErpCommodityServiceImpl implements ErpCommodityService {
        // erpCommodityRepository.updateDelFlag(-1,pkids);
         return 1;
     }
+
+
+
 }

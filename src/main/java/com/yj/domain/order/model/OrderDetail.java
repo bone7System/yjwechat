@@ -15,15 +15,42 @@ public class OrderDetail {
     private Long id;
     @Column(name = "client")
     private Long client;
+    @Column(name = "orderid")
+    private Long orderId;
+    private Long rownum;
     private String spbm;
     private BigDecimal count;
     private BigDecimal count1;
     private BigDecimal count2;
+    private Long status;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date zwsj;
     private String remark;
 
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
+    public Long getRownum() {
+        return rownum;
+    }
+
+    public void setRownum(Long rownum) {
+        this.rownum = rownum;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
     public Long getId() {
         return id;

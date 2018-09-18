@@ -241,7 +241,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         for (TakeDetailDtoC item:dto.getItems()) {
             //消减 库存
             ErpCommodityEntity sp=
-                    erpCommodityRepository.findBySpbm(item.getSpbm());
+                    erpCommodityRepository.findBySpbmAndClient(item.getSpbm(),user.getClient());
             //出库的仓位 如果是采购单 应该让用户自己输入出库仓位，如果是 入库单 应该自动带出 仓位
             ErpCommodityDetailEntity ede=
                     erpCommodityDetailRepository.findBySpidAndCwAndClient(sp.getId(),item.getCw(),user.getClient());
@@ -279,7 +279,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
             //获取商品主表 得到 id
             ErpCommodityEntity sp=
-                    erpCommodityRepository.findBySpbm(item.getSpbm());
+                    erpCommodityRepository.findBySpbmAndClient(item.getSpbm(),user.getClient());
             //根据 商品id+仓位 获取详情表 是否存在记录   不存在添加数据  存在 修改
 
             //总数量

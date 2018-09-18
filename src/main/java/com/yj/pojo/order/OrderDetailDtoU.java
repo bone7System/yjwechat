@@ -3,23 +3,29 @@ package com.yj.pojo.order;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class OrderDetailDtoC {
-    @ApiModelProperty("行项目")
-    private Long rownum;
+public class OrderDetailDtoU {
+    @ApiModelProperty("id")
+    private Long id;
     @ApiModelProperty("商品编码")
     private String spbm;
     @ApiModelProperty("商品数量")
     private BigDecimal count;
-
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("最晚交货日期")
     private Date zwsj;
     @ApiModelProperty("备注")
     private String remark;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getSpbm() {
         return spbm;

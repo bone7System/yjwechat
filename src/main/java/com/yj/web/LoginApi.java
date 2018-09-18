@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -68,19 +69,16 @@ public class LoginApi {
         loginResponse.setUser(user);
         return loginResponse;
     }
-    @ApiOperation(value = "/wechat/get", nickname = "测试获取session", notes = "测试获取session")
-    @RequestMapping(value = "/wechat/get", method = RequestMethod.POST, produces = {"application/json"})
-    String test(@SessionAttribute("user") String user) {
 
-        System.out.println(user);
-        return user;
-    }
-
-
-    @ApiOperation(value = "/wechat/serch", nickname = "测试获取session", notes = "测试获取session")
-    @RequestMapping(value = "/wechat/serch", method = RequestMethod.POST, produces = {"application/json"})
-    List testSeach() {
-            return null;
+    @ApiOperation(value = "/logout", nickname = "退出登陆", notes = "退出登陆")
+    @RequestMapping(value = "/logout", method = RequestMethod.POST, produces = {"application/json"})
+    ReSult logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            return ReSult.error(400L,"退出登录失败");
+        }
+        session.invalidate();
+         return ReSult.success();
     }
 
 
