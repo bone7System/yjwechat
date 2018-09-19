@@ -53,11 +53,11 @@
         </sql>
     </dataSource>
     <dataSource id="yj_erp_role">
-        <description>进销存-权限管理</description>
+        <description>进销存-角色管理</description>
         <sql>
             SELECT
             t.id,t.roleName,t.description,t3.name as createName,date_format(t.createTime,'%Y-%m-%d') as createTime
-            ,group_concat(t2.permission  separator ',' ) as permission
+            ,group_concat(t2.description  separator ',' ) as permission
             FROM erp_role t
             left join erp_role_permission t1 on t1.roleId=t.id and t1.client=t.client
             left join erp_permission t2 on t2.id=t1.permissionId
@@ -78,6 +78,20 @@
             left join erp_user_role t4 on t4.userId=t.id and t4.client=t1.client
             left join erp_role t5 on t5.id=t4.roleId and t5.client=t4.client
             group by t.userName,t1.id,t1.client,t1.deptId,t1.`type`,t1.name,t1.sex,t1.birthday,t1.certificate,t1.interest,t1.phone,t1.userId,t1.email,t2.deptName,t3.mc
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_purchase">
+        <description>进销存-采购单</description>
+        <sql>
+            SELECT t.id,t.client,t1.name as lifnr_name,t.`type`,t.ydlx,t2.mc as jhfs_mc,t3.mc as ysfs_mc,t4.mc as jsfs_mc,t5.mc as zffs_mc,t.lifnrOrder,t.remark,t.kbetr,t.`status`
+            ,date_format(t.qdrq,'%Y-%m-%d') as qdrq,t6.name as createName,date_format(t.createTime,'%Y-%m-%d') as createTime
+            FROM erp_purchase t
+            left join erp_lfa1 t1 on t1.id=t.lifnr
+            left join yj_dmk_cl t2 on t2.dm=t.jhfs
+            left join yj_dmk_cl t3 on t3.dm=t.ysfs
+            left join yj_dmk_cl t4 on t4.dm=t.jsfs
+            left join yj_dmk_cl t5 on t5.dm=t.zffs
+            left join erp_user_detail t6 on t6.userId=t.createUser
         </sql>
     </dataSource>
 </dataSources>  

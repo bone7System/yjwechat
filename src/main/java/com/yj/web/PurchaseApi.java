@@ -47,7 +47,7 @@ public class PurchaseApi {
 
 
     @ApiOperation(value = "/purchase/search-byid", nickname = "查询一个采购订单", notes = "查询一个采购订单")
-    @RequestMapping(value = "/purchase/search-byid", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/purchase/search-byid", method = RequestMethod.GET, produces = {"application/json"})
     ReSult searchSingle(Long id, @SessionAttribute("user") UserDetail user)  {
         return purchaseService.searchPurchase(id,user);
     }
