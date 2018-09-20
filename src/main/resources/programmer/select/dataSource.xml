@@ -36,7 +36,7 @@
     <dataSource id="yj_perssion">
         <description>所有的权限</description>
         <sql>
-            SELECT t.id as value,t.permission as label FROM erp_permission t
+            SELECT t.id as value,t.description as label FROM erp_permission t
         </sql>
     </dataSource>
     <dataSource id="yj_dept">
@@ -49,6 +49,12 @@
         <description>角色信息</description>
         <sql>
             SELECT t.id as value,t.roleName as label FROM erp_role t where t.client=1000 or t.client=#{client}
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_lfa">
+        <description>供应商</description>
+        <sql>
+            select  id as value,name as label,client from erp_lfa1
         </sql>
     </dataSource>
 </dataSources>  
