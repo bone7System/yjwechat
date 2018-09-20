@@ -7,9 +7,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
-@Table(name = "erp_order_detail")
 @Entity
-public class OrderDetail {
+public class OrderDetailResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,6 +19,11 @@ public class OrderDetail {
     private Long rownum;
     private Long type;
     private String spbm;
+    private String spmc;
+    private String sppp;
+    private String gg;
+    private String dj;
+    private String dwdm;
     private BigDecimal count;
     private BigDecimal count1;
     private BigDecimal count2;
@@ -40,6 +44,46 @@ public class OrderDetail {
 
     @Column(name = "yhj")
     private BigDecimal yhj;
+
+    public String getSpmc() {
+        return spmc;
+    }
+
+    public void setSpmc(String spmc) {
+        this.spmc = spmc;
+    }
+
+    public String getSppp() {
+        return sppp;
+    }
+
+    public void setSppp(String sppp) {
+        this.sppp = sppp;
+    }
+
+    public String getGg() {
+        return gg;
+    }
+
+    public void setGg(String gg) {
+        this.gg = gg;
+    }
+
+    public String getDj() {
+        return dj;
+    }
+
+    public void setDj(String dj) {
+        this.dj = dj;
+    }
+
+    public String getDwdm() {
+        return dwdm;
+    }
+
+    public void setDwdm(String dwdm) {
+        this.dwdm = dwdm;
+    }
 
     public Long getType() {
         return type;

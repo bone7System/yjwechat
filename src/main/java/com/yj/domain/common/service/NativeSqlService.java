@@ -1,6 +1,7 @@
 package com.yj.domain.common.service;
 
 import com.google.common.collect.Lists;
+import com.yj.domain.order.model.OrderResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,45 @@ import java.util.regex.Pattern;
 public class NativeSqlService {
     @Autowired
     private EntityManager entityManager;
+
+
+    public <T> T findOne(String sql,Class c,Map<String,Object> map){
+
+        Query query =entityManager.createNativeQuery(sql,c);
+        if(map!=null){
+            map.forEach((k,v)->{
+                if(v instanceof java.util.Date){
+                    query.setParameter(k, (Date) v, TemporalType.DATE);
+                    return;
+                }
+                query.setParameter(k,v);
+            });
+        }
+
+        List list= query.getResultList();
+
+        return list!=null && list.size()>0? (T) list.get(0) :null;
+    }
+
+
+    public List findList(String sql,Class c,Map<String,Object> map){
+
+        Query query =entityManager.createNativeQuery(sql,c);
+        if(map!=null){
+            map.forEach((k,v)->{
+                if(v instanceof java.util.Date){
+                    query.setParameter(k, (Date) v, TemporalType.DATE);
+                    return;
+                }
+                query.setParameter(k,v);
+            });
+        }
+
+        List list= query.getResultList();
+
+        return list;
+    }
+
 
     public Page findBysql(String sql, Pageable pageable, Class c,Map<String,Object> map){
         //获取count
@@ -69,6 +109,7 @@ public class NativeSqlService {
 
         return list.get(0).intValue();
     }
+
 
 
 }

@@ -1,13 +1,11 @@
 package com.yj.domain.order.service;
 
+import com.yj.domain.common.service.NativeSqlService;
 import com.yj.domain.commondity.model.ErpCommodityDetailEntity;
 import com.yj.domain.commondity.model.ErpCommodityEntity;
 import com.yj.domain.commondity.repository.ErpCommodityDetailRepository;
 import com.yj.domain.commondity.repository.ErpCommodityRepository;
-import com.yj.domain.order.model.Order;
-import com.yj.domain.order.model.OrderDetail;
-import com.yj.domain.order.model.OrderTake;
-import com.yj.domain.order.model.OrderTakeDetail;
+import com.yj.domain.order.model.*;
 import com.yj.domain.order.repository.OrderDetailRepository;
 import com.yj.domain.order.repository.OrderRepository;
 import com.yj.domain.order.repository.OrderTakeDetailRepository;
@@ -17,16 +15,22 @@ import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
 import com.yj.pojo.order.*;
 
-import com.yj.utils.ObjectUtils;
+import com.yj.pojo.order.vo.OrderVo;
 import com.yj.utils.StringUtils;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements  OrderService{
@@ -42,6 +46,9 @@ public class OrderServiceImpl implements  OrderService{
     private ErpCommodityDetailRepository erpCommodityDetailRepository;
     @Autowired
     private ErpCommodityRepository erpCommodityRepository;
+
+    @Autowired
+    private NativeSqlService sqlService;
 
     @Transactional
     @Override
@@ -83,7 +90,9 @@ public class OrderServiceImpl implements  OrderService{
             BeanUtils.copyProperties(item,detail);
             detail.setOrderId(order.getId());
             detail.setClient(order.getClient());
+            detail.setCount1(BigDecimal.ZERO);
             detail.setCount2(detail.getCount());
+            detail.setStatus(1L);
             orderDetailRepository.save(detail);
 
         });
@@ -319,8 +328,192 @@ public class OrderServiceImpl implements  OrderService{
     }
 
     @Override
-    public ReSult searchOrder(OrderDtoS dto, UserDetail user) {
-        return null;
+    public ReSult searchOrder(Long id, UserDetail user) {
+        OrderDtoS dd = new OrderDtoS();
+        dd.setId(id);
+        Pageable pageable = PageRequest.of(0,1);
+        //获取 订单抬头
+       ReSult<Page<OrderResult>> reSult= searchOrder(dd,pageable,user);
+
+       List<OrderResult> list= reSult.getData().getContent();
+       if(list!=null&&list.size()>0){
+
+           OrderResult head= list.get(0);
+           //获取 详情
+           List<OrderDetailResult> items =getOrderItems(head);
+
+           OrderVo vo = new OrderVo();
+           vo.setHead(head);
+           vo.setItems(items);
+
+           return ReSult.success(vo);
+
+       }
+        return ReSult.success(new OrderVo());
+    }
+
+    private List<OrderDetailResult> getOrderItems(OrderResult head) {
+        StringBuffer sqlbuffer=new StringBuffer();
+        sqlbuffer.append("select od.*,sp.spmc,sp.sppp,sp.dwdm,sp.gg,sp.dj from erp_order_detail od \n" +
+                " left join erp_commodity sp on od.spbm = sp.spbm \n" +
+                " where od.client =:client");
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("client",head.getClient());
+
+
+        sqlbuffer.append(" and od.orderid = :orderid");
+        map.put("orderid",head.getId());
+        List list
+                =sqlService.findList(sqlbuffer.toString(),OrderDetailResult.class,map);
+                //sqlService.findBysql(sqlbuffer.toString(), PageRequest.of(0,10000),OrderDetailResult.class,map);
+        return list;
+
+    }
+
+    public ReSult searchOrder(OrderDtoS dto, Pageable pageable, UserDetail user) {
+        StringBuffer sqlbuffer=new StringBuffer();
+        sqlbuffer.append("select o.*,ka.name as kunnrname,u.name as username,dh.mc as dhfsname,jh.mc as jhfsname,ys.mc as ysfsname,js.mc as jsfsname from erp_order o\n" +
+                " LEFT JOIN erp_user_detail u on o.createuser=u.id\n" +
+                " left join erp_kan1 ka on o.kunnr=ka.id \n" +
+                " left join yj_dmk_cl dh on o.dhfs=dh.dm \n" +
+                " left join yj_dmk_cl jh on o.jhfs=jh.dm \n" +
+                " left join yj_dmk_cl ys on o.dhfs=ys.dm \n" +
+                " left join yj_dmk_cl js on o.dhfs=js.dm " +
+                " where o.client=:client ");
+        Map<String,Object> map = new HashMap<>();
+        map.put("client",user.getClient());
+
+        if(dto.getId()!=null){
+            sqlbuffer.append(" and o.id = :id");
+            map.put("id",dto.getId());
+        }
+
+        if(dto.getKunnr()!=null){
+            sqlbuffer.append(" and o.kunnr = :kunnr");
+            map.put("kunnr",dto.getKunnr());
+        }
+
+        if(dto.getType()!=null){
+            sqlbuffer.append(" and o.type = :type");
+            map.put("type",dto.getType());
+        }
+
+        if(dto.getStatus()!=null){
+            sqlbuffer.append(" and o.status = :status");
+            map.put("status",dto.getStatus());
+        }
+
+        if(dto.getBeginShje()!=null){
+            BigDecimal end = dto.getEndShje();
+            if(dto.getEndShje()!=null){
+                end=dto.getEndShje();
+            }
+            sqlbuffer.append(" and o.shje between :beginShje and :endShje");
+            map.put("beginShje",dto.getBeginShje());
+            map.put("endShje",end);
+        }
+
+        if(dto.getBeginTime()!=null){
+            Date end = dto.getEndTime();
+            if(dto.getEndTime()!=null){
+                end=dto.getEndTime();
+            }
+            sqlbuffer.append(" and o.orderTime between :beginShje and :endShje");
+            map.put("beginShje",dto.getBeginTime());
+            map.put("endShje",end);
+        }
+
+
+        Page<OrderResult> page =sqlService.findBysql(sqlbuffer.toString(), pageable,OrderResult.class,map);
+        return ReSult.success(page);
+    }
+
+    @Override
+    public ReSult searchOrderDetail(OrderDetailDtoS dto, Pageable pageable, UserDetail user) {
+        StringBuffer sqlbuffer=new StringBuffer();
+        sqlbuffer.append("select od.*,  o.type orderType,sp.spmc,sp.dj,sp.gg,sp.dwdm,sp.splxdm,sp.sppp,ka.name as kunnrname,u.name as username,dh.mc as dhfsname,jh.mc as jhfsname,ys.mc \n" +
+                "as ysfsname,js.mc as jsfsname from erp_order o \n" +
+                "inner join erp_order_detail od on o.id = od.orderId\n" +
+                "inner join erp_commodity sp on od.spbm = sp.spbm\n" +
+                "LEFT JOIN erp_user_detail u on o.createuser=u.id \n" +
+                "left join erp_kan1 ka on o.kunnr=ka.id left join yj_dmk_cl dh on o.dhfs=dh.dm left join yj_dmk_cl \n" +
+                "jh on o.jhfs=jh.dm left join yj_dmk_cl ys on o.dhfs=ys.dm left join yj_dmk_cl js on o.dhfs=js.dm \n" +
+                "where o.client=:client ");
+        Map<String,Object> map = new HashMap<>();
+        map.put("client",user.getClient());
+
+        if(dto.getId()!=null){
+            sqlbuffer.append(" and o.id = :id");
+            map.put("id",dto.getId());
+        }
+
+        if(dto.getKunnr()!=null){
+            sqlbuffer.append(" and o.kunnr = :kunnr");
+            map.put("kunnr",dto.getKunnr());
+        }
+
+        if(dto.getType()!=null){
+            sqlbuffer.append(" and o.type = :type");
+            map.put("type",dto.getType());
+        }
+
+
+        if(dto.getBeginShje()!=null){
+            BigDecimal end = dto.getEndShje();
+            if(dto.getEndShje()!=null){
+                end=dto.getEndShje();
+            }
+            sqlbuffer.append(" and od.shje between :beginShje and :endShje");
+            map.put("beginShje",dto.getBeginShje());
+            map.put("endShje",end);
+        }
+
+        if(dto.getBeginTime()!=null){
+            Date end = dto.getEndTime();
+            if(dto.getEndTime()!=null){
+                end=dto.getEndTime();
+            }
+            sqlbuffer.append(" and o.orderTime between :beginShje and :endShje");
+            map.put("beginShje",dto.getBeginTime());
+            map.put("endShje",end);
+        }
+
+        if(dto.getSpbm()!=null){
+            sqlbuffer.append(" and od.spbm = :spbm");
+            map.put("spbm",dto.getSpbm());
+        }
+
+        if(dto.getSpmc()!=null){
+            sqlbuffer.append(" and sp.spmc like :spbm");
+            map.put("spbm","%"+dto.getSpmc()+"%");
+        }
+
+
+        if(dto.getSplxdm()!=null){
+            sqlbuffer.append(" and sp.splxdm = :splxdm");
+            map.put("splxdm",dto.getSplxdm());
+        }
+
+        if(dto.getSppp()!=null){
+            sqlbuffer.append(" and sp.sppp = :sppp");
+            map.put("sppp",dto.getSppp());
+        }
+
+        if(dto.getGg()!=null){
+            sqlbuffer.append(" and sp.gg = :gg");
+            map.put("gg",dto.getSppp());
+        }
+
+        if(dto.getDj()!=null){
+            sqlbuffer.append(" and sp.dj = :dj");
+            map.put("dj",dto.getDj());
+        }
+
+      Page<OrderDetailListResult> page=  sqlService.findBysql(sqlbuffer.toString(),
+              pageable,OrderDetailListResult.class,map);
+
+        return ReSult.success(page);
     }
 
     /**
@@ -361,7 +554,7 @@ public class OrderServiceImpl implements  OrderService{
         BigDecimal yjh=dd.getCount1().add(detail.getCount());
         dd.setStatus(1L);//行项目部分交货
 
-        //如果交货数量 过大  应该不能保存
+        //如果交货数量 过大  应不能保存
         if(yjh.intValue()>dd.getCount().intValue()){
             throw new YjException(detail.getSpbm()+"交货数量大于订单数量");
         }else if(yjh.intValue()==dd.getCount().intValue()){

@@ -1,9 +1,9 @@
 package com.yj.pojo;
 
-public class ReSult {
+public class ReSult<T> {
     private Long code=200L;
     private String massage;
-    private Object data;
+    private T data;
 
     public static ReSult success(Object o){
         return new ReSult(200L,"操作成功",o);
@@ -18,13 +18,13 @@ public class ReSult {
         return new ReSult(code,massage,null);
     }
 
-    public ReSult(Long code, String massage, Object data) {
+    public ReSult(Long code, String massage, T data) {
         this.code = code;
         this.massage = massage;
         this.data = data;
     }
 
-    public ReSult(Object data) {
+    public ReSult(T data) {
         this.data = data;
     }
 
@@ -48,11 +48,11 @@ public class ReSult {
         this.massage = massage;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

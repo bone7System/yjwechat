@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Entity
-@Table(name = "erp_order")
-public class Order {
+public class OrderResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,16 +20,26 @@ public class Order {
     @Column
     private Long type;
     @Column
-    private String dhfs;
-    @Column
     private String jhfs;
+    @Column(name = "jhfsname")
+    private String jhfsName;
     @Column
     private String ysfs;
+    @Column(name = "ysfsname")
+    private String ysfsName;
     @Column
     private String jsfs;
-
+    @Column(name = "jsfsname")
+    private String jsfsName;
+    @Column
+    private String dhfs;
+    @Column(name = "dhfsname")
+    private String dhfsName;
     @Column
     private Long  kunnr;
+    @Column(name = "kunnrname")
+    private String kunnrName;
+
     @Column(name = "kunnrorder")
     private String kunnrOrder;
     @Column
@@ -46,6 +56,9 @@ public class Order {
     private Date orderTime;
     @Column(name = "createuser")
     private Long createUser;
+    @Column(name = "username")
+    private String userName;
+
     @Column(name = "ysje")
     private BigDecimal ysje;
 
@@ -58,11 +71,37 @@ public class Order {
     @Column(name = "yhj")
     private BigDecimal yhj;
 
-    @Column(name = "delflag")
-    private Long delFlag;
 
-    public Long getDelFlag() {
-        return delFlag;
+    public BigDecimal getYsje() {
+        return ysje;
+    }
+
+    public void setYsje(BigDecimal ysje) {
+        this.ysje = ysje;
+    }
+
+    public BigDecimal getShje() {
+        return shje;
+    }
+
+    public void setShje(BigDecimal shje) {
+        this.shje = shje;
+    }
+
+    public BigDecimal getZk() {
+        return zk;
+    }
+
+    public void setZk(BigDecimal zk) {
+        this.zk = zk;
+    }
+
+    public BigDecimal getYhj() {
+        return yhj;
+    }
+
+    public void setYhj(BigDecimal yhj) {
+        this.yhj = yhj;
     }
 
     public String getDhfs() {
@@ -73,8 +112,12 @@ public class Order {
         this.dhfs = dhfs;
     }
 
-    public void setDelFlag(Long delFlag) {
-        this.delFlag = delFlag;
+    public String getDhfsName() {
+        return dhfsName;
+    }
+
+    public void setDhfsName(String dhfsName) {
+        this.dhfsName = dhfsName;
     }
 
     public Long getId() {
@@ -125,12 +168,28 @@ public class Order {
         this.jhfs = jhfs;
     }
 
+    public String getJhfsName() {
+        return jhfsName;
+    }
+
+    public void setJhfsName(String jhfsName) {
+        this.jhfsName = jhfsName;
+    }
+
     public String getYsfs() {
         return ysfs;
     }
 
     public void setYsfs(String ysfs) {
         this.ysfs = ysfs;
+    }
+
+    public String getYsfsName() {
+        return ysfsName;
+    }
+
+    public void setYsfsName(String ysfsName) {
+        this.ysfsName = ysfsName;
     }
 
     public String getJsfs() {
@@ -141,6 +200,14 @@ public class Order {
         this.jsfs = jsfs;
     }
 
+    public String getJsfsName() {
+        return jsfsName;
+    }
+
+    public void setJsfsName(String jsfsName) {
+        this.jsfsName = jsfsName;
+    }
+
 
     public Long getKunnr() {
         return kunnr;
@@ -148,6 +215,14 @@ public class Order {
 
     public void setKunnr(Long kunnr) {
         this.kunnr = kunnr;
+    }
+
+    public String getKunnrName() {
+        return kunnrName;
+    }
+
+    public void setKunnrName(String kunnrName) {
+        this.kunnrName = kunnrName;
     }
 
     public String getKunnrOrder() {
@@ -198,35 +273,13 @@ public class Order {
         this.createUser = createUser;
     }
 
-    public BigDecimal getYsje() {
-        return ysje;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setYsje(BigDecimal ysje) {
-        this.ysje = ysje;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public BigDecimal getShje() {
-        return shje;
-    }
 
-    public void setShje(BigDecimal shje) {
-        this.shje = shje;
-    }
-
-    public BigDecimal getZk() {
-        return zk;
-    }
-
-    public void setZk(BigDecimal zk) {
-        this.zk = zk;
-    }
-
-    public BigDecimal getYhj() {
-        return yhj;
-    }
-
-    public void setYhj(BigDecimal yhj) {
-        this.yhj = yhj;
-    }
 }

@@ -81,6 +81,8 @@ public class PurchaseServiceImpl implements PurchaseService {
             BeanUtils.copyProperties(item,detail);
             detail.setCgid(purchase.getId());
             detail.setClient(purchase.getClient());
+            detail.setCount1(BigDecimal.ZERO);
+            detail.setCount2(detail.getCount());
             detail.setStatus(0L);
             purchaseDetailRepository.save(detail);
 
@@ -92,7 +94,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public ReSult updatePurchase(PurchaseUpdateDto dto, UserDetail user) {
-       Purchase purchase= purchaseRepository.findById(dto.getPurchaseDtoU().getId()).get();
+        Purchase purchase= purchaseRepository.findById(dto.getPurchaseDtoU().getId()).get();
         BeanUtils.copyProperties(dto.getPurchaseDtoU(),purchase);
         purchaseRepository.save(purchase);
 
