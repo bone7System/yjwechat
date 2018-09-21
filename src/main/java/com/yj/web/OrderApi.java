@@ -6,10 +6,7 @@ import com.yj.domain.user.model.UserDetail;
 import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
 import com.yj.pojo.customer.*;
-import com.yj.pojo.order.OrderDto;
-import com.yj.pojo.order.OrderDtoS;
-import com.yj.pojo.order.OrderTakeDto;
-import com.yj.pojo.order.OrderUpdateDtoU;
+import com.yj.pojo.order.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,18 +67,29 @@ public class OrderApi {
     }
 
 
-    @ApiOperation(value = "/order/search", nickname = "冲销交货单", notes = "冲销交货单")
-    @RequestMapping(value = "/order/search", method = RequestMethod.POST, produces = {"application/json"})
+    @ApiOperation(value = "/order/search-one", nickname = "查询单个订单", notes = "查询单个订单")
+    @RequestMapping(value = "/order/search-one", method = RequestMethod.GET, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'order:search')")
-    ReSult searchOrder(OrderDtoS dto, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
-        ReSult reSult= orderService.searchOrder(dto,user);
+    ReSult searchOrder(Long id, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        ReSult reSult= orderService.searchOrder(id,user);
         return reSult;
     }
 
 
+    @ApiOperation(value = "/order/search", nickname = "查询订单列表", notes = "查询订单列表")
+    @RequestMapping(value = "/order/search", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'order:search')")
+    ReSult searchOrder(OrderDtoS dto, Pageable pageable,@SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        ReSult reSult= orderService.searchOrder(dto,pageable,user);
+        return reSult;
+    }
 
-
-
-
+    @ApiOperation(value = "/order-dedail/search", nickname = "销售明细表", notes = "销售明细表")
+    @RequestMapping(value = "/order-detail/search", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('', 'order:search')")
+    ReSult searchOrderDetail(OrderDetailDtoS dto, Pageable pageable, @SessionAttribute("user") UserDetail user) throws IOException, YjException {
+        ReSult reSult= orderService.searchOrderDetail(dto,pageable,user);
+        return reSult;
+    }
 
 }

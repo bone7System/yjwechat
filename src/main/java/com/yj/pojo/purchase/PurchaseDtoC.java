@@ -36,6 +36,13 @@ public class PurchaseDtoC {
     @ApiModelProperty("总价格")
     private BigDecimal kbetr;
 
+    public Long getType() {
+        return type;
+    }
+
+    public void setType(Long type) {
+        this.type = type;
+    }
 
     public BigDecimal getKbetr() {
         return kbetr;

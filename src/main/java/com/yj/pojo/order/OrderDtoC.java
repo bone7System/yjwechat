@@ -23,8 +23,8 @@ public class OrderDtoC {
     private String ysfs;
     @ApiModelProperty("交货方式")
     private String jsfs;
-    @ApiModelProperty("支付方式")
-    private String zffs;
+    @ApiModelProperty("订货方式")
+    private String dhfs;
     @ApiModelProperty(name = "客户订单号")
     private String kunnrOrder;
     @ApiModelProperty("备注")
@@ -32,8 +32,49 @@ public class OrderDtoC {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("订单时间")
     private Date orderTime;
-    @ApiModelProperty("订单总金额")
-    private BigDecimal kbetr;
+    @ApiModelProperty("应收金额")
+    private BigDecimal ysje;
+
+    @ApiModelProperty("实收金额")
+    private BigDecimal shje;
+
+    @ApiModelProperty( "折扣")
+    private BigDecimal zk;
+
+    @ApiModelProperty("优惠卷")
+    private BigDecimal yhj;
+
+    public BigDecimal getYsje() {
+        return ysje;
+    }
+
+    public void setYsje(BigDecimal ysje) {
+        this.ysje = ysje;
+    }
+
+    public BigDecimal getShje() {
+        return shje;
+    }
+
+    public void setShje(BigDecimal shje) {
+        this.shje = shje;
+    }
+
+    public BigDecimal getZk() {
+        return zk;
+    }
+
+    public void setZk(BigDecimal zk) {
+        this.zk = zk;
+    }
+
+    public BigDecimal getYhj() {
+        return yhj;
+    }
+
+    public void setYhj(BigDecimal yhj) {
+        this.yhj = yhj;
+    }
 
     public Long getKunnr() {
         return kunnr;
@@ -91,12 +132,12 @@ public class OrderDtoC {
         this.jsfs = jsfs;
     }
 
-    public String getZffs() {
-        return zffs;
+    public String getDhfs() {
+        return dhfs;
     }
 
-    public void setZffs(String zffs) {
-        this.zffs = zffs;
+    public void setDhfs(String dhfs) {
+        this.dhfs = dhfs;
     }
 
     public String getKunnrOrder() {
@@ -123,11 +164,5 @@ public class OrderDtoC {
         this.orderTime = orderTime;
     }
 
-    public BigDecimal getKbetr() {
-        return kbetr;
-    }
 
-    public void setKbetr(BigDecimal kbetr) {
-        this.kbetr = kbetr;
-    }
 }
