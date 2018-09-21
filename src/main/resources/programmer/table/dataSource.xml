@@ -94,4 +94,14 @@
             left join erp_user_detail t6 on t6.userId=t.createUser
         </sql>
     </dataSource>
+    <dataSource id="yj_erp_take">
+        <description>进销存-入库单</description>
+        <sql>
+            SELECT t.id,t.client,t.yddh,t.ydlx,date_format(t.dsrq,'%Y-%m-%d') as dsrq,date_format(t.dhrq,'%Y-%m-%d') as dhrq,t.qsr,t.shdz,t.`status`,t.remark,date_format(t.createTime,'%Y-%m-%d') as createTime,
+            t2.name as createName,t3.lifnr,t3.lifnrOrder
+            FROM erp_take t
+            left join erp_user_detail t2 on t2.userId=t.createUser
+            left join erp_purchase t3 on t3.id=t.yddh
+        </sql>
+    </dataSource>
 </dataSources>  

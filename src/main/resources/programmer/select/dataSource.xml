@@ -57,4 +57,15 @@
             select  id as value,name as label,client from erp_lfa1
         </sql>
     </dataSource>
+    <dataSource id="yj_erp_nocomplete_purchase">
+        <description>未完成的材料单</description>
+        <sql>
+            select  concat(t.lifnrOrder,'-',t1.name)  as label,t.id as value,t.client,t3.num from erp_purchase t
+            left join erp_lfa1 t1 on t1.id=t.lifnr
+            left join (
+                select t2.cgid,count(1) as num from erp_purchase_detail t2 where ifnull(t2.count2,-1)!=0 group by t2.cgid
+            ) t3 on t3.cgid=t.id
+            where ifnull(t3.num,0)!=0
+        </sql>
+    </dataSource>
 </dataSources>  
