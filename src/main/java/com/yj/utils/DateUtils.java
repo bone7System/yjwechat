@@ -133,5 +133,9 @@ public class DateUtils {
     }
 
 
+    public static Date getSubtractSecond(Date date,Long second){
+        return new Date(date.getTime()+second);
+    }
+
 
 }
