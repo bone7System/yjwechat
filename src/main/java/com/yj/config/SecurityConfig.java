@@ -60,6 +60,10 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //                .antMatchers("/**").permitAll()
                 .antMatchers("/logout").permitAll()
+                .antMatchers("/swagger*").permitAll()
+                .antMatchers("/v2/**").permitAll()
+                .antMatchers("/swagger*/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/wechat/login/**").permitAll()
                 .anyRequest().authenticated();
 //        httpSecurity.exceptionHandling().authenticationEntryPoint(new Http401AuthenticationEntryPoint("Bearer realm=\"webrealm\""));

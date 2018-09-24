@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Api(value = "/role-permission", tags = "/role-permission", description = "角色授权")
+@Api(value = "/role-permission", tags = "role-permission", description = "角色授权")
 public class RolePermissionApi {
 
     @Autowired

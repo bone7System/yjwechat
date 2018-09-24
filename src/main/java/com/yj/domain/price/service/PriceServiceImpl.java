@@ -1,6 +1,8 @@
 package com.yj.domain.price.service;
 
+import com.yj.domain.common.service.NativeSqlService;
 import com.yj.domain.price.model.Price;
+import com.yj.domain.price.model.PriceRecord;
 import com.yj.domain.price.model.TjPriceHead;
 import com.yj.domain.price.model.TjPriceItem;
 import com.yj.domain.price.repository.PriceRepository;
@@ -14,13 +16,19 @@ import com.yj.pojo.price.*;
 import static com.yj.utils.DateUtils.getSubtractSecond;
 
 import com.yj.utils.StringUtils;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PriceServiceImpl implements PriceService {
@@ -31,7 +39,8 @@ public class PriceServiceImpl implements PriceService {
     private TjPriceHeadRepository tjPriceHeadRepository;
     @Autowired
     private TjPriceItemsRepository tjPriceItemsRepository;
-
+    @Autowired
+    private NativeSqlService nativeSqlService;
     @Override
     public ReSult addPrice(TjPriceItem dto, UserDetail user) {
         //商品编码
@@ -114,6 +123,21 @@ public class PriceServiceImpl implements PriceService {
 
 
         return null;
+    }
+
+    @Override
+    public ReSult searchPrice(String spbm, UserDetail user) {
+        String sql="select e.*,c.spmc from erp_commodity_price e \n" +
+                " inner join erp_commodity c on e.spbm = c.spbm\n" +
+                " where e.spbm = :spbm and e.client= :client "+
+                " ORDER BY `begin` desc";
+
+        Map map=new HashMap();
+        map.put("client",user.getClient());
+        map.put("spbm",spbm);
+       Page page =
+               nativeSqlService.findBysql(sql, PageRequest.of(0, 100000),PriceRecord.class,map);
+        return ReSult.success(page);
     }
 
     private void hanlerPrice(List<Price> list, TjPriceItem dto, UserDetail user) {

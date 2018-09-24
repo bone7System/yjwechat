@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
-@Api(value = "/supplierApi", tags = "/supplierApi", description = "供应商管理")
+@Api(value = "/supplierApi", tags = "supplierApi", description = "供应商管理")
 public class SupplierApi {
     @Autowired
     private SupplierService supplierService;

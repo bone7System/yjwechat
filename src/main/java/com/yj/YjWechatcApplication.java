@@ -23,6 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Map;
 
@@ -35,6 +36,7 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 @EnableCaching
 @EnableRedisHttpSession
 @SpringBootApplication
+@EnableSwagger2
 public class YjWechatcApplication   {
     public static void main(String[] args)  throws Exception{
         ConfigurableApplicationContext context = SpringApplication.run(YjWechatcApplication.class, args);
