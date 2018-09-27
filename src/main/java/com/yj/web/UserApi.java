@@ -4,6 +4,7 @@ import com.yj.domain.user.model.UserDetail;
 import com.yj.domain.user.service.MenuService;
 import com.yj.domain.user.service.UserService;
 import com.yj.pojo.ReSult;
+import com.yj.pojo.system.user.UserDetailDto;
 import com.yj.pojo.system.user.UserDto;
 import com.yj.pojo.system.user.UserSearchDto;
 import com.yj.pojo.system.user.UserUpPasswordDto;
@@ -51,8 +52,8 @@ public class UserApi {
 
     @ApiOperation(value = "/user/update", nickname = "修改用户资料", notes = "修改用户资料")
     @RequestMapping(value = "/user/update", method = RequestMethod.POST, produces = {"application/json"})
-    ReSult updateUser(@RequestBody UserDetail userDetail) throws Exception {
-        return userService.updateUser(userDetail);
+    ReSult updateUser(@RequestBody UserDetailDto userDetail,@SessionAttribute(name = "user") UserDetail user) throws Exception {
+        return userService.updateUser(userDetail,user);
     }
 
     @ApiOperation(value = "/user/search", nickname = "查询用户资料", notes = "查询用户资料")

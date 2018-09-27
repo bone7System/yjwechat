@@ -2,7 +2,9 @@ package com.yj.domain.user.service;
 
 import com.yj.domain.user.model.User;
 import com.yj.domain.user.model.UserDetail;
+import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
+import com.yj.pojo.system.user.UserDetailDto;
 import com.yj.pojo.system.user.UserDto;
 import com.yj.pojo.system.user.UserSearchDto;
 import com.yj.pojo.system.user.UserUpPasswordDto;
@@ -29,7 +31,7 @@ public interface UserService {
 
   ReSult userUpPassword( UserUpPasswordDto dto,String userName,Long isMe) throws Exception;
 
-  ReSult updateUser( UserDetail userDetail);
+  ReSult updateUser(UserDetailDto userDetail, UserDetail user) throws YjException;
 
   ReSult searchUser(UserSearchDto dto,Pageable pageable);
 

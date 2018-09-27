@@ -35,6 +35,16 @@ public class MenuDto{
         @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
         private Date createTime;
+        @ApiModelProperty("是否是系统菜单 ")
+        private Long system;
+
+        public Long getSystem() {
+                return system;
+        }
+
+        public void setSystem(Long system) {
+                this.system = system;
+        }
 
         public Long getId() {
                 return id;

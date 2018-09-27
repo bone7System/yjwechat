@@ -47,6 +47,8 @@ public class UserDetail implements Serializable{
     @Column(name = "interest")
     private String interest;
 
+
+
     public Long getDeptId() {
         return deptId;
     }

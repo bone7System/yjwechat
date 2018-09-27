@@ -60,7 +60,7 @@ public class ErpCommodityServiceImpl implements ErpCommodityService {
             throw  new YjException("客户端错误");
         }
         //商品存在数量的情况下，不允许修改单位
-        if(StringUtils.isEmpty(dto.getDwdm())){
+        if(!StringUtils.isEmpty(dto.getDwdm()) && (!dto.getDwdm().equals(entity.getDwdm())) ){
             List<ErpCommodityDetailEntity> listDetail=
                     erpCommodityDetailRepository.findBySpidAndCountGreaterThan(dto.getSpid(),0F);
 

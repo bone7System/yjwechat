@@ -37,7 +37,16 @@ public class Menu implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
+    @Column(name = "system")
+    private Long system;
 
+    public Long getSystem() {
+        return system;
+    }
+
+    public void setSystem(Long system) {
+        this.system = system;
+    }
 
     public Long getDelFlag() {
         return delFlag;

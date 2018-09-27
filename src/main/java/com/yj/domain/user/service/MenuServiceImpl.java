@@ -51,7 +51,7 @@ public class MenuServiceImpl implements  MenuService{
 
         Menu menu= menuRepository.findById(dto.getId()).get();
         if(menu!=null){
-            BeanUtils.copyProperties(dto,menu);
+            BeanUtils.copyProperties(dto,menu, com.yj.utils.StringUtils.getNullPropertyNames(dto));
             menuRepository.save(menu);
             return ReSult.success();
         }

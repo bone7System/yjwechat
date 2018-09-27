@@ -8,7 +8,9 @@ import com.yj.domain.user.model.UserRole;
 import com.yj.domain.user.repository.UserDetailRepository;
 import com.yj.domain.user.repository.UserRepository;
 import com.yj.domain.user.repository.UserRoleRepository;
+import com.yj.exception.YjException;
 import com.yj.pojo.ReSult;
+import com.yj.pojo.system.user.UserDetailDto;
 import com.yj.pojo.system.user.UserDto;
 import com.yj.pojo.system.user.UserSearchDto;
 import com.yj.pojo.system.user.UserUpPasswordDto;
@@ -100,8 +102,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ReSult updateUser(UserDetail userDetail) {
-        return null;
+    public ReSult updateUser(UserDetailDto userDetail, UserDetail user) throws YjException {
+         UserDetail u= userDetailRepository.findById(userDetail.getId()).get();
+         if(u==null){
+             throw new YjException("用户不存在");
+         }
+         if(u.getClient().intValue()!=user.getClient().intValue()){
+             throw new YjException("用户不存在");
+         }
+         BeanUtils.copyProperties(userDetail,u,StringUtils.getNullPropertyNames(userDetail));
+
+         userDetailRepository.save(u);
+        return ReSult.success(u);
     }
 
     @Override

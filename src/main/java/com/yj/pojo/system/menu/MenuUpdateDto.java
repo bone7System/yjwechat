@@ -18,6 +18,17 @@ public class MenuUpdateDto {
     @ApiModelProperty("排序码 ")
     private Long sort;
 
+    @ApiModelProperty("是否是系统菜单 ")
+    private Long system;
+
+    public Long getSystem() {
+        return system;
+    }
+
+    public void setSystem(Long system) {
+        this.system = system;
+    }
+
     public Long getId() {
         return id;
     }
