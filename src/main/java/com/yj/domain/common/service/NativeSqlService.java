@@ -2,6 +2,8 @@ package com.yj.domain.common.service;
 
 import com.google.common.collect.Lists;
 import com.yj.domain.order.model.OrderResult;
+import org.hibernate.query.internal.NativeQueryImpl;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,6 +65,7 @@ public class NativeSqlService {
     }
 
 
+
     public Page findBysql(String sql, Pageable pageable, Class c,Map<String,Object> map){
         //获取count
         Integer count=getCount(sql,map);
@@ -70,6 +73,32 @@ public class NativeSqlService {
             return PageableExecutionUtils.getPage(Lists.newArrayList(),pageable,()->{return 0;});
         }
         Query query =entityManager.createNativeQuery(sql,c);
+        if(map!=null){
+            map.forEach((k,v)->{
+                if(v instanceof java.util.Date){
+                    query.setParameter(k, (Date) v, TemporalType.DATE);
+                    return;
+                }
+                query.setParameter(k,v);
+            });
+        }
+        query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        query.setMaxResults(pageable.getPageSize());
+        List list= query.getResultList();
+
+        return PageableExecutionUtils.getPage(list,pageable,()->{return count;});
+    }
+
+    public Page<List<Object[]>> findBysql(String sql, Pageable pageable,Map<String,Object> map){
+        //获取count
+        Integer count=getCount(sql,map);
+        if(count<=0){
+            return PageableExecutionUtils.getPage(Lists.newArrayList(),pageable,()->{return 0;});
+        }
+        Query query =entityManager.createNativeQuery(sql);
+//        query.unwrap(org.hibernate.SQLQuery.class)
+//                .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         if(map!=null){
             map.forEach((k,v)->{
                 if(v instanceof java.util.Date){
