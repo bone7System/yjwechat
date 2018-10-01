@@ -20,10 +20,10 @@ public class SupplierDtoC {
         @ApiModelProperty("城市")
         private String city;
 
-        @ApiModelProperty("供应商名称")
+        @ApiModelProperty("经营范围")
         private String jlfw;
 
-        @ApiModelProperty("经营范围")
+        @ApiModelProperty("主要产品")
         private String product;
 
         @ApiModelProperty("地址")

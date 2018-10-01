@@ -59,9 +59,9 @@ public class NHSqlUtils {
 			String dataType=key.substring(0, key.indexOf("_")).toUpperCase();
 			String action=key.substring(key.lastIndexOf("_")+1, key.length()).toUpperCase();
 			String fieldKey=key.substring(key.indexOf("_")+1,key.lastIndexOf("_"));
-			if(fieldKey.indexOf(",")<=-1) {
-				fieldKey=NHStringUtils.translateString(fieldKey, NHStringUtils.TranslateType.hump_to_upper);
-			}
+//			if(fieldKey.indexOf(",")<=-1) {
+//				fieldKey=NHStringUtils.translateString(fieldKey, NHStringUtils.TranslateType.hump_to_upper);
+//			}
 			//如果是in查询，则默认dataType是s(字符串)
 			Object obj=(Object) searchParams.get(columnKey);
 			if(obj==null){
@@ -84,7 +84,7 @@ public class NHSqlUtils {
 					String[] fieldKeys=fieldKey.split(",");
 					String str="";
 					for (int i = 0; i < fieldKeys.length; i++) {
-						str+="||';'||"+NHStringUtils.translateString(fieldKeys[i], NHStringUtils.TranslateType.hump_to_upper);
+						str+="||';'||"+fieldKeys[i];
 					}
 					if(!"".equals(str)){
 						sqlStr.append(" "+linkMode+" ("+str.substring(7)+" like '%"+obj+"%'"+")");

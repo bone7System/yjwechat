@@ -25,6 +25,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SupplierServiceImpl implements SupplierService {
@@ -158,5 +159,17 @@ public class SupplierServiceImpl implements SupplierService {
         }
         linkmanSupplierRepository.delete(customer);
         return ReSult.success();
+    }
+
+    @Override
+    public ReSult getById(Long id) {
+        Optional<Supplier> obj = supplierRepository.findById(id);
+        return ReSult.success(obj);
+    }
+
+    @Override
+    public ReSult getLinkManById(Long id) {
+        Optional<LinkmanSupplier> obj = linkmanSupplierRepository.findById(id);
+        return ReSult.success(obj);
     }
 }

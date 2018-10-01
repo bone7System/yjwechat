@@ -8,4 +8,12 @@
             SELECT  DMBZ AS 'key',  DMMC AS title,'1' AS selectFlag,'-1' AS parentKey,'2' AS icon,pkid,fflid  FROM yj_dmk_fl
         </sql>
     </dataSource>
+    <dataSource id="yj_background_menu">
+        <description>菜单树</description>
+        <sql>
+            select  -1   AS  'key',  '菜单'   title,'0'   selectFlag,'-2'   parentKey,'1' icon,0  sort  from dual
+            union all
+            SELECT  id AS 'key',  title AS title,'1' AS selectFlag,ifnull(parentId,-1) AS parentKey,case when isDirectory=1 then  '2' else '1'  end AS icon,sort  FROM erp_menu  where ifnull(del_flag,0)!=-1 order by sort asc
+        </sql>
+    </dataSource>
 </dataSources>

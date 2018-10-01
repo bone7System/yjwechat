@@ -80,31 +80,26 @@ public class CommonlServiceImpl implements CommonlService {
 
         if (pxField != null && !pxField.equals("")) {
             searchSql.append("select distinct  " + valueField + " as value," + labelField + " as label," + level
-                    + " as curr_level," + pxField + " as pxh from (" + sql + ")");
+                    + " as curr_level," + pxField + " as pxh from (" + sql + ") bb");
         } else {
             searchSql.append("select distinct  " + valueField + " as value," + labelField + " as label," + level
-                    + " as curr_level from (" + sql + ")");
+                    + " as curr_level from (" + sql + ") cc");
         }
         if (NHStringUtils.isNotEmpty(cascaderValue)) {
             map = fieldScarchList.get(level - 2);
             String parentValueField = (String) map.get("valueField");
             searchSql.append(" where " + parentValueField + " = '" + cascaderValue + "'");
         }
-        searchSql.append(")");
+        searchSql.append(") cc");
         if (pxField != null && !pxField.equals("")) {
             searchSql.append(" order by pxh");
         }
         // 3、查询数据
-        List<Map<String, Object>> resultList = context.getBean(JpaUtil.class).list(sql,null);
+        List<Map<String, Object>> resultList = context.getBean(JpaUtil.class).list(searchSql.toString(),null);
         // 4、对查询的数据进行处理
         for (Map<String, Object> map4 : resultList) {
             map4.put("isLeaf", isLeaf);
-            map4.put("value", map4.get("VALUE"));
-            map4.put("label", map4.get("LABEL"));
-            map4.put("currLevel", map4.get("CURR_LEVEL"));
-            map4.remove("VALUE");
-            map4.remove("LABEL");
-            map4.remove("CURR_LEVEL");
+            map4.put("currLevel", map4.get("curr_level"));
         }
         return resultList;
     }

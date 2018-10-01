@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @Api(value = "/supplierApi", tags = "supplierApi", description = "供应商管理")
@@ -38,6 +39,14 @@ public class SupplierApi {
         return supplierService.updateSupplier(supplierDtoU,user);
     }
 
+    @ApiOperation(value = "/supplier/getById", nickname = "获取供应商", notes = "获取供应商")
+    @RequestMapping(value = "/supplier/getById", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult getSupplierById(@RequestParam Long id) {
+        return supplierService.getById(id);
+
+    }
+
     @ApiOperation(value = "/supplier/search", nickname = "查询供应商", notes = "查询供应商")
     @RequestMapping(value = "/supplier/search", method = RequestMethod.GET, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'supplier:search')")
@@ -48,8 +57,8 @@ public class SupplierApi {
     @ApiOperation(value = "/supplier/delete", nickname = "删除供应商", notes = "删除供应商")
     @RequestMapping(value = "/supplier/delete", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'supplier:delete')")
-    ReSult deleteSpplier(Long id, @SessionAttribute("user") UserDetail user ) throws YjException {
-        return supplierService.deleteSupplier(id,user);
+    ReSult deleteSpplier(@RequestBody List<Long> ids, @SessionAttribute("user") UserDetail user ) throws YjException {
+        return supplierService.deleteSupplier(ids.get(0),user);
     }
 
 
@@ -80,7 +89,15 @@ public class SupplierApi {
     @ApiOperation(value = "/spplier-linkman/delete", nickname = "删除客户联系人", notes = "删除客户联系人")
     @RequestMapping(value = "/spplier-linkman/delete", method = RequestMethod.POST, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'spplier:delete')")
-    ReSult deleteSpplierCustomer(Long id, @SessionAttribute("user") UserDetail user ) throws YjException {
-        return supplierService.deleteLinkManSpplier(id,user);
+    ReSult deleteSpplierCustomer(@RequestBody List<Long> ids, @SessionAttribute("user") UserDetail user ) throws YjException {
+        return supplierService.deleteLinkManSpplier(ids.get(0),user);
+    }
+
+    @ApiOperation(value = "/supplier-linkman/getById", nickname = "获取供应商", notes = "获取供应商")
+    @RequestMapping(value = "/supplier-linkman/getById", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult getSupplierLinkManById(@RequestParam Long id) {
+        return supplierService.getLinkManById(id);
+
     }
 }

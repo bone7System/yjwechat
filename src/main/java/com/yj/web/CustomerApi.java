@@ -36,6 +36,14 @@ public class CustomerApi {
         return customerService.updateCustomer(dto,user);
     }
 
+    @ApiOperation(value = "/customer/getById", nickname = "获取客户", notes = "获取客户")
+    @RequestMapping(value = "/customer/getById", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult getCustomerById(@RequestParam Long id) {
+        return customerService.getById(id);
+
+    }
+
     @ApiOperation(value = "/customer/search", nickname = "查询客户", notes = "查询客户")
     @RequestMapping(value = "/customer/search", method = RequestMethod.GET, produces = {"application/json"})
     @PreAuthorize("hasPermission('', 'customer:search')")
@@ -78,6 +86,14 @@ public class CustomerApi {
     @PreAuthorize("hasPermission('', 'customer:delete')")
     ReSult deleteLinkManCustomer(Long id, @SessionAttribute("user") UserDetail user ) throws YjException {
         return customerService.deleteLinkManCustomer(id,user);
+    }
+
+    @ApiOperation(value = "/customer-linkman/getById", nickname = "获取客户联系人", notes = "获取客户联系人")
+    @RequestMapping(value = "/supplier-linkman/getById", method = RequestMethod.GET, produces = {"application/json"})
+    @PreAuthorize("hasPermission('admin', '')")
+    ReSult getCustomerLinkManById(@RequestParam Long id) {
+        return customerService.getLinkManById(id);
+
     }
 
 }

@@ -26,6 +26,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -153,6 +154,18 @@ public class CustomerServiceImpl implements  CustomerService{
         }
         linkmanCustomerRepository.delete(customer);
         return ReSult.success();
+    }
+
+    @Override
+    public ReSult getLinkManById(Long id) {
+        Optional<LinkmanCustomer> obj = linkmanCustomerRepository.findById(id);
+        return ReSult.success(obj);
+    }
+
+    @Override
+    public ReSult getById(Long id) {
+        Optional<Customer> obj = customerRepository.findById(id);
+        return ReSult.success(obj);
     }
 
 

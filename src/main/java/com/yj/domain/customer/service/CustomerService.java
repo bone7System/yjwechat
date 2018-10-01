@@ -25,4 +25,8 @@ public interface CustomerService {
     ReSult searchCustomerLinkMan(Long khbh, UserDetail user);
 
     ReSult deleteLinkManCustomer(Long id, UserDetail user) throws YjException;
+
+    ReSult getLinkManById(Long id);
+
+    ReSult getById(Long id);
 }

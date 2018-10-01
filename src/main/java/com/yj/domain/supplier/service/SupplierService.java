@@ -24,4 +24,8 @@ public interface SupplierService {
     ReSult searchCustomerSpplier(Long khbh, UserDetail user);
 
     ReSult deleteLinkManSpplier(Long id, UserDetail user) throws YjException;
+
+    ReSult getById(Long id);
+
+    ReSult getLinkManById(Long id);
 }

@@ -104,4 +104,40 @@
             left join erp_purchase t3 on t3.id=t.yddh
         </sql>
     </dataSource>
+    <dataSource id="yj_erp_depot">
+        <description>进销存-库存管理</description>
+        <sql>
+            SELECT t.id,t.client,t.name FROM erp_depot t
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_supplier">
+        <description>进销存-供应商管理</description>
+        <sql>
+            SELECT t.id,t.client,t.name,t.`type`,t.city,t.jlfw,t.product,t.address,t.zcbh,t.gsxz,t.jgdm,t.dlfr,t.yyzz,t.remark,t.createUser,t.flag
+            ,date_format(t.createTime,'%Y-%m-%d') as createTime,t1.name as createName,t2.jc as ssq,t3.mc as typeName
+            FROM erp_lfa1 t
+            left join erp_user_detail t1 on t1.userId=t.createUser
+            left join yj_dmk_cl t2 on t2.dmbz='COUNTY' and t2.dm=t.city
+            left join yj_dmk_cl t3 on t3.dmbz='GYSLX' and t2.dm=t.`type`
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_supplier_linkman">
+        <description>进销存-供应商管理-用户信息</description>
+        <sql>
+            SELECT t.id,t.lfid,t.client,t.name,t.phone,t.email,t.qq,t.address,t.remark,t.createTime,t.createUser FROM erp_lfa2 t
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_customer">
+        <description>进销存-客户管理</description>
+        <sql>
+            SELECT t.id,t.client,t.`type`,t.name,t.address,t.khfzr,t.khphone,t.ywfzr,t.ywphone,t.fhaddr,t.fhfs,t.goodsman,t.goodsphone,t.yb,t.remark,t.createTime,t.createUser,t.flag
+            FROM erp_kan1 t
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_customer_linkman">
+        <description>进销存-客户管理-用户信息</description>
+        <sql>
+            SELECT t.id,t.kaid,t.client,t.name,t.phone,t.email,t.qq,t.address,t.remark,t.createTime,t.createUser FROM erp_kan2 t
+        </sql>
+    </dataSource>
 </dataSources>  
