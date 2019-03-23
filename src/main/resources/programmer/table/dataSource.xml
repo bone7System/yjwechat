@@ -10,13 +10,13 @@
     <dataSource id="yj_erp_commondity">
         <description>进销存-商品列表</description>
         <sql>
-            select t.id as spid,t.spbm,t.spmc,t.spms,t.splxdm,t.sppp,t.mdid,t1.id as spxqid,t1.gg,t1.dj,t1.dwdm,t2.id as spjgid,t2.bzjg,t3.mc as dw,t4.mc as splx
+            select t.id as spid,t.spbm,t.spmc,t.spms,t.splxdm,t.sppp,t1.id as spxqid,t1.gg,t1.dj,t1.dwdm,t3.mc as dw,t4.mc as splx
             from erp_commodity t
             left join erp_commodity_detail t1 on t1.spid=t.id
-            left join erp_commodity_price t2 on t2.spxqid=t1.id
             left join yj_dmk_cl t3 on t3.dmbz='DW' and t3.dm=t1.dwdm
             left join yj_dmk_cl t4 on t4.dmbz='SPLX' and t4.dm=t.splxdm
             where t.del_flag=0
+
         </sql>
     </dataSource>
     <dataSource id="yj_erp_menu">
@@ -138,6 +138,23 @@
         <description>进销存-客户管理-用户信息</description>
         <sql>
             SELECT t.id,t.kaid,t.client,t.name,t.phone,t.email,t.qq,t.address,t.remark,t.createTime,t.createUser FROM erp_kan2 t
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_order">
+        <description>进销存-订单管理</description>
+        <sql>
+            SELECT t.id,t.client,t.kunnr,t7.name as kunnr_name,t.yddh,t2.mc as ydlx_mc,t3.mc as jhfs_mc,t4.mc as ysfs_mc,t5.mc as jsfs_mc,t.kunnrOrder
+            ,t.ysje,t.shje,t.zk,t.yhj,t8.mc as ddlx_mc,t9.mc as dhfs_mc
+            ,date_format(t.orderTime,'%Y-%m-%d') as orderTime,t6.name as createName,date_format(t.createTime,'%Y-%m-%d') as createTime
+            FROM erp_order t
+            left join erp_kan1 t7 on t7.id=t.kunnr and t7.client=t.client
+            left join yj_dmk_cl t2 on t2.dm=t.ydlx
+            left join yj_dmk_cl t3 on t3.dm=t.jhfs
+            left join yj_dmk_cl t4 on t4.dm=t.ysfs
+            left join yj_dmk_cl t5 on t5.dm=t.jsfs
+            left join yj_dmk_cl t8 on t8.dm=t.type
+            left join yj_dmk_cl t9 on t9.dm=t.dhfs
+            left join erp_user_detail t6 on t6.userId=t.createUser
         </sql>
     </dataSource>
 </dataSources>  

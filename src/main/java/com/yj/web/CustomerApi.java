@@ -89,7 +89,7 @@ public class CustomerApi {
     }
 
     @ApiOperation(value = "/customer-linkman/getById", nickname = "获取客户联系人", notes = "获取客户联系人")
-    @RequestMapping(value = "/supplier-linkman/getById", method = RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "/customer-linkman/getById", method = RequestMethod.GET, produces = {"application/json"})
     @PreAuthorize("hasPermission('admin', '')")
     ReSult getCustomerLinkManById(@RequestParam Long id) {
         return customerService.getLinkManById(id);

@@ -21,7 +21,7 @@ public class OrderDtoC {
     private String jhfs;
     @ApiModelProperty("运送方式")
     private String ysfs;
-    @ApiModelProperty("交货方式")
+    @ApiModelProperty("结算方式")
     private String jsfs;
     @ApiModelProperty("订货方式")
     private String dhfs;

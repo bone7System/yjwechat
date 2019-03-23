@@ -51,8 +51,14 @@
             SELECT t.id as value,t.roleName as label FROM erp_role t where t.client=1000 or t.client=#{client}
         </sql>
     </dataSource>
-    <dataSource id="yj_erp_lfa">
+    <dataSource id="yj_erp_kan">
         <description>供应商</description>
+        <sql>
+            select  id as value,name as label,client from erp_kan1
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_lfa">
+        <description>客户</description>
         <sql>
             select  id as value,name as label,client from erp_lfa1
         </sql>
@@ -66,6 +72,13 @@
                 select t2.cgid,count(1) as num from erp_purchase_detail t2 where ifnull(t2.count2,-1)!=0 group by t2.cgid
             ) t3 on t3.cgid=t.id
             where ifnull(t3.num,0)!=0
+        </sql>
+    </dataSource>
+    <dataSource id="yj_erp_commodity">
+        <description>商品</description>
+        <sql>
+            select  t.id as value,concat(t.spmc,'-',t.spbm) as label,t.client,t.spmc,t.spbm,t1.price from erp_commodity t
+            left join erp_commodity_price t1 on t1.spbm=t.spbm and t.client=t1.client and curdate() between t1.begin and t1.end
         </sql>
     </dataSource>
 </dataSources>  
